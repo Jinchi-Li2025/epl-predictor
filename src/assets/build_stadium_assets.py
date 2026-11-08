@@ -19,6 +19,13 @@ PREMATCH_REPORT_FILE = (
     / "prematch_report.parquet"
 )
 
+TEAM_ASSETS_FILE = (
+    PROJECT_ROOT
+    / "data"
+    / "assets"
+    / "team_assets.parquet"
+)
+
 STADIUM_DIRECTORY = (
     PROJECT_ROOT
     / "assets"
@@ -68,10 +75,11 @@ VENUE_SEARCH_ALIASES = {
         "Brentford Community Stadium",
         "Gtech Community Stadium Brentford",
     ],
-    "MKM Stadium": [
-        "MKM Stadium Hull",
-        "KCOM Stadium Hull City",
+        "MKM Stadium": [
+        "KCOMStadiumPanorama.jpg",
+        "MKM Stadium Hull City",
         "KC Stadium Hull City",
+        "Kingston Communications Stadium Hull",
     ],
     "The American Express Community Stadium": [
         "Falmer Stadium Brighton",
@@ -89,6 +97,47 @@ VENUE_SEARCH_ALIASES = {
         "Anfield stadium Liverpool",
         "Anfield football ground",
     ],
+        "Portman Road": [
+        "Portman Road aerial.jpg",
+        "2002-07-16 Portman Road.jpg",
+        "Portman Road Stadium Ipswich Town",
+        "Portman Road football ground Ipswich",
+    ],
+    "Elland Road": [
+        "Leeds elland road stadium.jpg",
+        "Elland Road Stadium Leeds.jpg",
+        "Elland Road panarama.jpg",
+        "Elland Road Leeds United",
+    ],
+    "Stadium of Light": [
+        "Sunderland stadium of light.jpg",
+        "Stadium of Light Sunderland.jpg",
+        "Stadium of Light Sunderland AFC",
+        "Sunderland football stadium",
+    ],
+}
+
+CURRENT_HOME_VENUES = {
+    "AFC Bournemouth": "Vitality Stadium",
+    "Arsenal": "Emirates Stadium",
+    "Aston Villa": "Villa Park",
+    "Brentford": "Gtech Community Stadium",
+    "Brighton & Hove Albion": "American Express Stadium",
+    "Chelsea": "Stamford Bridge",
+    "Coventry City": "Coventry Building Society Arena",
+    "Crystal Palace": "Selhurst Park",
+    "Everton": "Hill Dickinson Stadium",
+    "Fulham": "Craven Cottage",
+    "Hull City": "MKM Stadium",
+    "Ipswich Town": "Portman Road",
+    "Leeds United": "Elland Road",
+    "Liverpool": "Anfield",
+    "Manchester City": "Etihad Stadium",
+    "Manchester United": "Old Trafford",
+    "Newcastle United": "St James' Park",
+    "Nottingham Forest": "The City Ground",
+    "Sunderland": "Stadium of Light",
+    "Tottenham Hotspur": "Tottenham Hotspur Stadium",
 }
 
 
@@ -579,62 +628,66 @@ def build_gallery(
 
 
 def main() -> None:
-    if not PREMATCH_REPORT_FILE.exists():
+    if not TEAM_ASSETS_FILE.exists():
         raise FileNotFoundError(
-            "找不到赛前报告："
-            f"{PREMATCH_REPORT_FILE}"
+            f"找不到球队资源文件：{TEAM_ASSETS_FILE}"
         )
 
-    report = pd.read_parquet(
-        PREMATCH_REPORT_FILE
+    teams = pd.read_parquet(
+        TEAM_ASSETS_FILE
     )
 
     required_columns = {
-        "home_team_id",
-        "home_team",
-        "venue_name",
+        "team_id",
+        "team_name",
     }
 
     missing_columns = (
         required_columns
-        - set(report.columns)
+        - set(teams.columns)
     )
 
     if missing_columns:
         raise RuntimeError(
-            "赛前报告缺少字段："
+            "球队资源缺少字段："
             + ", ".join(
                 sorted(missing_columns)
             )
         )
 
-    venues = report[
+    venues = teams[
         [
-            "home_team_id",
-            "home_team",
-            "venue_name",
+            "team_id",
+            "team_name",
         ]
-    ].dropna(
-        subset=["venue_name"]
-    ).drop_duplicates(
-        subset=["venue_name"],
-        keep="last",
+    ].copy()
+
+    venues = venues.rename(
+        columns={
+            "team_id": "home_team_id",
+            "team_name": "home_team",
+        }
     )
 
-    STADIUM_DIRECTORY.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
+    venues["venue_name"] = venues[
+        "home_team"
+    ].map(CURRENT_HOME_VENUES)
 
-    ASSET_DATA_DIRECTORY.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
+    missing_venues = venues.loc[
+        venues["venue_name"].isna(),
+        "home_team",
+    ].tolist()
 
-    AUDIT_FILE.parent.mkdir(
-        parents=True,
-        exist_ok=True,
-    )
+    if missing_venues:
+        raise RuntimeError(
+            "以下球队没有配置主场："
+            + ", ".join(missing_venues)
+        )
+
+    venues = venues.sort_values(
+        ["home_team"],
+        kind="stable",
+    ).reset_index(drop=True)
 
     rows: list[dict] = []
 
