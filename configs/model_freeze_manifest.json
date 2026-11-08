@@ -1,0 +1,26 @@
+{
+  "frozen_at_utc": "2026-11-08T13:06:45.038937+00:00",
+  "holdout_seasons": [
+    "2024-25",
+    "2025-26"
+  ],
+  "ensemble_weights": {
+    "dixon_coles": 0.48054395519149373,
+    "xgboost": 0.44720370941918797,
+    "elo": 0.0,
+    "poisson": 0.0722523353893182
+  },
+  "temperature": 0.8738154087584822,
+  "file_sha256": {
+    "configs\\backtest.yaml": "3e6cc0f0d59a7d522e92a05562a410373bacacc4d1a5fc9043c571263e2385df",
+    "configs\\ensemble_weights.json": "a2caf33d83dc7ab5bc287d5b39288975429304a9af96f085dfb15286fda5add7",
+    "src\\models\\baseline.py": "3f3be6122663a68cece99bb6caf16c6d6d8fd63f63b3fef66a22edb9c45dee86",
+    "src\\models\\poisson_baseline.py": "ad6b5184a90ebe00af4c08702ae01b640954cdc3f99917a64a6d0c7448833c79",
+    "src\\models\\elo.py": "641c1c507fb28612ee8bfb1dde4e43a40d2da27b135de841a72eecebaa91d002",
+    "src\\models\\dixon_coles.py": "3dfa97107be1ec69902a6ee20606e06e16247f913efdddfccf7a7ac2aae69d6a",
+    "src\\models\\gradient_boosting.py": "fc2ab345fb562f808a8938d6f392c80e810a117c0824470e471147b194603dea",
+    "src\\models\\ensemble.py": "9e0c7e5c9fe2955fe64cbd7b8b2c601f97aa2e65cab92ee2c8890e7db7ce7608",
+    "src\\evaluation\\final_holdout.py": "d1f125ef341b7db1ea979e8fa7e1874da5419566f51f1efc1cfa9f23c84f19d6"
+  },
+  "rule": "Model parameters are frozen before final holdout results are evaluated."
+}

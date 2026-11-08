@@ -1,0 +1,78 @@
+{
+  "version": "1.0",
+  "frozen_at": "2026-11-08",
+  "competition": "EPL",
+  "primary_outcome_model": "xgboost",
+  "scoreline_model": "dixon_coles",
+  "fallback_model": "ensemble",
+  "selection_rule": "Primary model selected by chronological unseen Log Loss, with Brier Score, RPS and accuracy used as secondary evidence.",
+  "development_period": {
+    "seasons": "2016-17 to 2023-24",
+    "used_for_tuning": true
+  },
+  "final_holdout": {
+    "seasons": [
+      "2024-25",
+      "2025-26"
+    ],
+    "matches": 760,
+    "xgboost": {
+      "log_loss": 1.023722,
+      "brier_score": 0.613303,
+      "ranked_probability_score": 0.209028,
+      "accuracy": 0.501316
+    },
+    "ensemble": {
+      "log_loss": 1.027435,
+      "brier_score": 0.617212,
+      "ranked_probability_score": 0.211458,
+      "accuracy": 0.486842
+    },
+    "league_average": {
+      "log_loss": 1.082230,
+      "brier_score": 0.655809,
+      "ranked_probability_score": 0.231712,
+      "accuracy": 0.417105
+    }
+  },
+  "external_validation": {
+    "season": "2026-27",
+    "matches": 50,
+    "used_for_tuning": false,
+    "xgboost": {
+      "log_loss": 1.038913,
+      "brier_score": 0.624414,
+      "ranked_probability_score": 0.205873,
+      "accuracy": 0.42
+    },
+    "ensemble": {
+      "log_loss": 1.044423,
+      "brier_score": 0.627345,
+      "ranked_probability_score": 0.205037,
+      "accuracy": 0.48
+    },
+    "dixon_coles": {
+      "log_loss": 1.049379,
+      "brier_score": 0.630319,
+      "ranked_probability_score": 0.205790,
+      "accuracy": 0.48
+    },
+    "league_average": {
+      "log_loss": 1.117645,
+      "brier_score": 0.679368,
+      "ranked_probability_score": 0.227863,
+      "accuracy": 0.36
+    }
+  },
+  "production_output_policy": {
+    "home_draw_away_probabilities": "xgboost",
+    "expected_goals": "dixon_coles",
+    "score_probabilities": "dixon_coles",
+    "top_scorelines": "dixon_coles",
+    "ensemble_probabilities": "display_as_secondary_reference"
+  },
+  "retuning_policy": {
+    "allow_2026_27_validation_results_to_change_weights": false,
+    "next_scheduled_review": "after at least 190 completed matches in 2026-27"
+  }
+}

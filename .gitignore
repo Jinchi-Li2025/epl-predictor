@@ -1,0 +1,36 @@
+# 私密配置
+.env
+.streamlit/secrets.toml
+
+# Python虚拟环境
+.venv/
+venv/
+
+# Python缓存
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+
+# 自动运行日志
+logs/
+
+# 下载和自动生成的数据
+data/raw/
+data/processed/
+data/context/
+data/history/
+data/assets/
+
+# 自动生成的报告
+reports/
+
+# 训练生成的模型文件
+artifacts/
+
+# 操作系统和编辑器文件
+.DS_Store
+Thumbs.db
+.vscode/

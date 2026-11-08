@@ -1,0 +1,40 @@
+competition: EPL
+
+data:
+  first_season: "2010-11"
+  last_complete_season: "2025-26"
+
+backtest:
+  warmup_seasons:
+    - "2010-11"
+    - "2011-12"
+    - "2012-13"
+    - "2013-14"
+    - "2014-15"
+    - "2015-16"
+
+  development_test_seasons:
+    - "2016-17"
+    - "2017-18"
+    - "2018-19"
+    - "2019-20"
+    - "2020-21"
+    - "2021-22"
+    - "2022-23"
+    - "2023-24"
+
+  final_holdout_seasons:
+    - "2024-25"
+    - "2025-26"
+
+evaluation:
+  primary_metric: multiclass_log_loss
+  secondary_metrics:
+    - ranked_probability_score
+    - brier_score
+    - accuracy
+
+rules:
+  random_split_allowed: false
+  future_information_allowed: false
+  use_holdout_during_model_tuning: false
