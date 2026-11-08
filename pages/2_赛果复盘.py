@@ -47,6 +47,17 @@ st.markdown(
     [data-testid="stHeader"] {
         background: rgba(7, 12, 22, .82);
     }
+    [data-testid="stSidebar"] {
+        background: #101827;
+        border-right: 1px solid #273550;
+    }
+    [data-testid="stSidebar"] h1,
+    [data-testid="stSidebar"] h2,
+    [data-testid="stSidebar"] h3,
+    [data-testid="stSidebar"] p,
+    [data-testid="stSidebar"] label {
+        color: #dce7f8 !important;
+    }
     .review-hero {
         padding: 30px 34px;
         margin-bottom: 24px;
@@ -99,8 +110,10 @@ st.markdown(
     div[data-testid="stMetricValue"] {
         color: #f4f8ff;
     }
-    h1, h2, h3 {
-        color: #ffffff;
+    [data-testid="stMain"] h1,
+    [data-testid="stMain"] h2,
+    [data-testid="stMain"] h3 {
+        color: #ffffff !important;
     }
     .small-muted {
         color: #8194b2;
@@ -396,6 +409,13 @@ with confidence_column:
             .reset_index()
         )
         calibration = calibration[calibration["比赛数量"].gt(0)]
+        calibration["实际准确率"] = (
+            pd.to_numeric(
+                calibration["实际准确率"],
+                errors="coerce",
+            )
+            * 100.0
+        )
         st.dataframe(
             calibration,
             hide_index=True,
@@ -429,6 +449,13 @@ metric_display = overall_metrics[
         "brier_score": "Brier Score",
         "ranked_probability_score": "RPS",
     }
+)
+metric_display["准确率"] = (
+    pd.to_numeric(
+        metric_display["准确率"],
+        errors="coerce",
+    )
+    * 100.0
 )
 st.dataframe(
     metric_display,
