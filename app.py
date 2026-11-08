@@ -449,11 +449,53 @@ st.markdown(
     }
 
     .overview-fixture-teams {
-        color: #f8fafc;
-        font-size: 1.03rem;
-        font-weight: 750;
-        margin-bottom: 12px;
-    }
+    display: grid;
+    grid-template-columns:
+        minmax(0, 1fr)
+        auto
+        minmax(0, 1fr);
+    align-items: center;
+    gap: 9px;
+    color: #f8fafc;
+    font-size: 1.03rem;
+    font-weight: 750;
+    margin-bottom: 12px;
+}
+
+.overview-team-side {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-width: 0;
+}
+
+.overview-team-home {
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.overview-team-away {
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.overview-team-name {
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+}
+
+.overview-fixture-card .team-crest,
+.overview-fixture-card
+.team-crest-placeholder {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+}
+
+.overview-fixture-card
+.team-crest-placeholder {
+    font-size: 17px;
+}
 
     .overview-versus {
         color: #00e58b;
@@ -1736,6 +1778,94 @@ for card_position, (
         str(fixture["away_team"])
     )
 
+    fixture_home_asset = find_team_asset(
+        assets=team_assets,
+        team_id=fixture.get(
+            "home_team_id"
+        ),
+        team_name=fixture.get(
+            "home_team"
+        ),
+    )
+
+    fixture_away_asset = find_team_asset(
+        assets=team_assets,
+        team_id=fixture.get(
+            "away_team_id"
+        ),
+        team_name=fixture.get(
+            "away_team"
+        ),
+    )
+
+    fixture_home_crest_html = (
+        build_crest_html(
+            team_asset=fixture_home_asset,
+            team_name=str(
+                fixture["home_team"]
+            ),
+        )
+    )
+
+    fixture_away_crest_html = (
+        build_crest_html(
+            team_asset=fixture_away_asset,
+            team_name=str(
+                fixture["away_team"]
+            ),
+        )
+    )
+
+    fixture_venue_name = (
+        clean_optional_text(
+            fixture_home_asset.get(
+                "venue_name"
+            )
+        )
+    )
+
+    if not fixture_venue_name:
+        fixture_venue_name = (
+            clean_optional_text(
+                fixture.get("venue_name")
+            )
+        )
+
+    if not fixture_venue_name:
+        fixture_venue_name = (
+            "比赛场地待确认"
+        )
+
+    fixture_venue_name = html.escape(
+        fixture_venue_name
+    )
+
+    fixture_home_colors = (
+        clean_optional_text(
+            fixture_home_asset.get(
+                "club_colors"
+            )
+        )
+    )
+
+    fixture_away_colors = (
+        clean_optional_text(
+            fixture_away_asset.get(
+                "club_colors"
+            )
+        )
+    )
+
+    fixture_home_colors = html.escape(
+        fixture_home_colors
+        or "暂无配色资料"
+    )
+
+    fixture_away_colors = html.escape(
+        fixture_away_colors
+        or "暂无配色资料"
+    )
+
     fixture_outcome = str(
         fixture["predicted_outcome"]
     )
@@ -1844,16 +1974,42 @@ for card_position, (
                 </div>
 
                 <div class="
-                    overview-fixture-teams
-                ">
-                    {fixture_home}
-                    <span class="
-                        overview-versus
-                    ">
-                        VS
-                    </span>
-                    {fixture_away}
-                </div>
+    overview-fixture-teams
+">
+    <div class="
+        overview-team-side
+        overview-team-home
+    "
+        title="俱乐部配色：{fixture_home_colors}"
+    >
+        <span class="
+            overview-team-name
+        ">
+            {fixture_home}
+        </span>
+        {fixture_home_crest_html}
+    </div>
+
+    <span class="
+        overview-versus
+    ">
+        VS
+    </span>
+
+    <div class="
+        overview-team-side
+        overview-team-away
+    "
+        title="俱乐部配色：{fixture_away_colors}"
+    >
+        {fixture_away_crest_html}
+        <span class="
+            overview-team-name
+        ">
+            {fixture_away}
+        </span>
+    </div>
+</div>
 
                 <div class="
                     overview-probabilities
@@ -1918,6 +2074,12 @@ for card_position, (
                         overview-badge
                     ">
                         比分：{fixture_score}
+                    </span>
+
+                    <span class="
+                        overview-badge
+                    ">
+                        🏟 {fixture_venue_name}
                     </span>
 
                     <span class="
