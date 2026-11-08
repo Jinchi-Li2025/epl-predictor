@@ -8,6 +8,7 @@ from pathlib import Path
 
 import pandas as pd
 import streamlit as st
+from src.assets.kit_ui import render_match_kits
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent
@@ -1411,6 +1412,11 @@ probability_separation = str(
     )
 )
 
+
+render_match_kits(
+    str(row["home_team"]),
+    str(row["away_team"]),
+)
 
 st.markdown("## 赛前情报状态")
 
