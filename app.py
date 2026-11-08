@@ -26,6 +26,13 @@ TEAM_ASSETS_FILE = (
     / "team_assets.parquet"
 )
 
+STADIUM_ASSETS_FILE = (
+    PROJECT_ROOT
+    / "data"
+    / "assets"
+    / "stadium_assets.parquet"
+)
+
 
 st.set_page_config(
     page_title="EPL Predictor",
@@ -82,19 +89,73 @@ st.markdown(
         font-size: 15px;
     }
 
-    .fixture-card {
-        padding: 26px;
-        border-radius: 20px;
-        background: linear-gradient(
+.fixture-card {
+    padding: 34px 28px 22px 28px;
+    border-radius: 20px;
+    background:
+        linear-gradient(
+            100deg,
+            rgba(6, 10, 20, 0.96),
+            rgba(10, 16, 29, 0.78),
+            rgba(6, 10, 20, 0.94)
+        ),
+        linear-gradient(
             145deg,
             #141a28,
             #101521
         );
-        border: 1px solid #283044;
-        margin: 14px 0 20px 0;
-        box-shadow:
-            0 14px 34px rgba(0, 0, 0, 0.20);
-    }
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border: 1px solid #35405a;
+    margin: 14px 0 20px 0;
+    min-height: 210px;
+    box-shadow:
+        0 18px 42px rgba(0, 0, 0, 0.34);
+    overflow: hidden;
+}
+
+.fixture-card .fixture-meta,
+.fixture-card .fixture-teams,
+.fixture-card .fixture-venue,
+.fixture-card .fixture-photo-credit {
+    position: relative;
+    z-index: 1;
+}
+
+.fixture-card .fixture-meta {
+    color: #c4d2e8;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.90);
+}
+
+.fixture-card .team-home,
+.fixture-card .team-away {
+    text-shadow:
+        0 3px 12px rgba(0, 0, 0, 0.95);
+}
+
+.fixture-card .fixture-venue {
+    color: #d8e5f7;
+    text-shadow:
+        0 2px 8px rgba(0, 0, 0, 0.95);
+}
+
+.fixture-photo-credit {
+    margin-top: 12px;
+    color: rgba(224, 232, 245, 0.70);
+    font-size: 0.68rem;
+    text-align: center;
+}
+
+.fixture-photo-credit a {
+    color: rgba(201, 220, 249, 0.86);
+    text-decoration: none;
+}
+
+.fixture-photo-credit a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
 
     .fixture-meta {
         color: #8d99af;
@@ -701,6 +762,40 @@ def load_team_assets() -> pd.DataFrame:
 
     return assets
 
+@st.cache_data
+def load_stadium_assets() -> pd.DataFrame:
+    if not STADIUM_ASSETS_FILE.exists():
+        return pd.DataFrame()
+
+    assets = pd.read_parquet(
+        STADIUM_ASSETS_FILE
+    )
+
+    required_columns = {
+        "home_team_id",
+        "home_team",
+        "venue_name",
+        "stadium_image_path",
+        "commons_file_page",
+        "artist",
+        "license",
+    }
+
+    missing_columns = (
+        required_columns
+        - set(assets.columns)
+    )
+
+    if missing_columns:
+        raise RuntimeError(
+            "球场资源文件缺少字段："
+            + ", ".join(
+                sorted(missing_columns)
+            )
+        )
+
+    return assets
+
 
 @st.cache_data(
     show_spinner=False
@@ -935,9 +1030,30 @@ def dixon_coles_outcome(row: pd.Series) -> str:
 try:
     predictions = load_predictions()
     team_assets = load_team_assets()
+    stadium_assets = load_stadium_assets()
 except Exception as error:
-    st.error(f"预测文件读取失败：{error}")
+    st.error(f"页面数据读取失败：{error}")
     st.stop()
+
+
+stadium_assets_by_team = {}
+
+if not stadium_assets.empty:
+    for _, stadium_asset_row in (
+        stadium_assets.iterrows()
+    ):
+        stadium_team_id = (
+            clean_optional_text(
+                stadium_asset_row.get(
+                    "home_team_id"
+                )
+            )
+        )
+
+        if stadium_team_id:
+            stadium_assets_by_team[
+                stadium_team_id
+            ] = stadium_asset_row.to_dict()
 
 
 st.markdown(
@@ -1083,13 +1199,103 @@ away_crest_html = build_crest_html(
     team_name=str(row["away_team"]),
 )
 
+home_stadium_asset = (
+    stadium_assets_by_team.get(
+        clean_optional_text(
+            row.get("home_team_id")
+        ),
+        {},
+    )
+)
+
+stadium_image_path = (
+    clean_optional_text(
+        home_stadium_asset.get(
+            "stadium_image_path"
+        )
+    )
+)
+
+stadium_image_data_uri = (
+    image_file_to_data_uri(
+        stadium_image_path
+    )
+)
+
+fixture_card_style = ""
+
+if stadium_image_data_uri:
+    fixture_card_style = (
+        "background-image:"
+        "linear-gradient("
+        "100deg,"
+        "rgba(5,9,18,0.96),"
+        "rgba(7,13,24,0.68),"
+        "rgba(5,9,18,0.94)"
+        "),"
+        f"url('{stadium_image_data_uri}');"
+        "background-size:cover;"
+        "background-position:center;"
+    )
+
+fixture_card_style = html.escape(
+    fixture_card_style,
+    quote=True,
+)
+
+stadium_artist = html.escape(
+    clean_optional_text(
+        home_stadium_asset.get("artist")
+    )
+    or "作者未注明"
+)
+
+stadium_license = html.escape(
+    clean_optional_text(
+        home_stadium_asset.get("license")
+    )
+    or "许可未注明"
+)
+
+stadium_source_page = html.escape(
+    clean_optional_text(
+        home_stadium_asset.get(
+            "commons_file_page"
+        )
+    ),
+    quote=True,
+)
+
+stadium_credit_html = ""
+
+if stadium_image_data_uri:
+    if stadium_source_page:
+        stadium_credit_html = (
+            '<div class="fixture-photo-credit">'
+            "球场图片："
+            f'<a href="{stadium_source_page}" '
+            'target="_blank" '
+            'rel="noopener noreferrer">'
+            f"{stadium_artist}"
+            "</a>"
+            f" · {stadium_license}"
+            "</div>"
+        )
+    else:
+        stadium_credit_html = (
+            '<div class="fixture-photo-credit">'
+            f"球场图片：{stadium_artist}"
+            f" · {stadium_license}"
+            "</div>"
+        )
+
 venue_name = clean_optional_text(
-    home_asset.get("venue_name")
+    row.get("venue_name")
 )
 
 if not venue_name:
     venue_name = clean_optional_text(
-        row.get("venue_name")
+        home_asset.get("venue_name")
     )
 
 if not venue_name:
@@ -1125,7 +1331,10 @@ else:
 
 st.html(
     f"""
-    <div class="fixture-card">
+    <div
+        class="fixture-card"
+        style="{fixture_card_style}"
+    >
         <div class="fixture-meta">
             {html.escape(matchweek_text)}
             &nbsp;·&nbsp;
@@ -1153,6 +1362,8 @@ st.html(
 <div class="fixture-venue">
     🏟 {safe_venue_name}
 </div>
+
+{stadium_credit_html}
     </div>
     """
 )
@@ -1816,6 +2027,13 @@ for card_position, (
         )
     )
 
+fixture_venue_name = (
+    clean_optional_text(
+        fixture.get("venue_name")
+    )
+)
+
+if not fixture_venue_name:
     fixture_venue_name = (
         clean_optional_text(
             fixture_home_asset.get(
@@ -1823,13 +2041,6 @@ for card_position, (
             )
         )
     )
-
-    if not fixture_venue_name:
-        fixture_venue_name = (
-            clean_optional_text(
-                fixture.get("venue_name")
-            )
-        )
 
     if not fixture_venue_name:
         fixture_venue_name = (
