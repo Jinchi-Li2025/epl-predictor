@@ -1,0 +1,20 @@
+{
+  "home_summary_zh": "纽卡斯尔联方面，结构化伤停信息显示：若埃林顿（Joelinton Cássio Apolinário de Lira）为未明确说明的伤病，复出日期未知；埃文·若昂（Ewen Jaouen）为腿筋伤病，复出日期未知。公开新闻标题中未见针对本场纽卡斯尔联一线队伤停的进一步确认信息。",
+  "away_summary_zh": "阿森纳方面，结构化伤停信息显示：布卡约·萨卡（Bukayo Saka）为大腿伤病，复出日期未知；马克斯·道曼（Max Dowman）停赛至11月29日。据公开标题显示，有报道关注萨利巴在英超2联赛（Premier League 2）比赛中首发，但该标题未涉及本场一线队可用性。",
+  "match_brief_zh": "本场为英超纽卡斯尔联主场对阵阿森纳，开球时间为2026年11月21日17:30（UTC），场地为圣詹姆斯公园球场。结构化信息显示双方均休息14天，主队排名第12、积12分，客队排名第1、积27分；天气为阴天，降水概率20%，阵风39.6km/h。阵容状态为数据提供方不可用，裁判信息未提供。公开新闻标题多涉及其他场次或一般性话题，暂无足够公开新闻信息确认本场具体阵容与伤停细节。",
+  "key_points": [
+    "纽卡斯尔联：若埃林顿伤病性质未明确说明，复出日期未知；埃文·若昂为腿筋伤病，复出日期未知。",
+    "阿森纳：布卡约·萨卡为大腿伤病，复出日期未知；马克斯·道曼停赛至11月29日。",
+    "阵容状态为数据提供方不可用，裁判信息未提供。",
+    "天气为阴天，降水概率20%，阵风39.6km/h。",
+    "结构化信息显示主队排名第12、积12分，客队排名第1、积27分，双方均休息14天。",
+    "据公开标题显示，相关报道涉及萨利巴在英超2联赛首发，但未确认本场一线队可用性。",
+    "公开新闻标题多涉及其他场次或一般性话题，暂无足够公开新闻信息确认本场具体阵容与伤停细节。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPSEtyUmxpWlQ2akFIaUxvaWIzYkw5Y3k1TmI1V2VJOGdreDJrMlZlb3hSek1YQnRfYkdENUl3akhmcVdCdmFoYkFwRzI5anVZWjZCVWJKcE5jMjFhRHkxdjZqV3hNaEhxS3dvMGlGODE3TFY4cjZ0M1VjcGtWSzF0cWdZdE03cFdn?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T06:44:19.389898+00:00"
+}

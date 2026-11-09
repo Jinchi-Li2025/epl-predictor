@@ -1,0 +1,15 @@
+EPL Predictor Next Steps Upgrade
+Version: 3.0.0
+Date: 2026-11-09
+
+Scope:
+- Full matchday squad: starting XI plus official/projected substitutes
+- Registered-player intelligence and per-90 performance fields
+- Probable-XI availability, bench depth, absence burden and selection stability
+- football-data.org official lineup/bench fallback
+- Validated manual lineup override fallback
+- Chronological pre-match squad snapshot dataset
+- Leak-resistant squad-feature Shadow Challenger
+- DeepSeek squad experiment advisor with no production writes
+- Unified Model Center squad-lab and system-health tabs
+- One-command backup, install, compile and initial build

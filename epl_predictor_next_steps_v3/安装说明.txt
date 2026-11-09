@@ -1,0 +1,60 @@
+EPL Predictor Next Steps v3.0
+================================
+
+推荐安装方式（只需一条命令）
+--------------------------------
+
+1. 把整个 epl_predictor_next_steps_v3 文件夹放进项目根目录：
+   C:\Users\Administrator\epl-predictor
+
+2. 在项目根目录的 PowerShell 里执行：
+
+powershell -ExecutionPolicy Bypass -File ".\epl_predictor_next_steps_v3\安装并构建.ps1"
+
+脚本会自动备份、安装、语法检查、重建球员资料、保存阵容快照、运行阵容
+Shadow Challenger、生成DeepSeek实验建议、生成健康报告并清理Streamlit缓存。
+
+完成后启动：
+
+streamlit run app.py
+
+
+本版新增
+--------
+
+1. 完整比赛名单：战术板保留首发，明细表同时列出预计或官方替补。
+
+2. 球员和替补深度特征：每90分钟进球/助攻/xG/xA/xGI、首发率、预计首发
+   可用率、替补席分钟/状态/xGI/积分、缺阵负担与选择稳定性。
+
+3. 官方首发多级回退：原有API-Football之后再尝试football-data.org；
+   供应商仍不可用时可编辑 data\manual\lineup_overrides.csv 后运行：
+
+python src\context\apply_lineup_overrides.py
+
+   每支球队必须恰好填写11条role=starter；替补使用role=substitute。
+
+4. 阵容特征Shadow Challenger：只使用开球前冻结快照；同场只取开球前最后
+   版本；按时间切分；计算Log Loss、Brier、RPS与Bootstrap区间。样本不足时
+   只提示继续积累；达到门槛也只进入人工复核，绝不自动替换生产模型。
+
+5. 模型中心新增“阵容特征实验”和“系统健康”，不会显示任何密钥内容。
+
+
+可选.env配置
+-----------
+
+FOOTBALL_DATA_API_KEY=你的football-data密钥
+DEEPSEEK_API_KEY=你的DeepSeek密钥
+
+football-data未配置时相关步骤会安全跳过，原有页面和预测仍能运行。
+
+
+安全边界
+--------
+
+- 不使用赛后生成的阵容数据训练赛前模型。
+- 不由DeepSeek直接修改权重、配置或概率。
+- 不自动晋升Challenger。
+- 缺失国籍、号码、合同或多重国籍时显示待核验，不猜测。
+- 安装前自动备份到 backups\next_steps_v3_时间戳。

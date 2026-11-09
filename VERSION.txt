@@ -1,0 +1,12 @@
+EPL Predictor UI + Player System Patch
+Version: 1.1.0
+Date: 2026-11-09
+
+Scope:
+- Tactical pitch lineups with automatic official-lineup switch
+- Probable/official bench panel with position tags
+- 2026/27 registered player registry and player explorer page
+- Candidate squad-depth features with production safety boundary
+- Unified Streamlit dark theme and readability improvements
+- Integer-only squad-number formatting and lineup number enrichment
+- Improved official-name / short-name squad-number matching

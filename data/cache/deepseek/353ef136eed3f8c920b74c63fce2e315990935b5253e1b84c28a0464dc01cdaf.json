@@ -1,0 +1,36 @@
+{
+  "summary_zh": "当前数据审计显示历史不足：无已结算预测记录，训练行数为0，仅有2个快照且唯一快照日期为1天，未达到最低8个唯一快照日期与80条比赛观察的门槛。挑战者模型因缺少阵容训练数据集而处于INSUFFICIENT_HISTORY状态，生产模型未被修改，且不允许自动晋级。建议仅进行数据积累与实验设计，不接入生产概率，不使用开球后信息。",
+  "recommended_experiments": [
+    {
+      "title": "赛前快照积累与结算对齐实验",
+      "hypothesis": "在持续积累赛前快照并等待比赛结算后，可获得足够的已结算预测历史用于后续评估。",
+      "primary_metric": "已结算预测样本数（settled_prediction_count）",
+      "leakage_guard": "仅使用开球前生成的快照特征；结算标签在开球后单独记录，不回流至特征；排除post_kickoff_rows。",
+      "risk": "积累周期较长，早期样本量小导致评估不稳定；需防止结算标签误入训练特征。"
+    },
+    {
+      "title": "唯一快照日期覆盖度实验",
+      "hypothesis": "增加唯一快照日期至至少8天可提升时间维度覆盖度，支持按时间顺序的验证划分。",
+      "primary_metric": "唯一快照日期数（unique_snapshot_dates）",
+      "leakage_guard": "按快照时间戳严格划分训练与验证集，禁止未来快照信息进入过去样本；不使用开球后数据。",
+      "risk": "快照日期分布不均可能造成验证集代表性不足；需监控每日快照数量。"
+    },
+    {
+      "title": "阵容训练数据集构建实验",
+      "hypothesis": "在快照结算后构建赛前阵容训练数据集，可满足挑战者模型训练的最低数据要求。",
+      "primary_metric": "训练行数（training_rows）与比赛观察数（fixture_observations）",
+      "leakage_guard": "仅纳入开球前可得的阵容与球员信息；开球后事件不进入特征；保留post_kickoff_rows_excluded计数用于审计。",
+      "risk": "阵容信息缺失或延迟可能导致样本偏差；构建过程需保持生产模型不变。"
+    },
+    {
+      "title": "时间顺序验证流程实验",
+      "hypothesis": "采用严格时间顺序验证可避免信息泄漏并给出可信的模型比较结果。",
+      "primary_metric": "时间顺序验证下的样本外评估指标（如对数损失）",
+      "leakage_guard": "验证集时间戳晚于训练集；禁止随机打乱；禁止使用开球后信息；生产自动晋级保持关闭。",
+      "risk": "样本量不足时指标方差大；需等待门槛满足后再解读结果。"
+    }
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T15:42:02.370530+00:00"
+}

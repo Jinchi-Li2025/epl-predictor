@@ -1,0 +1,14 @@
+{
+  "version": "1.0",
+  "enabled": true,
+  "base_url": "https://api.deepseek.com",
+  "default_model": "deepseek-flash",
+  "news_lookback_days": 7,
+  "max_articles_per_team": 8,
+  "cache_ttl_hours": 12,
+  "timeout_seconds": 45,
+  "max_retries": 2,
+  "allow_probability_changes": false,
+  "allow_model_promotion": false,
+  "require_source_urls": true
+}

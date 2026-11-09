@@ -1,0 +1,24 @@
+{
+  "home_summary_zh": "曼城方面，结构化伤停信息显示：Antoine Semenyo 膝伤，复出时间未知；Marc Guéhi 伤情未具体说明，出场概率75%；Joško Gvardiol 伤情未具体说明，出场概率75%。公开新闻标题方面，据公开标题显示，相关报道关注曼城此前客场负于诺丁汉森林的比赛，以及英超对俱乐部的相关处罚议题；这些标题未提供本场伤停或阵容的进一步确认信息。",
+  "away_summary_zh": "富勒姆方面，结构化伤停信息显示：Josh King 腹股沟伤，出场概率75%；Tom Cairney 膝伤，预计11月21日回归。公开新闻标题方面，据公开标题显示，相关报道关注富勒姆1-1战平纽卡斯尔联的比赛及赛后内容；这些标题未提供本场伤停或阵容的进一步确认信息。",
+  "match_brief_zh": "本场为曼城主场对阵富勒姆，开球时间为2026年11月21日12:30 UTC，场地为伊蒂哈德球场。结构化信息显示，曼城排名第3、积21分，富勒姆排名第15、积10分，两队均休息14天。天气为局部多云，降水概率37%，阵风15.8km/h。阵容状态方面，提供方数据不可用；裁判信息未提供。",
+  "key_points": [
+    "曼城伤停：Antoine Semenyo 膝伤、复出时间未知；Marc Guéhi 与 Joško Gvardiol 伤情未具体说明，出场概率均为75%。",
+    "富勒姆伤停：Josh King 腹股沟伤、出场概率75%；Tom Cairney 膝伤、预计11月21日回归。",
+    "曼城排名第3、积21分；富勒姆排名第15、积10分；两队均休息14天。",
+    "天气为局部多云，降水概率37%，阵风15.8km/h。",
+    "阵容状态提供方不可用，裁判信息未提供。",
+    "据公开标题显示，相关报道关注曼城负于诺丁汉森林、英超对曼城的相关处罚议题，以及富勒姆战平纽卡斯尔联的比赛；标题未提供本场进一步确认信息。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE12WHJqTmFVUHIxQVEweUlINUtqUVRybmoyd2hPVW96WlpIaW1vN0NBZ0dUam9pLUNGVFZqYVpwSm5ncUNLTFR4WThxYXYxeUhoMUdPTlBKYWhTOTc2MTZBdWpuV2Q3Rllt?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE1aZGVUUXlGemVOWFJCV085RUpSczhBM01PUlRfdUR6elFTZHNSQ3lPVjRkWGdOREtxWkhDUXR3UUduOFNqZGdfRDNFclB0b3l4RmU5UDZJZXZSWVpEcEdGMVhqWGFiYjg2?oc=5",
+    "https://news.google.com/rss/articles/CBMivwFBVV95cUxONXg3Wk9FaWV0TVc4WWc4ZFVNRHpvNUpkOXhINU9OV1NlMDc3UVhYODFuazJ2dmpudzZubFYwblNiY1kxcFdQdXBhUkFfN3RYU3dsZ2N2YWs4ZDlTU2tUOEdoU2RlVDZUNG5ld0t1M0QxOFQ5dHRoY2JEU0xIWHVwRHAyVnBreEN6cVRtejhORUVmNVNmcnJXNzB5REJwSWFoOEJpSFNXdmpIdkRTaDdGWFpQb21ONmZVLWx2eXI1OA?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5ZNTlZSFZSazJsZ2JCTXdSdzI1b3g3NjBFTmN4Y1czcGo1ck16RlE4MXRXZG5zV1pKZzdRY0M3ZHJib1BhYzljSXoyTlROVVZvLW9kdERONlV4cW80Tk10X2lFeVo2eURo?oc=5",
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxNVFoyNmZ4V0ppWmQ0RmwwckI2cVBGRVEyU3dNY2VreFU3bEcwYnM4QjZZSl9qdXZLWW0tU25La2NzVXk0QXphN0pkeDdJNGZsMkE2TDRzQmwtQi01a3Q1UExOcHdwRVZoakhydnpXZmRrM0Y2U2tyZ3RIcE5NbVY0TVYtcEFOeVowMjYxMDZ3VGwtWjVHUjNyaFdlelA?oc=5",
+    "https://news.google.com/rss/articles/CBMimAFBVV95cUxOc1JQdDFCSnpiaG1IYXBmTllZSkdHV2JETlhUWjVQcnMydGNEU2RLRVk3bzNJcU9GSUl5d1hVdUdMZ0htcW1JSzRfZTY0RlA1dVVRVnRrdkpxcm9wZWpZSFA5SDZ3VUFQYldvVDE2M2xEc2NOc3ZMcC14eElia3ZmbTVveXhHSW1Hd2FEQzlLNUZwMTB6N1ViZQ?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T10:17:02.413619+00:00"
+}

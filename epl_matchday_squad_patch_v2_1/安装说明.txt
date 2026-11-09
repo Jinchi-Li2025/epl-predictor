@@ -1,0 +1,91 @@
+EPL Predictor：球员情报中心与统一模型中心 v2.0
+================================================
+
+v2.1新增：
+- 比赛页明细不再只显示11名首发，而是显示完整比赛名单。
+- 官方名单阶段显示“官方首发 + 官方替补”。
+- 预计阶段显示“预计首发 + 预计替补候选”，并明确不是官方名单。
+- 每日归档赛前球员、阵容特征和赛前报告快照，为后续Challenger回测建立时间序列资料。
+- 模型中心新增球员与阵容特征历史覆盖状态。
+
+v2.0.1修复：安装脚本已改为纯ASCII内容，兼容Windows PowerShell 5.1，
+不会再因UTF-8无BOM读取方式出现UnexpectedToken或字符串缺少终止符。
+
+本版完成四项升级：
+
+1. 阵容明细扩展
+   - 号码、球员、位置、代表国籍、总出场（替补出场）、进球/助攻、状态。
+   - 球衣号码继续只显示整数；未核实号码显示“—”。
+   - “总出场（替补出场）”来自FPL逐场履历与首发统计，不用分钟数猜测替补次数。
+
+2. 球员资料库扩展
+   - 加入代表国籍、出生日期、年龄、详细位置、合同、注册类别、赛季表现、纪律和可用性。
+   - 多重国籍与代表国籍分开；主数据源无法确认时显示“待核验”，不会把缺失误写成单一国籍。
+   - 球员详情页可按需调用DeepSeek生成球探摘要与候选特征建议。
+
+3. 模型表现与赛果复盘合并
+   - 左侧只保留“模型中心”。
+   - 同页展示Champion/Challenger、DeepSeek实验建议、样本外指标、逐场复盘与等待结算预测。
+   - 安装脚本会先备份旧页面，再把旧“模型表现”和“赛果复盘”移出pages目录。
+
+4. UI继续优化
+   - 标签、章节和状态增加克制的emoji导航。
+   - 深色主题、表格、图表和提示区保持统一高对比度。
+
+
+安装（在项目根目录 PowerShell 中执行）
+--------------------------------------
+
+假设压缩包解压后的文件夹名为 epl_ui_intelligence_patch_v2：
+
+powershell -ExecutionPolicy Bypass -File ".\epl_ui_intelligence_patch_v2\安装升级.ps1"
+
+脚本会自动备份被替换文件、合并导航、安装代码并执行语法检查。
+
+
+首次生成完整资料
+----------------
+
+python src\assets\build_player_registry.py
+python src\features\build_squad_features.py
+python src\evaluation\archive_squad_snapshot.py
+streamlit cache clear
+streamlit run app.py
+
+第一次读取FPL逐球员历史可能需要几分钟；同一天再次运行会读取缓存。
+
+如.env已有football-data.org密钥，请使用：
+
+FOOTBALL_DATA_API_KEY=你的密钥
+
+这样可以补充代表国籍、出生日期、详细位置和合同字段。没有密钥时页面仍能运行，相关字段会明确显示待核验。
+
+
+检查清单
+--------
+
+1. 比赛页“🟩 战术板与首发”展开明细后，应显示：
+   🌍 国籍、📊 出场、⚽ 进球/助攻、🩺 状态。
+
+2. 球员资料库应显示“出场（替补）”和完整档案标签页。
+
+3. 左侧导航应只有“模型中心”，不再分别显示“模型表现”和“赛果复盘”。
+
+4. 模型中心可以同时看到模型治理、DeepSeek实验顾问和赛果复盘。
+
+
+数据与模型安全边界
+------------------
+
+- DeepSeek只做解释、资料摘要和实验设计，不直接修改模型权重或发布概率。
+- 球员特征先进入candidate_requires_backtest层。
+- 只有通过时间顺序回测、最终留出集和Champion/Challenger门槛后，才可人工晋升到生产模型。
+- 多重国籍、合同等缺失字段不会由大模型猜测。
+
+
+确认无误后提交Git
+-----------------
+
+git add app.py ".streamlit\config.toml" "pages\1_模型中心.py" "pages\3_球员资料库.py" src\assets\build_player_registry.py src\features\build_squad_features.py src\pipeline\run_daily_update.py
+git add -u pages
+git commit -m "Expand player intelligence and merge model review center"

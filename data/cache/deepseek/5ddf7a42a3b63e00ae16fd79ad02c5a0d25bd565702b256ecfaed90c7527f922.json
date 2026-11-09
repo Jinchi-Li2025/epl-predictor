@@ -1,0 +1,23 @@
+{
+  "home_summary_zh": "切尔西方面，结构化伤停信息显示：Maxence Lacroix（腿筋伤势）、João Pedro Junqueira de Jesus（大腿伤势）、Jorrel Hato（未明确伤势）、Reece James（膝伤）均未给出明确回归日期。相关公开标题关注球队近期英超赛果及个别球员话题，但未提供上述伤员的进一步细节。",
+  "away_summary_zh": "利兹联方面，结构化伤停信息显示：Anton Stach（脚部伤势）出场概率50%，Gabriel Gudmundsson（腿筋伤势）出场概率75%，Mateo Joseph Fernández-Regatillo（膝伤）未给出明确回归日期。据公开标题显示，相关报道关注利兹联近期英超比赛及场外事件，未提供伤员进一步细节。",
+  "match_brief_zh": "本场为英超切尔西主场对阵利兹联，开球时间为2026-11-21T15:00:00+00:00，场地为Stamford Bridge。天气描述为晴朗，降水概率13%，阵风12.6km/h。公开新闻标题多涉及两队近期赛果及场外话题，暂无足够公开新闻信息说明本场首发或更多赛前细节。",
+  "key_points": [
+    "切尔西有四名球员列入伤停信息，均未给出明确回归日期。",
+    "利兹联方面，Anton Stach出场概率50%，Gabriel Gudmundsson出场概率75%，Mateo Joseph Fernández-Regatillo未给出明确回归日期。",
+    "据公开标题显示，切尔西近期有英超赛果及相关球员话题报道。",
+    "据公开标题显示，利兹联近期有英超赛果及场外事件报道。",
+    "天气为晴朗，降水概率13%，阵风12.6km/h。",
+    "暂无足够公开新闻信息说明本场首发阵容。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBtajN5SDd6YlB2ZGZnQXQ1TC1zODQ5ZWhjdnY0YzRJSmFNcF81QTFITGpSQUVnZFExS2tQbzc4Qk54bzBFRzJFdUhDbTdBQ1JFMmExSlFJTFNYYWlLQ0pvVXlXMWdEQWdh?oc=5",
+    "https://news.google.com/rss/articles/CBMinwFBVV95cUxNOXVaUDZick9KYkdnY21VaVpGd1QxcWxWYUY0a3M4bzNMeGkxZ0tkdTNVSHJxaVZsRzdMZEdrY2UwcW1yR2Q4czFsNHJJaUhKTnQwWjROcWFvdV9vUUpacklPSmQyS3ZKeWlUbU50b3ZiQUdjUmxnQkZGLWdjTk51S3VKTmlFZDlGRWtrVm90VnNmUmIzem5IYkszOU96M1E?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5NU1FXcVlSRXVZQ2lqamlVREl5LXJUZWloWnNrbDhFWnRTaVNKd2ZIMlpLVVRFdnQtSnRCSjh5YWFiSTVWNUZqeUNzMzJPX2k2Um9hSERqRVZhc1lZTVR5QWNtajRSbVlQ?oc=5",
+    "https://news.google.com/rss/articles/CBMikwFBVV95cUxPQ2N4S3kwdXJmYldKd2E4VFlJaGZhZTV4MHpsc09ockU4RmNCUkxWekVka0NOMzdYc2puMGdsaVViakVwREhGXzY3NHlKMHNsMjFJX05qMWZDSzQ4ZWQtS2FvVmI0TGJtTHdzTklDYjhCVE9oM2k0ZUhtYnVLd1oxSW9KMXN6OHpYS2syRWFUQlRwTU0?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBGNVB3M053bFNBdjF2cEdPSnVfZWRFSEdSRGFpVi11a1RYM1g4dGV1bmFEcmJDc1YyRjBKNDdweGFlc21ZR0RVNHllcWtScjJvQ2wzV0J6dnNGbkJ4d3dXRWdyaFo0Yjct?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T15:48:15.718047+00:00"
+}

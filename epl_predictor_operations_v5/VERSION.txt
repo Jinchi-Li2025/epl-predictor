@@ -1,0 +1,14 @@
+EPL Predictor Operations and Shadow Validation
+Version: 5.0.0
+Date: 2026-11-10
+
+Scope:
+- Player-registry current-source quality audit
+- Probability and fixture data-contract checks
+- Chronological temperature-scaling Shadow Challenger
+- Paired bootstrap confidence interval for calibration changes
+- Unified operational readiness gate
+- Near-kickoff matchday context refresh
+- Optional Windows daily and 15-minute matchday tasks
+- Dedicated Streamlit operations page
+- No automatic production-model changes

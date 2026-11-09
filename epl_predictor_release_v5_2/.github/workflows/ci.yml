@@ -1,0 +1,31 @@
+name: Python syntax and repository safety
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Compile Python sources
+        run: python -m compileall -q app.py pages src
+
+      - name: Reject committed secret files
+        shell: bash
+        run: |
+          if git ls-files | grep -E '(^|/)(\.env|secrets\.toml|.*\.pem|.*\.key)$'; then
+            echo "Sensitive files are tracked. Remove them before merging."
+            exit 1
+          fi

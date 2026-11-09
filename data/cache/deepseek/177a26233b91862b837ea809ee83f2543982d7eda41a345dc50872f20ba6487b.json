@@ -1,0 +1,20 @@
+{
+  "home_summary_zh": "赫尔城方面，据结构化伤停信息，Hidemasa Morita（腹股沟伤）、Matt Targett（脚踝伤）、Charlie Hughes（腹股沟伤）、Eliot Matazo（膝伤）均未给出明确回归日期。公开新闻标题中未见针对本场赫尔城伤停的专门报道，暂无足够公开新闻信息补充细节。",
+  "away_summary_zh": "布莱顿方面，据结构化伤停信息，Pascal Struijk（腿筋伤）预计11月8日回归，Zadok Yohanna（未指明伤情）与Mitoma Kaoru（腿筋伤）预计11月22日回归，Stefanos Tzimas（膝伤）未给出明确回归日期。相关报道关注布莱顿近期联赛表现，但公开标题未提供本场伤停细节。",
+  "match_brief_zh": "本场为英超赫尔城主场对阵布莱顿，开球时间为2026年11月22日14:00 UTC，地点为MKM Stadium。结构化信息显示主队有4名球员伤停且均无明确回归日期，客队有4名球员伤停，其中两人预计11月22日回归。天气为阴天，降水概率21%，阵风33.8km/h。阵容状态为provider_unavailable，裁判信息未提供。",
+  "key_points": [
+    "赫尔城4名伤停球员均未给出明确回归日期：Hidemasa Morita、Matt Targett、Charlie Hughes、Eliot Matazo。",
+    "布莱顿Pascal Struijk预计11月8日回归，Zadok Yohanna与Mitoma Kaoru预计11月22日回归，Stefanos Tzimas回归日期未定。",
+    "天气为阴天，降水概率21%，阵风33.8km/h。",
+    "阵容状态为provider_unavailable，裁判信息未提供。",
+    "据公开标题显示，相关报道关注布莱顿近期联赛表现，但未提供本场伤停细节；赫尔城本场伤停暂无足够公开新闻信息。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE8xY2xlZkhSR29saHVqQzNqdTVEUHdlcXJxc3EwcjdqQ0RXaUlWbHhVc0JxczFrdnY5ZERyMWhKTXM5WjUybEVWTjZUVjFtSWZTNUViRjJKZE1IRXVtUDBWVnNVczBMSGlS?oc=5",
+    "https://news.google.com/rss/articles/CBMitAFBVV95cUxNWEpabHh1UnF6UUlHQ2dXaTZGR2lLVEgyd0ZPTV9pbHlUVGw3ZGItT2FNbHBMMDVqZXZYcnluNDRjblphNmJVQlMwUU9hODhIXzZ2aXVuS3MzVjFnMkRRdTBSd0VxZDNfazNjSm40NGQ3TzhtY1hWNGRZcjVJTnVMaVNYOTZiYUtFYTJqMFctOUNXam9CbUlaYWtYN0thd1UzQV9vMGpsQkdxS1l2N3JHUUMyWFU?oc=5",
+    "https://news.google.com/rss/articles/CBMi1AFBVV95cUxNSEt5MVJXa0ZrZWRROUtnMVdEeUJ5OGJKMjRvX2hIVVRyWHl1TDJnOFpXS0o5eEEwaGtXZ2RMamNEMDZXdUZRMGozeVdVSUpWblpwQkhKQy1ILVM5b2hrZVlTRHVFRnhGY2Z5ck94dkQ3dXFySzRxWUE3dkdqclFjTUQtUW9pNkdrTFZRd2k5UXhQS1hlMksxNVF6czh4dzJXZThDaE5JMmtyOV9aSDZXaDJMMXRtWmF3bzlEZXU5MW1aYjEtN0h1ekJWbzZnSkkxdTRZcw?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T10:19:45.675033+00:00"
+}

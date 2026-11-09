@@ -1,0 +1,44 @@
+# EPL-PREDICTOR-GENERATED-FILES
+# Local environments and secrets
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# Python and tool caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.streamlit/secrets.toml
+
+# Generated data, models, reports and operational state
+data/raw/
+data/processed/
+data/context/
+data/assets/*.parquet
+data/assets/*.csv
+artifacts/
+reports/
+logs/
+backups/
+*.parquet
+*.pkl
+*.pickle
+*.joblib
+
+# Downloaded media should be regenerated locally and reviewed for licensing
+assets/stadiums/
+assets/teams/crests/
+assets/teams/kits/
+
+# Local patch bundles and editor files
+*.zip
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store

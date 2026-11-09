@@ -1,0 +1,28 @@
+EPL Predictor v4.0.1 球员归属与证据校验热修复
+=================================================
+
+本补丁专为已安装v4.0的项目准备，不需要重新执行完整构建。
+
+修复内容：
+1. 当前赛季FPL球队归属优先于历史注册与旧档案。
+2. 如果球员的当前球队是本场参赛队，不会被误判为跨比赛污染。
+3. 终端会打印每个BLOCKED比赛与具体实体。
+4. 修复Pandas 4的.at新列赋值警告和to_json日期警告。
+5. 创建data\manual\player_team_overrides.csv，供少数数据延迟情况手动复核。
+
+安装方法：
+1. 把epl_predictor_v4_0_1_hotfix文件夹放入项目根目录。
+2. 在已激活(.venv)的PowerShell中运行：
+
+powershell -ExecutionPolicy Bypass -File ".\epl_predictor_v4_0_1_hotfix\安装修复.ps1"
+
+安装器会自动备份原验证脚本、重新校验10场比赛、生成赛前简报、健康检查并清理Streamlit缓存。
+
+完成后运行：
+
+python -m streamlit run app.py
+
+如仍有拦截，终端会显示：
+BLOCKED: 主队 vs 客队 | 具体球员/球队
+
+注意：补丁不修改预测概率、生产模型或权重。

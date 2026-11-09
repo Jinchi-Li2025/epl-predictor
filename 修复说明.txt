@@ -1,0 +1,53 @@
+DeepSeek JSON 输出修复 v2
+========================================
+
+一、安装
+
+把本压缩包内的 src 文件夹复制到：
+
+C:\Users\Administrator\epl-predictor
+
+选择“替换目标中的文件”。本补丁只替换3个相关文件。
+
+
+二、修复内容
+
+1. 强制 DeepSeek 使用非思考模式输出结构化 JSON；
+2. 检查 finish_reason，识别输出截断或服务中断；
+3. 识别被 DeepSeek 替换为空格的无效 JSON；
+4. 重试时自动提高 max_tokens；
+5. 重试提示明确要求从 { 开始并以 } 结束；
+6. 新闻摘要上限提高至3000 tokens；
+7. 模型实验顾问上限提高至6000 tokens。
+
+
+三、安装后运行
+
+python -m py_compile src\llm\deepseek_client.py
+python -m py_compile src\context\build_team_news_context.py
+python -m py_compile src\evaluation\llm_model_advisor.py
+
+然后运行：
+
+python src\context\build_team_news_context.py
+python src\context\build_prematch_report.py
+python src\evaluation\llm_model_advisor.py
+
+不需要重新运行 fetch_team_news.py，因为新闻标题已经抓取完成。
+
+
+四、成功标志
+
+球队新闻脚本应显示：
+
+DeepSeek状态：
+success  10
+
+或者部分 cache_hit。
+
+模型顾问应显示：
+
+状态：success
+
+如果仍失败，新的 llm_error 会明确显示 finish_reason 和正文长度，
+可继续准确判断是服务资源、内容过滤还是其他接口问题。

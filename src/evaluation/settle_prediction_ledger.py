@@ -56,6 +56,44 @@ MATCHWEEK_REPORT_FILE = (
 )
 
 
+RESULT_ALIASES = {
+    "H": "H",
+    "HOME": "H",
+    "HOME WIN": "H",
+    "主胜": "H",
+    "D": "D",
+    "DRAW": "D",
+    "平": "D",
+    "平局": "D",
+    "A": "A",
+    "AWAY": "A",
+    "AWAY WIN": "A",
+    "客胜": "A",
+}
+
+
+def normalise_result_code(value: object) -> str | None:
+    if pd.isna(value):
+        return None
+
+    text = str(value).strip().upper()
+    return RESULT_ALIASES.get(text)
+
+
+def normalise_score(value: object) -> str:
+    if pd.isna(value):
+        return ""
+
+    return (
+        str(value)
+        .strip()
+        .replace("–", "-")
+        .replace("—", "-")
+        .replace(":", "-")
+        .replace(" ", "")
+    )
+
+
 def probability_columns(
     ledger: pd.DataFrame,
 ) -> tuple[str, str, str]:
@@ -96,7 +134,6 @@ def validate_inputs(
         "kickoff_utc",
         "home_goals",
         "away_goals",
-        "result",
     }
 
     missing_ledger = (
@@ -144,6 +181,14 @@ def main() -> None:
         COMPLETED_MATCHES_FILE
     ).copy()
 
+    if ledger.empty:
+        print("预测历史账本为空，当前没有可结算预测。")
+        return
+
+    if completed.empty:
+        print("当前赛季尚无已完赛比赛。")
+        return
+
     validate_inputs(
         ledger,
         completed,
@@ -171,6 +216,19 @@ def main() -> None:
         )
     )
 
+    # generated_at_utc 决定预测是否在开球前产生；
+    # archived_at_utc 只在生成时间相同时用于选择最后一次归档。
+    if "archived_at_utc" in ledger.columns:
+        ledger["_archive_order_utc"] = pd.to_datetime(
+            ledger["archived_at_utc"],
+            utc=True,
+            errors="coerce",
+        )
+    else:
+        ledger["_archive_order_utc"] = ledger[
+            "generated_at_utc"
+        ]
+
     ledger["prediction_kickoff_utc"] = (
         pd.to_datetime(
             ledger["kickoff_utc"],
@@ -186,6 +244,45 @@ def main() -> None:
             errors="coerce",
         )
     )
+
+    completed["home_goals"] = pd.to_numeric(
+        completed["home_goals"],
+        errors="coerce",
+    )
+    completed["away_goals"] = pd.to_numeric(
+        completed["away_goals"],
+        errors="coerce",
+    )
+
+    # 只把拥有完整比分的记录视为完赛；赛果直接由比分推导，
+    # 避免上游 result 字段语言或格式不同造成漏结算。
+    completed = completed.loc[
+        completed["match_id"].notna()
+        & completed["actual_kickoff_utc"].notna()
+        & completed["home_goals"].notna()
+        & completed["away_goals"].notna()
+    ].copy()
+
+    completed["result"] = np.select(
+        [
+            completed["home_goals"] > completed["away_goals"],
+            completed["home_goals"] == completed["away_goals"],
+        ],
+        ["H", "D"],
+        default="A",
+    )
+
+    # 同一比赛若在上游文件中出现多次，只保留最后一条完整记录。
+    completed = (
+        completed
+        .sort_values("actual_kickoff_utc", kind="stable")
+        .drop_duplicates(subset=["match_id"], keep="last")
+        .reset_index(drop=True)
+    )
+
+    if completed.empty:
+        print("当前赛季尚无带完整比分的已完赛比赛。")
+        return
 
     completed_results = completed[
         [
@@ -237,6 +334,7 @@ def main() -> None:
             [
                 "match_id",
                 "generated_at_utc",
+                "_archive_order_utc",
             ],
             kind="stable",
         )
@@ -255,7 +353,29 @@ def main() -> None:
             draw_column,
             away_column,
         ]
-    ].astype(float).to_numpy()
+    ].apply(
+        pd.to_numeric,
+        errors="coerce",
+    ).to_numpy(dtype=float)
+
+    finite_probability_mask = (
+        np.isfinite(probabilities).all(axis=1)
+        & (probabilities >= 0.0).all(axis=1)
+        & (probabilities.sum(axis=1) > 0.0)
+    )
+
+    removed_probability_rows = int(
+        (~finite_probability_mask).sum()
+    )
+
+    latest_predictions = latest_predictions.loc[
+        finite_probability_mask
+    ].reset_index(drop=True)
+    probabilities = probabilities[finite_probability_mask]
+
+    if latest_predictions.empty:
+        print("已匹配比赛中没有完整有效的胜平负概率。")
+        return
 
     probabilities = np.clip(
         probabilities,
@@ -278,13 +398,9 @@ def main() -> None:
         "A": 2,
     }
 
-    actual_result_codes = (
-        latest_predictions[
-            "actual_result"
-        ]
-        .astype(str)
-        .str.upper()
-    )
+    actual_result_codes = latest_predictions[
+        "actual_result"
+    ].map(normalise_result_code)
 
     valid_result_mask = (
         actual_result_codes.isin(
@@ -430,10 +546,10 @@ def main() -> None:
     ] = (
         latest_predictions[
             "most_likely_score"
-        ].astype(str)
+        ].map(normalise_score)
         == latest_predictions[
             "actual_score"
-        ].astype(str)
+        ].map(normalise_score)
     )
 
     latest_predictions[
@@ -488,6 +604,72 @@ def main() -> None:
     latest_predictions[
         "settled_at_utc"
     ] = settled_at
+
+    # 对完全相同的历史预测保留首次结算时间，使重复执行真正幂等。
+    if SETTLED_PARQUET_FILE.exists():
+        try:
+            previous_settled = pd.read_parquet(
+                SETTLED_PARQUET_FILE
+            )
+            required_previous_columns = {
+                "match_id",
+                "generated_at_utc",
+                "settled_at_utc",
+            }
+            if required_previous_columns.issubset(
+                previous_settled.columns
+            ):
+                previous_settled["generated_at_utc"] = pd.to_datetime(
+                    previous_settled["generated_at_utc"],
+                    utc=True,
+                    errors="coerce",
+                )
+                previous_times = (
+                    previous_settled
+                    .dropna(
+                        subset=[
+                            "match_id",
+                            "generated_at_utc",
+                            "settled_at_utc",
+                        ]
+                    )
+                    .drop_duplicates(
+                        subset=["match_id", "generated_at_utc"],
+                        keep="last",
+                    )[
+                        [
+                            "match_id",
+                            "generated_at_utc",
+                            "settled_at_utc",
+                        ]
+                    ]
+                    .rename(
+                        columns={
+                            "settled_at_utc": "_previous_settled_at_utc"
+                        }
+                    )
+                )
+                latest_predictions = latest_predictions.merge(
+                    previous_times,
+                    on=["match_id", "generated_at_utc"],
+                    how="left",
+                    validate="one_to_one",
+                )
+                latest_predictions["settled_at_utc"] = (
+                    latest_predictions["_previous_settled_at_utc"]
+                    .fillna(latest_predictions["settled_at_utc"])
+                )
+                latest_predictions = latest_predictions.drop(
+                    columns=["_previous_settled_at_utc"]
+                )
+        except (OSError, ValueError, KeyError):
+            # 旧结算文件损坏或结构过旧时，当前结果仍可重新生成。
+            pass
+
+    latest_predictions = latest_predictions.drop(
+        columns=["_archive_order_utc"],
+        errors="ignore",
+    )
 
     latest_predictions = (
         latest_predictions
@@ -653,6 +835,11 @@ def main() -> None:
     print(
         f"累计指标：{SUMMARY_CSV_FILE}"
     )
+    if removed_probability_rows:
+        print(
+            "已跳过概率不完整的比赛："
+            f"{removed_probability_rows}场"
+        )
 
 
 if __name__ == "__main__":

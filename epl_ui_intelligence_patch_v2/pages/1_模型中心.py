@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import json
 from pathlib import Path
 
 import numpy as np
@@ -8,8 +9,8 @@ import streamlit as st
 
 
 st.set_page_config(
-    page_title="赛果复盘 · EPL Predictor",
-    page_icon="📊",
+    page_title="模型中心 · EPL Predictor",
+    page_icon="🧠",
     layout="wide",
 )
 
@@ -25,6 +26,19 @@ METRICS_FILE = (
     / "current_external_validation_metrics.csv"
 )
 LEDGER_FILE = PROJECT_ROOT / "reports" / "prediction_ledger.csv"
+SETTLED_FILE = (
+    PROJECT_ROOT
+    / "data"
+    / "history"
+    / "settled_predictions.parquet"
+)
+CHALLENGER_METRICS_FILE = (
+    PROJECT_ROOT / "reports" / "champion_challenger_metrics.csv"
+)
+CHALLENGER_DECISION_FILE = (
+    PROJECT_ROOT / "reports" / "champion_challenger_decision.json"
+)
+LLM_ADVICE_FILE = PROJECT_ROOT / "reports" / "llm_model_advice.json"
 
 RESULT_LABELS = {
     "H": "主胜",
@@ -236,6 +250,66 @@ def load_ledger(file_mtime_ns: int) -> pd.DataFrame:
     return ledger.sort_values("kickoff_utc").reset_index(drop=True)
 
 
+@st.cache_data(show_spinner=False)
+def load_settled(file_mtime_ns: int) -> pd.DataFrame:
+    del file_mtime_ns
+    settled = pd.read_parquet(SETTLED_FILE).copy()
+
+    for column in [
+        "actual_kickoff_utc",
+        "generated_at_utc",
+        "settled_at_utc",
+    ]:
+        if column in settled.columns:
+            settled[column] = pd.to_datetime(
+                settled[column],
+                errors="coerce",
+                utc=True,
+            )
+
+    for column in [
+        "settled_home_probability",
+        "settled_draw_probability",
+        "settled_away_probability",
+        "log_loss",
+        "brier_score",
+        "ranked_probability_score",
+        "prediction_lead_hours",
+    ]:
+        if column in settled.columns:
+            settled[column] = pd.to_numeric(
+                settled[column],
+                errors="coerce",
+            )
+
+    for column in ["outcome_correct", "exact_score_correct"]:
+        if column in settled.columns:
+            settled[column] = settled[column].fillna(False).astype(bool)
+
+    settled["predicted_result_label"] = (
+        settled["predicted_result_code"]
+        .map(RESULT_LABELS)
+        .fillna("未知")
+    )
+    settled["actual_result_label"] = (
+        settled["actual_result"]
+        .map(RESULT_LABELS)
+        .fillna("未知")
+    )
+    settled["maximum_probability"] = settled[
+        [
+            "settled_home_probability",
+            "settled_draw_probability",
+            "settled_away_probability",
+        ]
+    ].max(axis=1)
+
+    return settled.sort_values(
+        "actual_kickoff_utc",
+        ascending=False,
+    ).reset_index(drop=True)
+
+
 def metric_value(frame: pd.DataFrame, column: str) -> float:
     values = pd.to_numeric(frame[column], errors="coerce").dropna()
     if values.empty:
@@ -253,11 +327,11 @@ def format_probability(value: object) -> str:
 st.markdown(
     """
     <section class="review-hero">
-        <div class="review-hero-kicker">Prediction review</div>
-        <h1>赛果与模型复盘</h1>
+        <div class="review-hero-kicker">🧠 MODEL LAB · PREDICTION REVIEW</div>
+        <h1>模型表现与赛果复盘</h1>
         <p>
-            当前赛季样本外验证、概率质量和已发布赛前预测统一展示。
-            历史复盘不会重新计算或覆盖当时公布的概率。
+            把模型表现、Champion/Challenger治理、样本外验证、概率质量、
+            已发布预测结算与DeepSeek实验顾问统一放在一个模型中心。
         </p>
     </section>
     """,
@@ -280,20 +354,127 @@ validation = load_validation(VALIDATION_FILE.stat().st_mtime_ns)
 metrics = load_metrics(METRICS_FILE.stat().st_mtime_ns)
 ledger = load_ledger(LEDGER_FILE.stat().st_mtime_ns)
 
+if SETTLED_FILE.exists():
+    settled = load_settled(SETTLED_FILE.stat().st_mtime_ns)
+else:
+    settled = pd.DataFrame()
+
+settled_match_ids = (
+    set(settled["match_id"].dropna().astype(str))
+    if not settled.empty
+    else set()
+)
+waiting = ledger.loc[
+    ~ledger["match_id"].astype(str).isin(settled_match_ids)
+].copy()
+
+ledger_snapshot_count = pd.read_csv(
+    LEDGER_FILE,
+    usecols=["match_id"],
+).shape[0]
+
 st.markdown(
     f"""
     <div class="status-note">
         <strong>数据口径：</strong>
         当前赛季复盘来自严格样本外验证，共 {len(validation)} 场；
-        已发布预测账本已从 {pd.read_csv(LEDGER_FILE, usecols=['match_id']).shape[0]}
-        条快照去重为 {len(ledger)} 场比赛。
+        已发布预测账本已从 {ledger_snapshot_count}
+        条快照去重为 {len(ledger)} 场比赛，
+        其中自动结算 {len(settled)} 场、等待赛果 {len(waiting)} 场。
     </div>
     """,
     unsafe_allow_html=True,
 )
 
+st.markdown("## 🧪 模型治理与实验室")
+governance_tab, comparison_tab, advisor_tab = st.tabs(
+    ["🏆 Champion / Challenger", "📊 模型横向比较", "🤖 DeepSeek实验顾问"]
+)
+
+with governance_tab:
+    if CHALLENGER_DECISION_FILE.exists():
+        decision = json.loads(
+            CHALLENGER_DECISION_FILE.read_text(encoding="utf-8")
+        )
+        status = str(decision.get("status") or "UNKNOWN")
+        recommendation = str(
+            decision.get("recommendation")
+            or decision.get("decision")
+            or "暂无晋升建议"
+        )
+        columns = st.columns(4)
+        columns[0].metric("治理状态", status)
+        columns[1].metric(
+            "当前Champion",
+            str(
+                decision.get("current_champion")
+                or decision.get("champion_model")
+                or "production"
+            ),
+        )
+        columns[2].metric(
+            "候选Challenger",
+            str(
+                decision.get("challenger_model")
+                or decision.get("candidate_model")
+                or "—"
+            ),
+        )
+        columns[3].metric(
+            "自动晋升",
+            "禁止" if not decision.get("production_changed", False) else "已发生",
+        )
+        st.info(recommendation)
+    else:
+        st.info(
+            "尚未生成Champion/Challenger判定。运行每日更新并开启验证后会自动出现。"
+        )
+
+with comparison_tab:
+    if CHALLENGER_METRICS_FILE.exists():
+        challenger_metrics = pd.read_csv(CHALLENGER_METRICS_FILE)
+        st.dataframe(
+            challenger_metrics,
+            hide_index=True,
+            width="stretch",
+            height=min(430, 80 + len(challenger_metrics) * 35),
+        )
+        st.caption(
+            "优先比较Log Loss、Brier Score和RPS；准确率仅作辅助。"
+        )
+    else:
+        st.info("暂无Champion/Challenger指标文件。")
+
+with advisor_tab:
+    if LLM_ADVICE_FILE.exists():
+        advice = json.loads(LLM_ADVICE_FILE.read_text(encoding="utf-8"))
+        advice_status = str(advice.get("status") or "unknown")
+        if advice_status in {"success", "cache_hit"}:
+            st.success(str(advice.get("summary_zh") or "实验建议已生成。"))
+            experiments = advice.get("recommended_experiments", [])
+            for index, experiment in enumerate(experiments, start=1):
+                if not isinstance(experiment, dict):
+                    continue
+                priority = str(experiment.get("priority") or "medium").upper()
+                with st.expander(
+                    f"{index}. {experiment.get('title', '未命名实验')} · {priority}",
+                    expanded=index == 1,
+                ):
+                    st.write(f"**假设：** {experiment.get('hypothesis', '—')}")
+                    st.write(f"**主要指标：** {experiment.get('primary_metric', 'Log Loss')}")
+                    st.write(f"**风险：** {experiment.get('risk', '—')}")
+            st.warning(
+                "DeepSeek只提出实验；所有候选特征仍须通过时间顺序回测、"
+                "留出集和Champion/Challenger门槛，不能直接改生产概率。"
+            )
+        else:
+            st.warning(f"DeepSeek实验顾问状态：{advice_status}")
+            st.caption(str(advice.get("reason") or "请检查API配置。"))
+    else:
+        st.info("尚未生成DeepSeek模型实验建议。")
+
 with st.sidebar:
-    st.markdown("## 复盘筛选")
+    st.markdown("## 🎛️ 模型中心筛选")
 
     season_options = sorted(validation["season"].dropna().astype(str).unique())
     selected_seasons = st.multiselect(
@@ -324,6 +505,126 @@ with st.sidebar:
         step=0.05,
         format="%.0f%%",
     )
+
+filtered_settled = settled.copy()
+if not filtered_settled.empty:
+    if "season" in filtered_settled.columns:
+        filtered_settled = filtered_settled[
+            filtered_settled["season"].astype(str).isin(selected_seasons)
+        ]
+    if selected_team != "全部球队":
+        filtered_settled = filtered_settled[
+            filtered_settled["home_team"].eq(selected_team)
+            | filtered_settled["away_team"].eq(selected_team)
+        ]
+    if outcome_filter == "预测正确":
+        filtered_settled = filtered_settled[
+            filtered_settled["outcome_correct"]
+        ]
+    elif outcome_filter == "预测错误":
+        filtered_settled = filtered_settled[
+            ~filtered_settled["outcome_correct"]
+        ]
+    filtered_settled = filtered_settled[
+        filtered_settled["maximum_probability"].ge(minimum_confidence)
+    ].copy()
+
+st.markdown("## ✅ 已发布预测 · 自动结算")
+if settled.empty:
+    st.info(
+        "当前还没有已结算的正式赛前预测。比赛完赛并运行每日更新后，"
+        "结果会自动出现在这里。"
+    )
+elif filtered_settled.empty:
+    st.info("当前筛选条件下没有已结算的正式预测。")
+else:
+    settled_metric_columns = st.columns(6)
+    settled_metric_columns[0].metric(
+        "已结算比赛",
+        f"{len(filtered_settled)} 场",
+    )
+    settled_metric_columns[1].metric(
+        "胜平负准确率",
+        f"{metric_value(filtered_settled, 'outcome_correct'):.1%}",
+    )
+    settled_metric_columns[2].metric(
+        "精确比分命中率",
+        f"{metric_value(filtered_settled, 'exact_score_correct'):.1%}",
+    )
+    settled_metric_columns[3].metric(
+        "Log Loss",
+        f"{metric_value(filtered_settled, 'log_loss'):.4f}",
+    )
+    settled_metric_columns[4].metric(
+        "Brier Score",
+        f"{metric_value(filtered_settled, 'brier_score'):.4f}",
+    )
+    settled_metric_columns[5].metric(
+        "RPS",
+        f"{metric_value(filtered_settled, 'ranked_probability_score'):.4f}",
+    )
+
+    settled_display = filtered_settled.copy()
+    settled_display["状态"] = np.where(
+        settled_display["outcome_correct"],
+        "✅ 正确",
+        "❌ 错误",
+    )
+    settled_display["比赛时间"] = settled_display[
+        "actual_kickoff_utc"
+    ].dt.strftime("%Y-%m-%d %H:%M UTC")
+    settled_display["主胜"] = settled_display[
+        "settled_home_probability"
+    ].map(format_probability)
+    settled_display["平局"] = settled_display[
+        "settled_draw_probability"
+    ].map(format_probability)
+    settled_display["客胜"] = settled_display[
+        "settled_away_probability"
+    ].map(format_probability)
+    settled_display["提前预测"] = settled_display[
+        "prediction_lead_hours"
+    ].map(
+        lambda value: (
+            "—" if pd.isna(value) else f"{float(value):.1f}小时"
+        )
+    )
+    settled_display = settled_display.rename(
+        columns={
+            "home_team": "主队",
+            "away_team": "客队",
+            "actual_score": "实际比分",
+            "most_likely_score": "预测比分",
+            "predicted_result_label": "预测赛果",
+            "actual_result_label": "实际赛果",
+        }
+    )
+    st.dataframe(
+        settled_display[
+            [
+                "状态",
+                "比赛时间",
+                "主队",
+                "实际比分",
+                "客队",
+                "预测赛果",
+                "实际赛果",
+                "预测比分",
+                "主胜",
+                "平局",
+                "客胜",
+                "提前预测",
+            ]
+        ],
+        hide_index=True,
+        width="stretch",
+        height=min(460, 82 + 35 * len(settled_display)),
+    )
+    st.caption(
+        "这里只统计开球前最后一次有效预测；开球后生成的记录不会进入指标。"
+    )
+
+st.markdown("## 🧪 当前赛季样本外验证")
 
 filtered = validation[validation["season"].astype(str).isin(selected_seasons)]
 if selected_team != "全部球队":
@@ -366,7 +667,7 @@ metric_columns[4].metric(
     help="越低越好；衡量三分类概率与真实赛果之间的误差。",
 )
 
-st.markdown("## 当前赛季表现趋势")
+st.markdown("## 📈 当前赛季表现趋势")
 trend_column, confidence_column = st.columns([1.35, 1])
 
 with trend_column:
@@ -426,7 +727,7 @@ with confidence_column:
         )
         st.caption("用于观察模型的高置信度预测是否真的更可靠。")
 
-st.markdown("## 模型横向比较")
+st.markdown("## ⚖️ 样本外各模型横向比较")
 overall_metrics = metrics[metrics["season"].astype(str).eq("OVERALL")].copy()
 if overall_metrics.empty:
     overall_metrics = metrics.copy()
@@ -470,7 +771,7 @@ st.dataframe(
 )
 st.caption("概率模型优先比较 Log Loss、Brier Score 与 RPS，准确率仅作辅助。")
 
-st.markdown("## 当前赛季逐场复盘")
+st.markdown("## 🔍 当前赛季逐场复盘")
 if filtered.empty:
     st.info("当前筛选条件下没有可展示的比赛。")
 else:
@@ -515,11 +816,13 @@ else:
         height=480,
     )
 
-st.markdown("## 已发布预测 · 等待赛果")
-if ledger.empty:
-    st.info("预测账本目前为空。")
+st.markdown("## ⏳ 已发布预测 · 等待赛果")
+if waiting.empty:
+    if ledger.empty:
+        st.info("预测账本目前为空。")
+    else:
+        st.success("当前账本中的已发布预测均已完成结算。")
 else:
-    waiting = ledger.copy()
     waiting["开球时间"] = waiting["kickoff_utc"].dt.strftime(
         "%Y-%m-%d %H:%M UTC"
     )

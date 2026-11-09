@@ -1,0 +1,19 @@
+{
+  "version": "1.0",
+  "champion": "xgboost",
+  "challenger": "ensemble",
+  "promotion_mode": "manual_only",
+  "minimum_current_season_matches": 190,
+  "minimum_relative_log_loss_improvement": 0.005,
+  "maximum_final_holdout_relative_regression": 0.005,
+  "maximum_brier_regression": 0.0,
+  "maximum_rps_regression": 0.0,
+  "bootstrap_confidence_level": 0.9,
+  "bootstrap_samples": 5000,
+  "bootstrap_seed": 42,
+  "require_positive_ci_lower_bound": true,
+  "chronological_block_size": 20,
+  "minimum_block_count": 4,
+  "minimum_block_win_rate": 0.6,
+  "notes": "Challenger can only become promotion-eligible after all gates pass. Production model changes always require manual review."
+}

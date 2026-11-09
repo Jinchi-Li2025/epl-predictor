@@ -1,0 +1,27 @@
+{
+  "home_summary_zh": "切尔西方面，Maxence Lacroix（腿筋伤）、João Pedro Junqueira de Jesus（大腿伤）、Jorrel Hato（未指明伤情）、Reece James（膝伤）均未给出明确回归日期。相关公开标题显示，切尔西近期在英超中0比1不敌桑德兰，并有报道关注该场比赛中Cole Palmer未获点球的情况；另有标题提及主帅解释一名切尔西球员未进入该场名单，但标题未提供更多细节。",
+  "away_summary_zh": "利兹联方面，Anton Stach（脚伤）出场概率为50%，Gabriel Gudmundsson（腿筋伤）出场概率为75%，Mateo Joseph Fernández-Regatillo（膝伤）未给出明确回归日期。据公开标题显示，利兹联近期在英超中1比0战胜托特纳姆热刺，另有报道关注James Trafford的相关经历以及Jayden Bogle遭遇种族歧视的俱乐部声明。",
+  "match_brief_zh": "本场为切尔西主场对阵利兹联的英超比赛，开球时间为2026年11月21日15:00 UTC，场地为Stamford Bridge。天气为局部多云，降水概率23%，阵风38.2km/h。两队均处于休息相对充足的状态：切尔西排名第5、积16分、休息13天；利兹联排名第9、积14分、休息14天。模型综合比赛重要性为0.10。阵容状态数据提供方不可用，裁判信息未提供。",
+  "key_points": [
+    "切尔西四名球员伤情均未给出明确回归日期：Maxence Lacroix、João Pedro Junqueira de Jesus、Jorrel Hato、Reece James。",
+    "利兹联Anton Stach出场概率50%，Gabriel Gudmundsson出场概率75%，Mateo Joseph Fernández-Regatillo未给出明确回归日期。",
+    "据公开标题显示，切尔西近期英超0比1不敌桑德兰；利兹联近期英超1比0战胜托特纳姆热刺。",
+    "天气为局部多云，降水概率23%，阵风38.2km/h。",
+    "阵容状态数据提供方不可用，裁判信息未提供；公开新闻标题未提供本场直接阵容信息。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBtajN5SDd6YlB2ZGZnQXQ1TC1zODQ5ZWhjdnY0YzRJSmFNcF81QTFITGpSQUVnZFExS2tQbzc4Qk54bzBFRzJFdUhDbTdBQ1JFMmExSlFJTFNYYWlLQ0pvVXlXMWdEQWdh?oc=5",
+    "https://news.google.com/rss/articles/CBMinwFBVV95cUxNOXVaUDZick9KYkdnY21VaVpGd1QxcWxWYUY0a3M4bzNMeGkxZ0tkdTNVSHJxaVZsRzdMZEdrY2UwcW1yR2Q4czFsNHJJaUhKTnQwWjROcWFvdV9vUUpacklPSmQyS3ZKeWlUbU50b3ZiQUdjUmxnQkZGLWdjTk51S3VKTmlFZDlGRWtrVm90VnNmUmIzem5IYkszOU96M1E?oc=5",
+    "https://news.google.com/rss/articles/CBMisgFBVV95cUxOZ09wWXB4OU93LVBWM19McGIybUVEOF9BNmd1YXdGQzhJVnVOTVZNQ21Pb2V3LVJEM2dlUjBCYXg5dVRZZjdnN0NVUUZJS2VmY2c0T1lrZ1dqVlU5WTg0Sm90Nnc5MnppMlNsNzQ2RzVyQkdqQ1ZVRERHeDJxSExKZ2FaZERQRERPc3JsamxrWVB5bDZfQXlJMzlvcVJCYXp5YllFV1otcUN5aFZhQUNyaDZR?oc=5",
+    "https://news.google.com/rss/articles/CBMiY0FVX3lxTFBQbzh0SmR5U0xoWndubUlOcjhELW9OUi1QR0FiSExMQWZMZFcyUms5S181SFJIR2ZDTUlZQ0ZaNHItdi1ydnVxNXNLU2dlWVlDc3ljdFlXS210NmY4SnNSaW02Yw?oc=5",
+    "https://news.google.com/rss/articles/CBMiqwFBVV95cUxQSWljT19PUTZ4ZnQxbWJZZnNXUHRhWnpjMzRFeEVOMFptempWRFJES2wtZnNXdWN3ZEZfSnlWczIxTzNTZVI5VDI0WmFzQjV1bG1tX1JYUlpZQjkyRWNndXdWbkxyV3JxYWFmTXlORHFrNFpNdngwNjZ0MUd3enQ4S1h2UzZ1VU5Fck12cTNHTGZHYlpJTkhaZXRXNXNYQVpCWml2dHBiZkthMEnSAbABQVVfeXFMTVpUUWNwOVFjdHJYTmlLMkUxTGozQkFtamk2T2tjQWZGX2dxZkpxS3g1UTZnNVpoREFWZFJwXy1RSWgtenluWVV2LUJidEpNLWJvMWpTTGtoX3RNaUZhcFZURGVDVFJFUVJHRTRtV0N2all3TnJqNDdvYkZsaVp6MFhEZTRrRGl2TV9KWXlnb3UtWkpqcG1FOU0zaHU5VTBmYWF1S3JTVnZJY0M4dWU4cXY?oc=5",
+    "https://news.google.com/rss/articles/CBMi0AFBVV95cUxQdTZnbWpfSmhYamR6SDNiMG4wa3p5OG5pcjd4UTFzcVlqSkVpRGV2dzI5TndQTHZOSjloRVlLYlVoSEZzWUlRLWItTFFZYkJqakYwRG4xZy1CSUx6TU9GUU9sU3ExM0wwbGVxT0czb0RwWDI2SUd3ZEoyV001Y0l4YXl0aWRsOE5XUkJFV3pySVZmc2RydVczUXp4S3hHQ2FkZkxldVhwM3lpWFJqV1FVdzcxWG9YbFJDcTV0dUExM1IwQ0sxR1JHSjdMTmxZakQ2?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5NU1FXcVlSRXVZQ2lqamlVREl5LXJUZWloWnNrbDhFWnRTaVNKd2ZIMlpLVVRFdnQtSnRCSjh5YWFiSTVWNUZqeUNzMzJPX2k2Um9hSERqRVZhc1lZTVR5QWNtajRSbVlQ?oc=5",
+    "https://news.google.com/rss/articles/CBMikwFBVV95cUxPQ2N4S3kwdXJmYldKd2E4VFlJaGZhZTV4MHpsc09ockU4RmNCUkxWekVka0NOMzdYc2puMGdsaVViakVwREhGXzY3NHlKMHNsMjFJX05qMWZDSzQ4ZWQtS2FvVmI0TGJtTHdzTklDYjhCVE9oM2k0ZUhtYnVLd1oxSW9KMXN6OHpYS2syRWFUQlRwTU0?oc=5",
+    "https://news.google.com/rss/articles/CBMipgFBVV95cUxOUGxzQmtzYmthMjBrcjN0dVg2RThRa2pQeUZXaWwzTnc3dkstUXl2T2piT0pPTTRzemM5LUkwOUx5dWxNYTNtOUh4MHRvamp6VWh4cGxoc0lmb2dOY0sxVW82bFNoM3BSX3FEaktJVVdjTmY0X1JRN3dack1oS0M2MDA5VmJSa2pMckFNZXVnc1EycjhPbUhmVExGeUNOdk9nbnZvTHhB?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBGNVB3M053bFNBdjF2cEdPSnVfZWRFSEdSRGFpVi11a1RYM1g4dGV1bmFEcmJDc1YyRjBKNDdweGFlc21ZR0RVNHllcWtScjJvQ2wzV0J6dnNGbkJ4d3dXRWdyaFo0Yjct?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T06:43:57.885573+00:00"
+}

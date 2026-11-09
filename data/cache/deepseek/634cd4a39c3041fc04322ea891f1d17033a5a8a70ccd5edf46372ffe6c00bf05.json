@@ -1,0 +1,24 @@
+{
+  "home_summary_zh": "纽卡斯尔联方面，结构化伤停信息显示：若埃林顿（Joelinton Cássio Apolinário de Lira）为未明确说明的伤病，复出日期未知；埃文·若昂（Ewen Jaouen）为腿筋伤势，复出日期未知。公开新闻标题中暂无直接涉及本场纽卡斯尔联一线队伤停的明确信息。",
+  "away_summary_zh": "阿森纳方面，结构化伤停信息显示：布卡约·萨卡（Bukayo Saka）为大腿伤势，复出日期未知；马克斯·道曼（Max Dowman）停赛至11月29日。公开新闻标题中暂无直接涉及本场阿森纳一线队伤停的明确信息。",
+  "match_brief_zh": "本场为英超纽卡斯尔联主场对阵阿森纳，开球时间为2026年11月21日17:30（UTC），场地为圣詹姆斯公园球场。结构化信息显示双方均有伤停：纽卡斯尔联两人复出日期未知，阿森纳一人伤缺、一人停赛。天气为局部多云，降水概率20%，阵风28.8公里/小时。相关报道关注阿森纳的争冠前景与联赛形势，但公开标题未提供本场具体阵容或伤停细节。",
+  "key_points": [
+    "纽卡斯尔联：若埃林顿伤情未明确说明，复出日期未知。",
+    "纽卡斯尔联：埃文·若昂腿筋受伤，复出日期未知。",
+    "阿森纳：布卡约·萨卡大腿受伤，复出日期未知。",
+    "阿森纳：马克斯·道曼停赛至11月29日。",
+    "天气：局部多云，降水概率20%，阵风28.8公里/小时。",
+    "据公开标题显示，相关报道关注阿森纳的争冠前景与联赛形势，但未提供本场具体阵容信息。",
+    "暂无足够公开新闻信息说明本场双方的首发阵容。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMiiAFBVV95cUxPdDVKdDJKU2t0cjJ2SkVVUEw0Y2g3VTBheHZweUVEQkJocHVFcU5jT29jXzlVWHdRZXZvb2pNM3dlMzdEaE9ONU1fTUp3Q0NFQ0VqV3V3Yzl1T2ZIVzBPNmJQR1pxMUh6d3I3MXU1WFI2SDNiX3RnWXhQMURPR0k2LTRQN192YUpi?oc=5",
+    "https://news.google.com/rss/articles/CBMitgFBVV95cUxNdklYNk5kYlFMSExDQ3l2c0lmM1l0N3lFTzRuZm1oLThqU2xpR3lXa0h4aUJ3U01qWmtab1VHT3lCT1dTazJNeEo2U0ZTTTJTWVRCX2N5QU13ZXJObmxvT3NRUVIxbVlRZmRYOVF0eVVHenVpNGlJYmg3ZUpDNEpTY3E1NVBMZ1pUbVRldGxKaHZmUjItYXptZXJYQUZCSDhUc21US2EtMVgwY052b0VFajR1VTAydw?oc=5",
+    "https://news.google.com/rss/articles/CBMiwwFBVV95cUxPX0lubjFMZFdQc19xaEhXbDlkZTBwSm5faFVucEl5dGppWU03Nlo3TFhrR1JjM2NQdG9FME04d0w3Rkt6M0VhYjBKcVczNTF2R1NiQVZZTU9LM1FtSlpnbVJ4LWVNWjNPdzB1TVJMNmZVbFB5aEtwVWZaeUVUUFFjRTNKbHpyZUJhYW1ZNmUwZDZjUHJkdDFxVGxWVmdDS0lZMzJTS2JsN2xkTUZ2RHRlS3QtRlVPZVVFOFJycU42WWNPSFE?oc=5",
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxNUW9pYV9SbVRFNkpTZFIxTkNPQWpDUFFzd3lGNjh4TnJ5VHdyQ2ZTTHk4VmVIdk9DaHpYMS1fUWtPTERXTVZFdXZENlZUVUljVlpZaHNycmstT0hWN1ZMSXpZdHhpRWlqY2liVWt4TVRoRkFLbHBqOXhYYUlxaVhudWtlVFVSZ1hLaVFhY3lhQzhwWV91UlFqYmxyYTA?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE8yUDRNLVRGWUd1LUdMSHNkTHZJRE5LU0VCZ09QT3hyWjhrTk9IS2hGNklYbkZjbXdxc3gxbnp3RGpoYUZ4QTFoSXZJVUM3NkM3Y2hQN0wzRENlTjAzcm1XX0RKdEt0NHRY?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T10:19:19.813618+00:00"
+}

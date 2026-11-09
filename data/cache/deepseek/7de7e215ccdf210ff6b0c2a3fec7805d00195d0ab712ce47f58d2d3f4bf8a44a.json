@@ -1,0 +1,21 @@
+{
+  "home_summary_zh": "布伦特福德方面，结构化伤停数据显示：Igor Thiago Nascimento Rodrigues 停赛至12月5日；Fábio Freitas Gouveia Carvalho 有碰撞伤，预计11月23日回归；Rico Henry 髋部受伤，回归日期未知；Antoni Milambo 膝部受伤，回归日期未知。公开新闻标题方面，据公开标题显示，有报道关注 Michael Kayode 获得英超月度创意时刻提名，以及球队此前对阵布莱顿的赛况。",
+  "away_summary_zh": "埃弗顿方面，当前结构化数据未标记关键伤停或停赛。据公开标题显示，相关报道关注球队近期对阵纽卡斯尔和考文垂的比赛，以及 Jack Grealish 再次未进入客场对阵纽卡斯尔的大名单等话题。",
+  "match_brief_zh": "本场为英超布伦特福德主场对阵埃弗顿，开球时间为2026年11月23日20:00 UTC，场地为Gtech Community Stadium。结构化数据显示主队存在停赛和伤病情况，客队暂无关键伤停标记。阵容状态为数据提供方不可用，天气未知，裁判信息未提供。",
+  "key_points": [
+    "布伦特福德：Igor Thiago Nascimento Rodrigues 停赛至12月5日。",
+    "布伦特福德：Fábio Freitas Gouveia Carvalho 有碰撞伤，预计11月23日回归。",
+    "布伦特福德：Rico Henry 髋部受伤、Antoni Milambo 膝部受伤，回归日期均未知。",
+    "埃弗顿：当前结构化数据未标记关键伤停或停赛。",
+    "阵容状态为 provider_unavailable，天气未知，裁判信息未提供。",
+    "据公开标题显示，有报道关注布伦特福德球员 Michael Kayode 的英超月度创意时刻提名。",
+    "据公开标题显示，有报道关注 Jack Grealish 再次未进入埃弗顿客场对阵纽卡斯尔的大名单。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMiugFBVV95cUxPckZxeGZTdGdnQlM1NTBzVnYxY25ZMlhSZURkMm5qWjV5Qk5KRU5lckpDZHRFMzQtdmRTUlM0eTRsbUpZM19PcXN5dnFDYzBvU1RvM0hVbDdzNUZGZXZlbTRuOGFvRk9tZnBaOHhwNDFJVGRKRDQwYUJNRjM2VlFvOEllbDYtaWZEUmVoMjBuSHNNcndaeVctdE5hbWFLd2xGVUFRNWhpemJYRVRTX2RWc2dXMG0xMV9VN3c?oc=5",
+    "https://news.google.com/rss/articles/CBMivwFBVV95cUxPSjVHeGlZMHpXZE5EZEcxWHhhZXVjOXdOU0Q5eVR6X0NaVmxnaTNNUVZLMVNORHpHcEYzMU9iWnJYTFpmQ2h5ank3Mk1paFZQRU9qbl9YZXg1cUl5Tmp0MUd0OU1SMHE5cE9nSjZWS1dPV2hHQ2FycElWMXdseExWMmY5VGcxNmQtZkg5TmpUcjJpUWZkZ1hucUNrMzFUZEYyRzJZekJYSENDZlBnQ1Jia0V5TTlVbHFQSkN2NjBwRQ?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T06:45:20.436906+00:00"
+}

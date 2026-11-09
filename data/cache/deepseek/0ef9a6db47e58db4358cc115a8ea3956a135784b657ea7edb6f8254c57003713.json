@@ -1,0 +1,29 @@
+{
+  "home_summary_zh": "伯恩茅斯方面，结构化伤停信息显示：Juanlu Sánchez 脚踝受伤，复出时间未知；Alex Tóth 腿筋受伤，复出时间未知；Veljko Milosavljevic 大腿受伤，预计10月31日回归；Julián Araujo Zúñiga 大腿受伤，复出时间未知。公开新闻标题方面，据公开标题显示，有报道关注伯恩茅斯对阵伊普斯维奇的队伍新闻、球迷庆祝对布拉格斯巴达的胜利，以及埃万尼尔松在伯恩茅斯连胜中的表现；相关标题还提及伯恩茅斯取得八连胜。以上仅为标题信息，未核实正文细节。",
+  "away_summary_zh": "诺丁汉森林方面，结构化伤停信息显示：Nicolás Domínguez 肌肉受伤，预计12月30日回归；Nicolò Savona 膝盖受伤，复出时间未知。公开新闻标题方面，据公开标题显示，有报道关注诺丁汉森林3比1战胜曼城的英超比赛及赛后评论，另有标题提及诺丁汉森林对埃弗顿的比赛因联赛杯赛程调整。以上仅为标题信息，未核实正文细节。",
+  "match_brief_zh": "本场为英超比赛，伯恩茅斯主场对阵诺丁汉森林，开球时间为2026年11月21日15:00 UTC，场地为Vitality Stadium。结构化信息显示，主队有四名球员处于伤停名单，客队有两名球员处于伤停名单。天气描述为大致晴朗，降水概率40%，阵风43.2km/h。阵容状态为提供方不可用，裁判信息为空。重要性说明显示，主队排名第7、15分，客队排名第16、9分，双方休息时间均较充足。公开新闻标题多涉及两队近期其他比赛，暂无足够公开新闻信息直接说明本场赛前阵容或更多细节。",
+  "key_points": [
+    "伯恩茅斯结构化伤停：Juanlu Sánchez（脚踝，复出未知）、Alex Tóth（腿筋，复出未知）、Veljko Milosavljevic（大腿，预计10月31日回归）、Julián Araujo Zúñiga（大腿，复出未知）。",
+    "诺丁汉森林结构化伤停：Nicolás Domínguez（肌肉，预计12月30日回归）、Nicolò Savona（膝盖，复出未知）。",
+    "天气描述为大致晴朗，降水概率40%，阵风43.2km/h。",
+    "阵容状态为提供方不可用，裁判信息为空。",
+    "据公开标题显示，伯恩茅斯近期相关报道涉及对伊普斯维奇的队伍新闻及连胜表现；诺丁汉森林近期相关报道涉及3比1战胜曼城及赛程调整。",
+    "暂无足够公开新闻信息直接说明本场赛前阵容或更多细节。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMioAFBVV95cUxQaUZ6N09zVVF3THNpYkNvSzJ5SDBQc1h0VFNvaC1DWE9RblJsWUJ5S3M3R2xsd2g4NHkyeHFvNXZka21kc3FFVHA2Rk84QXZjdTRUVV9wd3dNeURYRkNTNDhCVjc3eV9yeWtJT2gyZEJiWldvdWM2MExXMmpJT1NCNEVTNDZoTGRwR0VqNUtLQjhnVUV0MkUtS21McjhvakJS?oc=5",
+    "https://news.google.com/rss/articles/CBMiXkFVX3lxTE0yRWNaQjhRN0szajYxMkp6Y3l3UGtWN2JQR0FydnoyT2MzTkV0RnloZjN5V2xJMjVBVl9kTGF6c1RORDZKdWMtaTRxRTUwYXhjLWlNaGd1dnViR19kSUE?oc=5",
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxQNnBETVFYM2x3WkZOaE8zOC1lSWprWVZOU2ZHZjd3bWh3ZUlCLVZxclcyMXhfYndwcDBmYU9HQnhFZmFwR18tV0w5b2Q4ZG1lSjB1QWE0SUt4TU42WWZDWUluVjZkMU9kd2pqaERZbWJFMWd2NjhMSjd5cThvSmJkazZVUUptQ2ZKTzhqS3JoU2Y3NXB5YTJId1cyMUE?oc=5",
+    "https://news.google.com/rss/articles/CBMikwFBVV95cUxOSGJrN0pGOHFKdlFYQmlUX3dNbG94R1F4U1RVY25Pa1ZTMm9EZVRzM3VFYU5oUlhTV1R0aGh4VTVyS284OFc4eHlUMmJHZXMtSzQyWkhaZDIzYkxqMzNYSUg3YVluV0pXVmVXUVNNUjNRSEF2OENXbUZVZHczaGM4S1dRdVJwZ2w2M1B2d0lDR21zX0E?oc=5",
+    "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNWVNHaHdGTkdFVzZVWFNobm9Ic3A1QkxvOExqWGotQmFzXzdJTnBxY18xYlo5VHNjd3gzZDNDZG1GT0tJUDZ3ZFFMVzBFdVNWNEFDNDhhVWw5RkVFU1hyLUJ0Y3NwZmEtdFhnenk5QlVhMmxiX0d2ejlfMHhtZkRDSExLdHhzd3FCcTN3YjJ0ak1yam9mdzZ3Y2lwSXFpTUxVX2d3bXRQRjU?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE12WHJqTmFVUHIxQVEweUlINUtqUVRybmoyd2hPVW96WlpIaW1vN0NBZ0dUam9pLUNGVFZqYVpwSm5ncUNLTFR4WThxYXYxeUhoMUdPTlBKYWhTOTc2MTZBdWpuV2Q3Rllt?oc=5",
+    "https://news.google.com/rss/articles/CBMiswFBVV95cUxQX3VCSFRscnQtVXZ6OFVGVVh3Tlp0NG5sbnNKdlJWRnJXRmhCdlpFb0o2UXd4TzB6ckwtMGF3d3JKTlowOEJZQWZPcFFUcTFjekdZMUF2UHdISUQyaFdhTkxZZlp6ZE1QUVRSRVpUejNSZWtzMTBPZ1VyTjNqY2tCVTVIUFFFajF0SW1NTGViNWNDaXdxUjJJZnUxVm56YW1RVmlveGo3a0ppNnJSTEltQTY3QQ?oc=5",
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxNMkhJQ20zcGlOYVM0RC1JRktVWXgyeHd5Sm5URUxueV9YTDM3V0twNHpoa3d0V21acmNVd0dHZjdPT0g5ZWMwZ1pnNTBnLXBYWnFUZjUxU2tvZ3dKZVhWUm04T2tDRHRfUnB4YTJ2WXFDaUM4Q0NkelBya2JWT3l2V2ZLVXVMcFhRcEJrNG5sTkxxR3ZCbzQwQ0FQbVEzSDlCdGFtRk1Ydw?oc=5",
+    "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNeVZrV0o5dm9mZ1FyNDZYT3BSekxIVXZVaElvTEZoSlQyT2gzYzY5UFlCMFZkb05CZHZWQ0lFY2FDSUFJdWNXSkxiVWU4YzBIX2doQTd0S2o2QTVxbVZSeU9VaFpPcEtVa2ZpUEhZMDdSRnctU005TU10RmR0S0Q4TkpHV1NzdGMxcDF5VGx6QUVucG5uaWNjemZYR3FXVy1nOGctSUhHMTI?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE0tTklNRXZiOURUcXpacWhZQnoydFg4TVpPdHpMdUllck1YVE56dWoyUEVMZU9IVWNPTklCQW93M2I1d1FNRmY3dFprN0VaSWwzRi01VVVsWHRUVGZwYjQ3UWxqWTB1bnVP?oc=5",
+    "https://news.google.com/rss/articles/CBMirwFBVV95cUxPT2M0aTVlV1QtQ0FSMVNqWEt4UTlJb3daeXRKOENVTU1lM1JQYVJoaE5TTlFKNFl1NzhhNmxLVXlMYzFtUVlickdyaXZqOVVXXzJkVm1mdFRobXh0V1JRTk9lQ2ZLWENGUWFyaG8wZlhGeTV6S3BOWEY2a1ZTVGdzMTJBQkRsdEx0NXhSNTBNQUdHYWJiOVQ4M1BaZzQ5ZVRiak5XbHJGdksyZkpGM0NV?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T06:43:42.444820+00:00"
+}

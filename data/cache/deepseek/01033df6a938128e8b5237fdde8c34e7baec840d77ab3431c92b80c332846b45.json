@@ -1,0 +1,24 @@
+{
+  "home_summary_zh": "利物浦方面，结构化伤停信息显示：杰雷米·弗林蓬（腿筋伤势，复出日期未知）、维捷斯拉夫·亚罗斯（膝伤，复出日期未知）、康纳·布拉德利（膝伤，复出日期未知）确定缺阵或归期未定；瑞安·赫拉芬贝赫（脚伤）有75%的出场可能。公开新闻标题方面，相关报道关注利物浦客场3-1击败水晶宫、追平俱乐部英超客场纪录，以及亚历克西斯·麦卡利斯特谈及国际比赛日后球队需继续提升。",
+  "away_summary_zh": "曼联方面，结构化伤停信息显示：卢克·肖（未指明伤势，复出日期未知）、马库斯·拉什福德（髋部伤势，复出日期未知）、卡洛斯·巴莱巴（腿筋伤势，复出日期未知）、本杰明·塞斯科（胫部伤势，复出日期未知）均归期未定。公开新闻标题方面，相关报道关注曼联4-4战平阿斯顿维拉，以及有报道称球队仍处于降级区。",
+  "match_brief_zh": "本场为英超利物浦主场对阵曼联，比赛地点为安菲尔德，开球时间为2026-11-22T16:30:00+00:00。天气为阴天，降水概率43%，阵风53.6km/h。阵容状态方面，提供方数据不可用。重要性方面，主队排名第4、18分，客队排名第18、8分，双方休息均为14天；该场属于当前最近未开赛比赛。",
+  "key_points": [
+    "利物浦伤停：弗林蓬、亚罗斯、布拉德利归期未定；赫拉芬贝赫有75%出场可能。",
+    "曼联伤停：卢克·肖、拉什福德、巴莱巴、塞斯科均归期未定。",
+    "据公开标题显示，利物浦近期客场3-1击败水晶宫，并追平俱乐部英超客场纪录。",
+    "据公开标题显示，曼联4-4战平阿斯顿维拉，有报道称球队仍处于降级区。",
+    "天气为阴天，降水概率43%，阵风53.6km/h。",
+    "阵容状态提供方数据不可用；裁判信息未提供。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxQZUxDNmdyUzdOa1Jhal9PaFhneUhpVGVDdVQyUEFOTlhhVExIVExTYkVLTUhHcWxCYjZ3cEd1MlhTMWZ6MnhXcXBnWU4tU2lNZndWV3dzQmlOV1drQllqcnY4WENwSVJhd2Z2dU45c1NrVHB2ZkxjUmVWMXoyVDRmbTRudW0wRzdRLUpLS0FoeENVbzlOOGtObXdhLTlSbFl3bFN0TmdHaw?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE9GaXhzZXZmb3ZQcEdPcEhyWkhSQ2dNdEVpVzVVTFFTeVVzT1NJbVFnZXRlei1acGxIdWg2UnFRdktJVWF6M19QMTU0UmVRcGV4SUxpMUhOcTlpUW5pTG5WeWZFUk9VTWc0?oc=5",
+    "https://news.google.com/rss/articles/CBMipAFBVV95cUxPRlZJTUlmNTZIcG1pMEJxUFFFYjZQTVJudC1GOUJ6TzZMU1hYNTZXUW1idTBmUC16T1MtXzdXZlhFZng3MXhQYW15Q0J6SkdhU2M2ODVhbGl3U2RCel9BVzcxX0dkWllJQW1LQ3RXLXlHSVdVQjQ4ZDRscklGNV8zcGVvTFlhb1NXY2NWRVMwSFFpeE9qTHFtS3dFQXdXRDV0UnFPOA?oc=5",
+    "https://news.google.com/rss/articles/CBMikAFBVV95cUxQUDYxU1B6OVpKMnk1S0JSRTFfWExkdFE2WHZYLVdhd2tTWjNiaWNvRTEwU2t0dlpDQk9TT0tVODhfRGhhMlNOWEQ4Ty1wbFMzTFZOUlJ1TkVFYTZWMVJVdUY1RF9ST3FjRW9mVDdEX1lGU2dHM3ptcHBhNTM4cmtiUDlXc3FQNjRtdWxWams1NFI?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBYM1RJQ0VTeVFqVlNNNnFsOXhBbFVwY2U5emg5bHZ5YnVMQXBvSlExYUgzRUxJYlFadG40ZURDRkVaVnNaSGFuZUFTWXhja2NmTHpqcjNKRjg0MVFXdTZ5QlB3LVNCYW9E?oc=5",
+    "https://news.google.com/rss/articles/CBMiuAFBVV95cUxOMW1TSGxFZnZiLS1zN242QWlERkFlakQ3UjdVRWlJc2JVSDJqWUZNYTdEQ0Q1RkFrVnJMQmN3Z1JVdU4zNFhibjE4TjVyX184YVRNYTNxaWpzZ05PWkxzbnNCQ0ppaXc2WU9YNHpDYnEwU2d6d3haQU9PUER0Zmw4ZUdsYkljRWgweDZZSUFQR195UXJObmczMFgwc250THBMbVpPbXlQWDFsOFdZTjZvdXVVX1ZjQmJ10gG-AUFVX3lxTE1FNkNRSzl5bEdZa0I0aURGWnRQVTBJb0oyakx3V05vdWgzMy1FQUxXRHVFLUNNWTU1UDFWekI1NFVDMWxsRXhtZHpLNmxxaG5OR1Q4VFplWWRGN2d5OGpzQThJMXJWTEpKOGlGLVRKSEdXR0N3ellfUzFTTnlQS0FpSmc2Ul9GOTNFcHZOblNQZjdDTU8xZ0RMOHhXTG5YMmhVTU1jQ0Q4V29CTVJXS3lKTlFYUnBZN1M2MmF5OGc?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T15:49:25.034573+00:00"
+}

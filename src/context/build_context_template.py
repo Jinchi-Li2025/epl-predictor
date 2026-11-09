@@ -48,11 +48,21 @@ CONTEXT_COLUMNS = [
     "context_confidence",
 
     "lineups_confirmed",
+    "lineup_status",
     "lineup_checked_at_utc",
     "lineup_source",
 
+    "home_predicted_xi_json",
+    "away_predicted_xi_json",
     "home_starting_xi_json",
     "away_starting_xi_json",
+    "home_substitutes_json",
+    "away_substitutes_json",
+    "home_lineup_changes_json",
+    "away_lineup_changes_json",
+    "home_coach",
+    "away_coach",
+    "lineup_explanation",
 
     "home_formation",
     "away_formation",
@@ -96,6 +106,15 @@ CONTEXT_COLUMNS = [
     "away_news_impact",
     "news_source",
     "news_checked_at_utc",
+
+    "home_news_items_json",
+    "away_news_items_json",
+    "llm_prematch_brief",
+    "llm_key_points_json",
+    "llm_used_source_urls_json",
+    "llm_status",
+    "llm_model",
+    "llm_checked_at_utc",
 
     "adjustment_applied",
     "adjusted_home_probability",
@@ -159,11 +178,23 @@ def build_default_row(
         "context_confidence": 0.0,
 
         "lineups_confirmed": False,
+        "lineup_status": "waiting",
         "lineup_checked_at_utc": pd.NA,
         "lineup_source": pd.NA,
 
+        "home_predicted_xi_json": "[]",
+        "away_predicted_xi_json": "[]",
         "home_starting_xi_json": "[]",
         "away_starting_xi_json": "[]",
+        "home_substitutes_json": "[]",
+        "away_substitutes_json": "[]",
+        "home_lineup_changes_json": "{}",
+        "away_lineup_changes_json": "{}",
+        "home_coach": pd.NA,
+        "away_coach": pd.NA,
+        "lineup_explanation": (
+            "官方首发尚未公布；临近开赛将自动刷新。"
+        ),
 
         "home_formation": pd.NA,
         "away_formation": pd.NA,
@@ -207,6 +238,15 @@ def build_default_row(
         "away_news_impact": pd.NA,
         "news_source": pd.NA,
         "news_checked_at_utc": pd.NA,
+
+        "home_news_items_json": "[]",
+        "away_news_items_json": "[]",
+        "llm_prematch_brief": pd.NA,
+        "llm_key_points_json": "[]",
+        "llm_used_source_urls_json": "[]",
+        "llm_status": "not_run",
+        "llm_model": pd.NA,
+        "llm_checked_at_utc": pd.NA,
 
         "adjustment_applied": False,
         "adjusted_home_probability": pd.NA,

@@ -1,0 +1,121 @@
+EPL Predictor · DeepSeek 情报与模型顾问补丁
+============================================================
+
+一、把补丁复制到哪里
+------------------------------------------------------------
+把这个压缩包解压后，将里面的所有文件和文件夹复制到：
+
+C:\Users\Administrator\epl-predictor
+
+如果 Windows 询问是否替换同名文件，选择“替换目标中的文件”。
+不要把最外层压缩包文件夹再套一层放进项目。
+
+
+二、配置 DeepSeek API Key
+------------------------------------------------------------
+1. 在项目根目录打开已有的 .env 文件：
+
+C:\Users\Administrator\epl-predictor\.env
+
+2. 在文件末尾新增下面两行，把第一行的内容替换成你自己的 Key：
+
+DEEPSEEK_API_KEY=你的DeepSeek_API_Key
+DEEPSEEK_MODEL=deepseek-flash
+
+注意：
+- 不要加多余空格。
+- 不要把真实 Key 发到聊天里，也不要提交到 Git。
+- 你的 .gitignore 已包含 .env，因此正常情况下不会提交密钥。
+- 建议在 .gitignore 末尾再加一行 data/cache/deepseek/，避免提交AI响应缓存。
+- 如果你的 DeepSeek 账号不支持 deepseek-flash，可把第二行改成
+  该账号控制台当前提供的模型名；程序本身无需修改。
+
+
+三、先做语法检查
+------------------------------------------------------------
+在 VS Code PowerShell 终端中，确保当前位置是：
+
+PS C:\Users\Administrator\epl-predictor>
+
+然后逐行运行：
+
+python -m py_compile src\llm\deepseek_client.py
+python -m py_compile src\context\fetch_team_news.py
+python -m py_compile src\context\build_team_news_context.py
+python -m py_compile src\evaluation\llm_model_advisor.py
+python -m py_compile src\pipeline\run_daily_update.py
+python -m py_compile app.py
+
+全部没有红色报错即通过。
+
+
+四、先单独测试新闻与 DeepSeek 摘要
+------------------------------------------------------------
+依次运行：
+
+python src\context\fetch_team_news.py
+python src\context\build_team_news_context.py
+python src\context\build_prematch_report.py
+
+预期结果：
+- reports\team_news_fetch_audit.csv 出现；
+- reports\team_news_context_audit.csv 出现；
+- 终端的 DeepSeek状态显示 success 或 cache_hit；
+- 如果显示 missing_api_key，请检查 .env 中 Key 的拼写和保存状态；
+- 如果显示 failed_fallback，原有摘要仍会正常生成，请查看审计CSV中的 llm_error。
+
+
+五、查看网页效果
+------------------------------------------------------------
+运行：
+
+streamlit cache clear
+streamlit run app.py
+
+打开任意比赛：
+- “综合提示”会显示 DeepSeek 赛前情报解读；
+- “伤停与球队消息”会显示公开新闻标题与可点击来源；
+- AI内容只用于解释，不会改动页面胜平负概率。
+
+
+六、测试模型实验顾问
+------------------------------------------------------------
+此功能需要已有 Champion / Challenger 指标文件。运行：
+
+python src\evaluation\llm_model_advisor.py
+
+输出：
+- reports\llm_model_advice.json
+- reports\llm_model_advice.md
+
+它只提出下一轮实验建议，不会自动修改：
+- configs\production_model.json
+- configs\ensemble_weights.json
+- 生产模型
+- 已发布概率
+
+
+七、以后正常更新
+------------------------------------------------------------
+原来的每日更新命令不变。流水线现在会自动：
+1. 抓取公开新闻标题；
+2. 生成有来源的 DeepSeek 赛前摘要；
+3. 保留原有确定性摘要作为失败回退；
+4. 使用 --with-validation 时生成模型实验建议。
+
+例如：
+
+python src\pipeline\run_daily_update.py
+
+需要同时运行验证和模型顾问时：
+
+python src\pipeline\run_daily_update.py --with-validation
+
+
+八、故障不会阻断项目
+------------------------------------------------------------
+- 没有 Key：自动使用原有摘要。
+- DeepSeek 暂时不可用：自动使用原有摘要。
+- 新闻源请求失败：伤停、天气、阵容、预测仍可继续。
+- DeepSeek 返回内容会经过字段与来源链接校验。
+- 新闻影响值固定为 0，不会被重复计入模型概率。

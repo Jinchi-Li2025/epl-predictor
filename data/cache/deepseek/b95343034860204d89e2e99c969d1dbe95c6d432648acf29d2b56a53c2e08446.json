@@ -1,0 +1,21 @@
+{
+  "home_summary_zh": "热刺方面，结构化伤停信息显示：萨维奥·莫雷拉·德·奥利维拉因肌肉伤势，预计11月21日回归；卢卡斯·贝里瓦尔膝伤，回归日期未知；马蒂斯·特尔脚踝伤势，出场概率75%；理查利森·德·安德拉德未进入名单。公开新闻标题主要涉及此前对阵利兹联的比赛及俱乐部相关报道，未提供本场更多伤停细节。",
+  "away_summary_zh": "伊普斯维奇方面，当前结构化数据未标记关键伤停或停赛。据公开标题显示，相关报道主要关注其此前对阵伯恩茅斯的比赛，暂无足够公开新闻信息说明本场具体阵容情况。",
+  "match_brief_zh": "本场为热刺主场对阵伊普斯维奇。结构化信息显示主队存在多名球员伤停或出场存疑，客队未标记关键伤停。公开新闻标题多为此前比赛报道，未提供本场直接信息。天气为局部多云，降水概率21%，阵风47.5km/h。",
+  "key_points": [
+    "热刺：萨维奥·莫雷拉·德·奥利维拉肌肉伤势，预计11月21日回归。",
+    "热刺：卢卡斯·贝里瓦尔膝伤，回归日期未知。",
+    "热刺：马蒂斯·特尔脚踝伤势，出场概率75%。",
+    "热刺：理查利森·德·安德拉德未进入名单。",
+    "伊普斯维奇：结构化数据未标记关键伤停或停赛。",
+    "据公开标题显示，相关新闻多为此前比赛报道，暂无足够公开新闻信息说明本场阵容。",
+    "天气：局部多云，降水概率21%，阵风47.5km/h。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMipgFBVV95cUxOUGxzQmtzYmthMjBrcjN0dVg2RThRa2pQeUZXaWwzTnc3dkstUXl2T2piT0pPTTRzemM5LUkwOUx5dWxNYTNtOUh4MHRvamp6VWh4cGxoc0lmb2dOY0sxVW82bFNoM3BSX3FEaktJVVdjTmY0X1JRN3dack1oS0M2MDA5VmJSa2pMckFNZXVnc1EycjhPbUhmVExGeUNOdk9nbnZvTHhB?oc=5",
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxNT2ZwZ1NnU2RDdlo1Tk1Zd0FQUjdST3hIWDlnUnhlakQ4TTZwc2Rac0VabnNPVngzY0NSd2xVQ0VkaHpZTzV2R1VURWl4b2NoTmgtZzg4SThRRllvV19vdzlvZUlCMGM5Um8tYWg5czd2b3g5SnUyTG5pMDFIaHhOcXI2Z1E0SGtGOGtIcnV1MS1PeDE5YVZqYkxzTVlYNVQ1RU5VbTNqRQ?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T06:44:03.861092+00:00"
+}

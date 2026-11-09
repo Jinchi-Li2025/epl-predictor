@@ -1,0 +1,35 @@
+{
+  "home_summary_zh": "热刺方面，结构化伤停信息显示：萨维奥·莫雷拉·德·奥利维拉因肌肉伤势，预计11月21日回归；卢卡斯·贝里瓦尔膝伤，回归日期未知；马蒂斯·特尔脚踝伤势，出场概率75%；理查利森·德·安德拉德未进入名单。相关公开新闻标题主要涉及热刺近期英超赛果及场外报道，未提供更多伤停细节。",
+  "away_summary_zh": "伊普斯维奇方面，当前结构化数据未标记关键伤停或停赛。据公开标题显示，相关报道关注伊普斯维奇近期英超比赛赛果与转播信息，暂无足够公开新闻信息说明具体阵容可用情况。",
+  "match_brief_zh": "本场为英超热刺主场对阵伊普斯维奇，比赛地点为托特纳姆热刺球场。结构化信息显示主队存在多名球员伤停或出场存疑，客队未标记关键伤停或停赛。天气为晴朗，降水概率21%，阵风13.3公里/小时。公开新闻标题主要涉及两队近期赛果，未提供本场阵容确认信息。",
+  "key_points": [
+    "热刺结构化伤停：萨维奥·莫雷拉·德·奥利维拉肌肉伤，预计11月21日回归。",
+    "热刺结构化伤停：卢卡斯·贝里瓦尔膝伤，回归日期未知。",
+    "热刺结构化伤停：马蒂斯·特尔脚踝伤，出场概率75%。",
+    "热刺结构化信息：理查利森·德·安德拉德未进入名单。",
+    "伊普斯维奇当前结构化数据未标记关键伤停或停赛。",
+    "天气为晴朗，降水概率21%，阵风13.3公里/小时。",
+    "公开新闻标题主要涉及两队近期赛果，暂无足够公开新闻信息确认本场阵容。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMivAFBVV95cUxNNUFJdEVySWhYNENLc1NNNFQwVWl5bmhpUlMyNDMwTy1PNG9EWTdmUjNQeFJ3MXh6V3h2UHJReXNEbW5tVzJNNnlib2dBYm5EZGI0UHlHd2lMNWNWT3A5Yjc4SW5EN3lBLWpVY25BUlFmMHF6Qi1MVG9KRmNNZkpmMThDU0YzRXdHaWlHTlM0aUxRbldUMHVyUm9aWWhZUkdzVlJzbDBZMUpwSWRHRnlpTnY5STZJeVlHV0pvQQ?oc=5",
+    "https://news.google.com/rss/articles/CBMipgFBVV95cUxOUGxzQmtzYmthMjBrcjN0dVg2RThRa2pQeUZXaWwzTnc3dkstUXl2T2piT0pPTTRzemM5LUkwOUx5dWxNYTNtOUh4MHRvamp6VWh4cGxoc0lmb2dOY0sxVW82bFNoM3BSX3FEaktJVVdjTmY0X1JRN3dack1oS0M2MDA5VmJSa2pMckFNZXVnc1EycjhPbUhmVExGeUNOdk9nbnZvTHhB?oc=5",
+    "https://news.google.com/rss/articles/CBMia0FVX3lxTE1uMmxzYTJncEFKVzlnejZRR2xzQ3VRRFlDazBrVzV3QjdtZV9icWFrWU1tLUh3LXljWm5YaGdXRkdVMjI5WXNMa2lBMm9VWkM0ZFNMSnYxakt5TzlOV3c2WVZlUjBLWWpTTnc4?oc=5",
+    "https://news.google.com/rss/articles/CBMivgFBVV95cUxPcmRGc3FuZmtMUGxWZGc3WTNuVGljTmR0Yml5ZkFtSG92Tk9zYUZscENtUkxPUEZSemZUeW15aGdfQVR0SUFLaVBsNjVKVU5sYVVoSVgxWkJaZmdVXzF0WjV6SUJjTDJfZ1ZuZmpVVHZlWkdWTHVHeDBxRUNWZFhpVl9iQmhNWGhudWg4cEFsNmlKMUtiempvZnJ3WGthYkkyNTNwRUthMWhJcmljLW5Xems2d0xyekFjOEN3eEtn?oc=5",
+    "https://news.google.com/rss/articles/CBMiqAFBVV95cUxOZGZORnRJRmhlRmdXelJaQThQaUVUMkNhOHpITWhHUVhnOFNXUHk5VmJLSnVSVm5iWEZBWVMxNzhfU01xTHNrcHNUZU50Smxqd1RHVkp6NFJOXy1uUHpBNk01TmV4SG9yeUlVbHRxSmkySmlHSTNfaW9UU2tnRXNVc213NW5yZ0JhbS13aWQ0OHdVTDVFaHpFQ0I0MW10ZS02TnNaaGYwT1_SAa4BQVVfeXFMUHFVNUhqUmZvMEFiOXNzWjVOMC1Rbk9lUXBHY0hYdGJXV0Fad1lFWmo5OHE4dVJJdXJoUkZsd2lweU1mcFlnS3NrTkszSUZ4U2NvVUxrVHhjRDJjNWdXZTM0cWcyel9kRnMxZkdOS2phZ25BQU9wd0NKVTlhUDduTGwxRTdneUtpUncwTVBrQ3ZjWlhtTnUwRWMyX1hEVXFHVF95ek9LNUlQTFByeE9R?oc=5",
+    "https://news.google.com/rss/articles/CBMiqwFBVV95cUxPRmVzbjlXdGRaTlVIMy0yVkJCMXRDZmRlTjY0Uk1QWV9iLTlIUGRaWjNVVW12YjRFd0Q4OS1GdmlTU3dDSFpERDAtTFBZOEE4LU5Pbk9panU4OTR3OGNDTFk1Uk9pNTR4SEdZMVdtSzdyVlVTeFliSXlEbHhHbHl3aThfSUdUZUZYeFJranNoZjEzcmFCbjlRZWRITTVIajg3RGFpaWRwNklyblk?oc=5",
+    "https://news.google.com/rss/articles/CBMiZkFVX3lxTE5jejZ3ZmUxdUEzNGVwSmE1WWI2NDNxYTFaa0ZQdlY0WXlxQjBGaXVsaTJaczlEZFpJc2lJLWYxQVl1NFl1d1lOWWZqM1lvbGlNdjBmRGFxQ01aemkyU3Rpay1WY2h3Zw?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTFBGNVB3M053bFNBdjF2cEdPSnVfZWRFSEdSRGFpVi11a1RYM1g4dGV1bmFEcmJDc1YyRjBKNDdweGFlc21ZR0RVNHllcWtScjJvQ2wzV0J6dnNGbkJ4d3dXRWdyaFo0Yjct?oc=5",
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxNT2ZwZ1NnU2RDdlo1Tk1Zd0FQUjdST3hIWDlnUnhlakQ4TTZwc2Rac0VabnNPVngzY0NSd2xVQ0VkaHpZTzV2R1VURWl4b2NoTmgtZzg4SThRRllvV19vdzlvZUlCMGM5Um8tYWg5czd2b3g5SnUyTG5pMDFIaHhOcXI2Z1E0SGtGOGtIcnV1MS1PeDE5YVZqYkxzTVlYNVQ1RU5VbTNqRQ?oc=5",
+    "https://news.google.com/rss/articles/CBMirgFBVV95cUxQV2l3VFB5ZHlPODVKbjFWY3NjeFhUWXRrbUFlRzJhWlRiOWpSMl85NWlMc29XN3d5RHQwOHJHNzV1LURpMURIUVY5eWhWWlpsOUh0azVhWHZDWTBIeWVwXzROZHAxb3ZSODZQTGUyWlJ3ZWFtMFBnWnN4SVc2S2ttcU1nRV9RRl9KcHJjZ245S1d6VkY5dWRMUmM4emRyNzl2eUZpTkZXalhpQ19qVWc?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE4yVG5iWFNsYlhSQUxQYS1ZZ3JOWWtSNndQeU51T2dYZEd6ZDFjOGVyOF9va1VaNTg5aVR0TWRCQkJJOFlweWROb0FHLXRObDU5LXc5N2R6blVlRlJHOUhsN0hpQjNkOEpJ?oc=5",
+    "https://news.google.com/rss/articles/CBMifEFVX3lxTE5FU1pXUmxWbEgtaGg5Tnl6TFZxUnlsTGI4T3RvMWhxVldPano2ZXB4alFPeVJQRFRLVnBNWTVSV0pPejd5dEFiVmFKSnBOU0xhdG96V1BlTW53VUFaZ2pDYXN3VFRaeEhsa19CdnkyVzB0dDFqUFZmS0ZkZi0?oc=5",
+    "https://news.google.com/rss/articles/CBMiowFBVV95cUxPSXlwMGZKc3lzRFFqRjk3T2EwZF83Zm9vSHdkOXc5MGRFZWtpSFNxOElIZ0prbmNyaDM4bXlZVFV6QWhFNy1xQ0x4aDBUeHdnRlJTVTJhcGwxbFF2cFlLYjhBY3BNdTZnTktYTEp0eWFVSHVjTXdmU0tLQ0lNam94Y0tpTkpzUUZ6WEZtMnNIRHJNY0cwQThObnpWYVhVWVB1Rlc4?oc=5",
+    "https://news.google.com/rss/articles/CBMikwFBVV95cUxOSGJrN0pGOHFKdlFYQmlUX3dNbG94R1F4U1RVY25Pa1ZTMm9EZVRzM3VFYU5oUlhTV1R0aGh4VTVyS284OFc4eHlUMmJHZXMtSzQyWkhaZDIzYkxqMzNYSUg3YVluV0pXVmVXUVNNUjNRSEF2OENXbUZVZHczaGM4S1dRdVJwZ2w2M1B2d0lDR21zX0E?oc=5",
+    "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNWVNHaHdGTkdFVzZVWFNobm9Ic3A1QkxvOExqWGotQmFzXzdJTnBxY18xYlo5VHNjd3gzZDNDZG1GT0tJUDZ3ZFFMVzBFdVNWNEFDNDhhVWw5RkVFU1hyLUJ0Y3NwZmEtdFhnenk5QlVhMmxiX0d2ejlfMHhtZkRDSExLdHhzd3FCcTN3YjJ0ak1yam9mdzZ3Y2lwSXFpTUxVX2d3bXRQRjU?oc=5",
+    "https://news.google.com/rss/articles/CBMivAFBVV95cUxQTXpwUTlPbFN1cGg2TzcyMFZpaUZsVTdPdkl6ODdNODdQZVl0UFZZWmtwZ2hpMUdUSEI2bmUwRVhjTWtQdEV2T0lFd2VRcjF2bWZxVTBOLUNwUkpYd3NFSlFadnZQUTJ5WGVrdHl3QnhYUGlfSG5sVDQwWXNwbmdqVDduOFRxRHV5a2t4WS01eDVfVnk5cW44UkRhbVRlclFBczNTREtKSWFtR25LZjQ1TDB2dVY1RDZ6ak5VdQ?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T10:19:02.087189+00:00"
+}

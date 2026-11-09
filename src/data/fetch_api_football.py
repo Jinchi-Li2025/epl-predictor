@@ -369,9 +369,29 @@ def main() -> None:
 
     print("正在连接API-Football……")
 
-    payload, quota = request_fixtures(
-        api_key
-    )
+    try:
+        payload, quota = request_fixtures(
+            api_key
+        )
+    except RuntimeError as error:
+        error_text = str(error)
+
+        if (
+            "Free plans do not have access"
+            in error_text
+            or "'plan'" in error_text
+        ):
+            print(
+                "当前API-Football免费方案不提供"
+                "2026赛季数据。"
+            )
+            print(
+                "已跳过官方赛程下载；"
+                "预计阵容和其他赛前功能仍可继续运行。"
+            )
+            return
+
+        raise
 
     raw_fixtures = payload["response"]
 

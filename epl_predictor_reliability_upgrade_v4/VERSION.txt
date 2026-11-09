@@ -1,0 +1,21 @@
+EPL Predictor Reliability and Monitoring Upgrade
+Version: 4.0.0
+Date: 2026-11-09
+
+Scope:
+- Full matchday squad: starting XI plus official/projected substitutes
+- Registered-player intelligence and per-90 performance fields
+- Probable-XI availability, bench depth, absence burden and selection stability
+- football-data.org official lineup/bench fallback
+- Validated manual lineup override fallback
+- Chronological pre-match squad snapshot dataset
+- Leak-resistant squad-feature Shadow Challenger
+- DeepSeek squad experiment advisor with no production writes
+- Unified Model Center squad-lab and system-health tabs
+- One-command backup, install, compile and initial build
+- Windows application-control-safe Streamlit launch through python -m streamlit
+- Cross-match player/team contamination blocking for DeepSeek narratives
+- Evidence-source audit and safe deterministic fallback
+- ECE calibration, recent Log Loss degradation and monitoring alerts
+- Downloadable evidence-bounded match briefs
+- Data freshness thresholds in system health

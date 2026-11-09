@@ -4,6 +4,8 @@ import base64
 import html
 import json
 import mimetypes
+import re
+import unicodedata
 from pathlib import Path
 
 import pandas as pd
@@ -32,6 +34,13 @@ STADIUM_ASSETS_FILE = (
     / "data"
     / "assets"
     / "stadium_assets.parquet"
+)
+
+PLAYER_REGISTRY_FILE = (
+    PROJECT_ROOT
+    / "data"
+    / "assets"
+    / "player_registry.parquet"
 )
 
 
@@ -709,6 +718,274 @@ st.markdown(
     unsafe_allow_html=True,
 )
 
+st.markdown(
+    """
+    <style>
+    :root {
+        --surface-0: #070b13;
+        --surface-1: #0d1421;
+        --surface-2: #121c2d;
+        --surface-3: #172338;
+        --line: #263753;
+        --text: #f4f8ff;
+        --muted: #9db0ca;
+        --accent: #00e59b;
+    }
+    [data-testid="stHeader"] {
+        background: rgba(7, 11, 19, .94) !important;
+        border-bottom: 1px solid rgba(38, 55, 83, .75);
+    }
+    [data-testid="stAppViewContainer"],
+    [data-testid="stMain"] {
+        background: var(--surface-0) !important;
+        color: var(--text) !important;
+    }
+    [data-testid="stSidebar"] {
+        background: #0c1320 !important;
+    }
+    [data-testid="stSidebar"] *,
+    [data-testid="stSidebarNav"] span,
+    [data-testid="stSidebarNav"] a {
+        color: #dce7f7 !important;
+    }
+    [data-testid="stSidebar"] input,
+    [data-testid="stSidebar"] [data-baseweb="select"] > div {
+        background: #151f30 !important;
+        border-color: #32435e !important;
+        color: #f4f8ff !important;
+    }
+    [data-baseweb="popover"],
+    [data-baseweb="menu"],
+    [role="listbox"] {
+        background: #121c2d !important;
+        color: #f4f8ff !important;
+    }
+    [role="option"] { color: #e8eff9 !important; }
+    [role="option"]:hover { background: #1b2a41 !important; }
+    [data-testid="stDataFrame"],
+    [data-testid="stTable"] {
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        overflow: hidden;
+        background: var(--surface-1) !important;
+    }
+    [data-testid="stDataFrame"] iframe {
+        color-scheme: dark;
+    }
+    [data-testid="stVegaLiteChart"],
+    [data-testid="stPlotlyChart"] {
+        padding: 8px;
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        background: var(--surface-1) !important;
+    }
+    [data-testid="stCaptionContainer"],
+    [data-testid="stCaptionContainer"] p {
+        color: #91a5c2 !important;
+    }
+    [data-testid="stExpander"] {
+        border-color: var(--line) !important;
+        background: #0d1421 !important;
+    }
+    .lineup-team-shell {
+        padding: 18px;
+        border: 1px solid #263753;
+        border-radius: 20px;
+        background:
+            radial-gradient(circle at 90% 0, rgba(0,229,155,.08), transparent 34%),
+            linear-gradient(145deg, #101a2a, #0b111c);
+        box-shadow: 0 18px 42px rgba(0,0,0,.23);
+        margin-bottom: 14px;
+    }
+    .lineup-team-heading {
+        display: flex;
+        justify-content: space-between;
+        gap: 10px;
+        align-items: flex-start;
+        margin-bottom: 12px;
+    }
+    .lineup-team-heading h3 {
+        margin: 0;
+        font-size: 1.25rem;
+    }
+    .lineup-status-pill {
+        display: inline-flex;
+        align-items: center;
+        min-height: 27px;
+        padding: 4px 10px;
+        border-radius: 999px;
+        color: #bbffe7;
+        background: rgba(0,229,155,.12);
+        border: 1px solid rgba(0,229,155,.26);
+        font-size: .7rem;
+        font-weight: 800;
+        letter-spacing: .03em;
+        white-space: nowrap;
+    }
+    .lineup-status-pill.predicted {
+        color: #d8e6ff;
+        background: rgba(77,145,255,.12);
+        border-color: rgba(77,145,255,.28);
+    }
+    .lineup-meta {
+        color: #91a5c2;
+        font-size: .78rem;
+        margin-bottom: 14px;
+    }
+    .tactical-layout {
+        display: grid;
+        grid-template-columns: minmax(320px, 1.75fr) minmax(155px, .75fr);
+        gap: 14px;
+        align-items: stretch;
+    }
+    .tactical-pitch {
+        position: relative;
+        min-height: 520px;
+        overflow: hidden;
+        border: 3px solid rgba(239,255,245,.74);
+        border-radius: 16px;
+        background:
+            repeating-linear-gradient(
+                90deg,
+                rgba(255,255,255,.026) 0,
+                rgba(255,255,255,.026) 12.5%,
+                rgba(0,0,0,.035) 12.5%,
+                rgba(0,0,0,.035) 25%
+            ),
+            linear-gradient(180deg, #118149 0%, #0d6b3c 100%);
+        box-shadow: inset 0 0 45px rgba(0,0,0,.18);
+    }
+    .pitch-halfway {
+        position: absolute;
+        left: 0; right: 0; top: 50%;
+        border-top: 2px solid rgba(255,255,255,.62);
+    }
+    .pitch-centre-circle {
+        position: absolute;
+        left: 50%; top: 50%;
+        width: 112px; height: 112px;
+        border: 2px solid rgba(255,255,255,.62);
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+    }
+    .pitch-centre-dot {
+        position: absolute;
+        left: 50%; top: 50%;
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: rgba(255,255,255,.75);
+        transform: translate(-50%, -50%);
+    }
+    .pitch-box {
+        position: absolute;
+        left: 18%; width: 64%; height: 16%;
+        border: 2px solid rgba(255,255,255,.62);
+    }
+    .pitch-box.top { top: -2px; border-top: 0; }
+    .pitch-box.bottom { bottom: -2px; border-bottom: 0; }
+    .pitch-goal-box {
+        position: absolute;
+        left: 35%; width: 30%; height: 7%;
+        border: 2px solid rgba(255,255,255,.62);
+    }
+    .pitch-goal-box.top { top: -2px; border-top: 0; }
+    .pitch-goal-box.bottom { bottom: -2px; border-bottom: 0; }
+    .pitch-player {
+        position: absolute;
+        width: 86px;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        z-index: 4;
+    }
+    .pitch-player-marker {
+        display: flex;
+        width: 40px; height: 40px;
+        margin: 0 auto 4px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: #07150f;
+        background: #f4fff9;
+        border: 3px solid #00e59b;
+        font-size: .66rem;
+        font-weight: 900;
+        box-shadow: 0 7px 14px rgba(0,0,0,.32);
+    }
+    .pitch-player-name {
+        display: inline-block;
+        max-width: 84px;
+        padding: 2px 5px;
+        overflow: hidden;
+        border-radius: 5px;
+        color: white;
+        background: rgba(2,12,8,.68);
+        font-size: .66rem;
+        font-weight: 750;
+        line-height: 1.15;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        text-shadow: 0 1px 4px #000;
+    }
+    .bench-panel {
+        min-height: 520px;
+        padding: 13px;
+        border: 1px solid #30425f;
+        border-radius: 14px;
+        background: rgba(7,13,23,.76);
+    }
+    .bench-title {
+        margin: 0 0 10px;
+        color: #eef5ff;
+        font-size: .8rem;
+        font-weight: 850;
+        letter-spacing: .06em;
+    }
+    .bench-player {
+        display: grid;
+        grid-template-columns: 26px 1fr 30px;
+        gap: 6px;
+        align-items: center;
+        min-height: 39px;
+        padding: 6px 0;
+        border-bottom: 1px solid rgba(51,68,96,.55);
+    }
+    .bench-number {
+        color: #7f96b6;
+        font-size: .68rem;
+        text-align: center;
+    }
+    .bench-name {
+        overflow: hidden;
+        color: #e7eef9;
+        font-size: .72rem;
+        font-weight: 680;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+    .bench-pos {
+        padding: 3px 5px;
+        border-radius: 6px;
+        color: #00e59b;
+        background: rgba(0,229,155,.10);
+        font-size: .62rem;
+        font-weight: 850;
+        text-align: center;
+    }
+    .bench-empty {
+        color: #7f93b2;
+        font-size: .72rem;
+        line-height: 1.55;
+    }
+    @media (max-width: 1100px) {
+        .tactical-layout { grid-template-columns: 1fr; }
+        .bench-panel { min-height: auto; }
+        .tactical-pitch { min-height: 490px; }
+    }
+    </style>
+    """,
+    unsafe_allow_html=True,
+)
+
 @st.cache_data
 def load_predictions() -> pd.DataFrame:
     if not PREDICTIONS_FILE.exists():
@@ -796,6 +1073,21 @@ def load_stadium_assets() -> pd.DataFrame:
         )
 
     return assets
+
+
+@st.cache_data
+def load_player_registry() -> pd.DataFrame:
+    if not PLAYER_REGISTRY_FILE.exists():
+        return pd.DataFrame()
+
+    registry = pd.read_parquet(
+        PLAYER_REGISTRY_FILE
+    )
+
+    if "team" not in registry.columns:
+        return pd.DataFrame()
+
+    return registry.copy()
 
 
 @st.cache_data(
@@ -950,6 +1242,801 @@ def parse_scorelines(value) -> list[dict]:
     return []
 
 
+def parse_json_list(value) -> list[dict]:
+    if isinstance(value, list):
+        return [
+            item
+            for item in value
+            if isinstance(item, dict)
+        ]
+
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+        except json.JSONDecodeError:
+            return []
+
+        if isinstance(parsed, list):
+            return [
+                item
+                for item in parsed
+                if isinstance(item, dict)
+            ]
+
+    return []
+
+
+def parse_json_object(value) -> dict:
+    if isinstance(value, dict):
+        return value
+
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+        except json.JSONDecodeError:
+            return {}
+
+        if isinstance(parsed, dict):
+            return parsed
+
+    return {}
+
+
+def parse_json_string_list(value) -> list[str]:
+    if isinstance(value, list):
+        return [
+            str(item).strip()
+            for item in value
+            if isinstance(item, str) and item.strip()
+        ]
+
+    if isinstance(value, str):
+        try:
+            parsed = json.loads(value)
+        except json.JSONDecodeError:
+            return []
+
+        if isinstance(parsed, list):
+            return [
+                str(item).strip()
+                for item in parsed
+                if isinstance(item, str) and item.strip()
+            ]
+
+    return []
+
+
+def build_downloadable_match_brief(row: pd.Series) -> str:
+    home = clean_optional_text(row.get("home_team")) or "Home"
+    away = clean_optional_text(row.get("away_team")) or "Away"
+    evidence_status = (
+        clean_optional_text(row.get("llm_evidence_status"))
+        or "尚未执行证据校验"
+    )
+    llm_safe = str(row.get("llm_safe_to_display", True)).lower() not in {
+        "false", "0", "no"
+    }
+    lines = [
+        f"# {home} vs {away}",
+        "",
+        f"- 开球时间：{clean_optional_text(row.get('kickoff_utc')) or '待确认'}",
+        f"- 场地：{clean_optional_text(row.get('venue_name')) or '待确认'}",
+        f"- 预测赛果：**{clean_optional_text(row.get('predicted_outcome')) or '—'}**",
+        f"- 最可能比分：**{clean_optional_text(row.get('most_likely_score')) or '—'}**",
+        (
+            "- 主胜 / 平局 / 客胜："
+            f"**{float(row.get('home_probability', 0)):.1%} / "
+            f"{float(row.get('draw_probability', 0)):.1%} / "
+            f"{float(row.get('away_probability', 0)):.1%}**"
+        ),
+        "",
+        "## 结构化赛前判断",
+        "",
+        clean_optional_text(row.get("context_summary")) or "暂无摘要。",
+        "",
+        f"AI证据状态：`{evidence_status}`",
+    ]
+    llm_brief = clean_optional_text(row.get("llm_prematch_brief"))
+    if llm_safe and llm_brief:
+        lines.extend(["", "## DeepSeek情报解读", "", llm_brief])
+    elif not llm_safe:
+        lines.extend(
+            ["", "> AI解读检测到跨比赛实体污染，已从导出简报中隐藏。"]
+        )
+    sources = parse_json_list(row.get("llm_evidence_sources_json"))
+    if sources:
+        lines.extend(["", "## 可核验来源", ""])
+        for source in sources:
+            title = clean_optional_text(source.get("title")) or "公开来源"
+            url = clean_optional_text(source.get("url"))
+            lines.append(f"- [{title}]({url})" if url else f"- {title}")
+    lines.extend(
+        ["", "---", "模型概率为冻结输出；情报文字不会直接修改预测概率。"]
+    )
+    return "\n".join(lines) + "\n"
+
+
+def render_news_sources(value) -> None:
+    articles = parse_json_list(value)
+
+    if not articles:
+        st.caption("最近一次更新未取得可展示的公开新闻标题。")
+        return
+
+    with st.expander(
+        f"查看公开新闻线索（{len(articles)}）",
+        expanded=False,
+    ):
+        for article in articles:
+            title = clean_optional_text(
+                article.get("title")
+            ) or "未命名报道"
+            source = clean_optional_text(
+                article.get("source")
+            ) or "来源未标明"
+            url = clean_optional_text(
+                article.get("url")
+            )
+            published = clean_optional_text(
+                article.get("published_at_utc")
+            )
+
+            safe_title = (
+                title.replace("[", "\\[")
+                .replace("]", "\\]")
+            )
+            safe_source = (
+                source.replace("[", "\\[")
+                .replace("]", "\\]")
+            )
+
+            if url.startswith(("https://", "http://")):
+                st.markdown(
+                    f"- [{safe_title}]({url}) · {safe_source}"
+                )
+            else:
+                st.markdown(
+                    f"- {safe_title} · {safe_source}"
+                )
+
+            if published:
+                st.caption(published)
+
+        st.caption(
+            "这里展示的是公开标题与原始链接；"
+            "重要结论请打开来源核对正文。"
+        )
+
+
+def squad_number_text(value) -> str:
+    if value is None:
+        return "—"
+
+    try:
+        if pd.isna(value):
+            return "—"
+    except (TypeError, ValueError):
+        pass
+
+    text = str(value).strip()
+    if not text or text.casefold() in {"nan", "none", "<na>"}:
+        return "—"
+
+    try:
+        numeric = float(text)
+        if numeric.is_integer() and 0 < numeric < 1000:
+            return str(int(numeric))
+        return "—"
+    except ValueError:
+        return text
+
+
+def lineup_table(players: list[dict]) -> pd.DataFrame:
+    rows = []
+
+    for position, player in enumerate(players, start=1):
+        number_text = squad_number_text(
+            player.get("number")
+        )
+
+        appearances = pd.to_numeric(
+            pd.Series([player.get("appearances")]), errors="coerce"
+        ).iloc[0]
+        starts = pd.to_numeric(
+            pd.Series([player.get("starts")]), errors="coerce"
+        ).iloc[0]
+        substitutes = pd.to_numeric(
+            pd.Series([player.get("substitute_appearances")]), errors="coerce"
+        ).iloc[0]
+        if pd.isna(appearances):
+            appearances = starts
+        appearances_text = (
+            "—"
+            if pd.isna(appearances)
+            else f"{int(appearances)} ({0 if pd.isna(substitutes) else int(substitutes)})"
+        )
+        nationality = clean_optional_text(player.get("nationality")) or "待核验"
+        multi_status = clean_optional_text(
+            player.get("multiple_nationality_status")
+        )
+        nationality_text = nationality
+        if multi_status and "待核验" not in multi_status:
+            nationality_text += f" · {multi_status}"
+
+        goals = pd.to_numeric(
+            pd.Series([player.get("goals_scored")]), errors="coerce"
+        ).fillna(0).iloc[0]
+        assists = pd.to_numeric(
+            pd.Series([player.get("assists")]), errors="coerce"
+        ).fillna(0).iloc[0]
+
+        rows.append(
+            {
+                "#": position,
+                "名单身份": (
+                    clean_optional_text(player.get("squad_role"))
+                    or "—"
+                ),
+                "号码": number_text,
+                "球员": (
+                    player.get("display_name")
+                    or player.get("name")
+                    or "未知球员"
+                ),
+                "位置": player.get("pos") or "—",
+                "🌍 国籍": nationality_text,
+                "📊 出场": appearances_text,
+                "⚽ 进球/助攻": f"{int(goals)} / {int(assists)}",
+                "🩺 状态": (
+                    clean_optional_text(player.get("availability_status"))
+                    or "状态未知"
+                ),
+            }
+        )
+
+    return pd.DataFrame(rows)
+
+
+def player_name_key(value) -> str:
+    text = unicodedata.normalize(
+        "NFKD",
+        str(value or ""),
+    )
+    text = "".join(
+        character
+        for character in text
+        if not unicodedata.combining(character)
+    )
+    return re.sub(r"[^a-z0-9]+", " ", text.lower()).strip()
+
+
+def player_display_name(player: dict) -> str:
+    return clean_optional_text(
+        player.get("display_name")
+        or player.get("name")
+        or player.get("registered_name")
+    ) or "未知球员"
+
+
+def player_position(player: dict) -> str:
+    raw = clean_optional_text(
+        player.get("pos")
+        or player.get("position_code")
+        or player.get("position")
+    ).upper()
+    aliases = {
+        "GK": "G",
+        "GOALKEEPER": "G",
+        "DEF": "D",
+        "DEFENDER": "D",
+        "MID": "M",
+        "MIDFIELDER": "M",
+        "FWD": "F",
+        "FORWARD": "F",
+    }
+    return aliases.get(raw, raw[:1] or "—")
+
+
+def enrich_lineup_players(
+    team_name: str,
+    players: list[dict],
+    registry: pd.DataFrame,
+) -> list[dict]:
+    if not players or registry.empty:
+        return [dict(player) for player in players]
+
+    team_registry = registry.loc[
+        registry["team"].astype(str).str.casefold()
+        == str(team_name).casefold()
+    ].copy()
+    if team_registry.empty:
+        return [dict(player) for player in players]
+
+    enriched: list[dict] = []
+    for player in players:
+        output = dict(player)
+        matched_row = None
+
+        source_text = clean_optional_text(player.get("source")).casefold()
+        player_id = player.get("id")
+        if "fpl" in source_text and player_id is not None and "fpl_id" in team_registry:
+            numeric_ids = pd.to_numeric(
+                team_registry["fpl_id"], errors="coerce"
+            )
+            try:
+                id_matches = team_registry.loc[
+                    numeric_ids.eq(float(player_id))
+                ]
+            except (TypeError, ValueError):
+                id_matches = pd.DataFrame()
+            if not id_matches.empty:
+                matched_row = id_matches.iloc[0]
+
+        if matched_row is None:
+            target_key = player_name_key(player_display_name(player))
+            best_score = 0
+            for _, candidate in team_registry.iterrows():
+                candidate_keys = {
+                    player_name_key(candidate.get("display_name")),
+                    player_name_key(candidate.get("registered_name")),
+                    player_name_key(candidate.get("web_name")),
+                    player_name_key(candidate.get("fpl_full_name")),
+                }
+                candidate_keys.discard("")
+                score = 0
+                for candidate_key in candidate_keys:
+                    if target_key == candidate_key:
+                        score = max(score, 100)
+                    elif (
+                        len(target_key) >= 4
+                        and len(candidate_key) >= 4
+                        and (
+                            target_key.endswith(candidate_key)
+                            or candidate_key.endswith(target_key)
+                        )
+                    ):
+                        score = max(score, 85)
+                    elif (
+                        target_key.split()
+                        and candidate_key.split()
+                        and target_key.split()[-1] == candidate_key.split()[-1]
+                    ):
+                        score = max(score, 70)
+                if score > best_score:
+                    best_score = score
+                    matched_row = candidate
+
+            if best_score < 70:
+                matched_row = None
+
+        if matched_row is not None:
+            if squad_number_text(output.get("number")) == "—":
+                registry_number = squad_number_text(
+                    matched_row.get("squad_number")
+                )
+                if registry_number != "—":
+                    output["number"] = registry_number
+            if player_position(output) == "—":
+                output["pos"] = matched_row.get("position_code")
+            for column in [
+                "nationality",
+                "citizenships",
+                "multiple_nationality_status",
+                "date_of_birth",
+                "appearances",
+                "starts",
+                "substitute_appearances",
+                "goals_scored",
+                "assists",
+                "minutes",
+                "expected_goals",
+                "expected_assists",
+                "availability_status",
+                "news",
+                "position_detail",
+                "registration_category",
+            ]:
+                value = matched_row.get(column)
+                if value is not None and not (
+                    isinstance(value, float) and pd.isna(value)
+                ):
+                    output[column] = value
+
+        enriched.append(output)
+
+    return enriched
+
+
+def formation_rows(formation_text: str) -> list[int]:
+    values = [
+        int(value)
+        for value in re.findall(
+            r"\d+",
+            clean_optional_text(formation_text),
+        )
+    ]
+    if values and sum(values) == 10:
+        return [1, *values]
+    return [1, 4, 4, 2]
+
+
+def tactical_positions(
+    players: list[dict],
+    formation_text: str,
+) -> list[tuple[dict, float, float]]:
+    grid_players = []
+    for player in players:
+        grid = clean_optional_text(player.get("grid"))
+        match = re.fullmatch(r"(\d+):(\d+)", grid)
+        if match:
+            grid_players.append(
+                (player, int(match.group(1)), int(match.group(2)))
+            )
+
+    if len(grid_players) == len(players) and players:
+        maximum_row = max(row for _, row, _ in grid_players)
+        row_counts = {
+            row: max(column for _, item_row, column in grid_players if item_row == row)
+            for row in {item_row for _, item_row, _ in grid_players}
+        }
+        positioned = []
+        for player, row, column in grid_players:
+            count = row_counts[row]
+            x_value = 100.0 * column / (count + 1)
+            y_value = (
+                88.0
+                if maximum_row == 1
+                else 88.0 - ((row - 1) * 72.0 / (maximum_row - 1))
+            )
+            positioned.append((player, x_value, y_value))
+        return positioned
+
+    position_order = {"G": 0, "D": 1, "M": 2, "F": 3, "—": 4}
+    ordered = sorted(
+        enumerate(players),
+        key=lambda item: (
+            position_order.get(player_position(item[1]), 4),
+            item[0],
+        ),
+    )
+    ordered_players = [player for _, player in ordered]
+    rows = formation_rows(formation_text)
+    positioned = []
+    cursor = 0
+    row_total = len(rows)
+
+    for row_index, count in enumerate(rows):
+        row_players = ordered_players[cursor : cursor + count]
+        cursor += count
+        y_value = (
+            88.0
+            if row_total == 1
+            else 88.0 - (row_index * 72.0 / (row_total - 1))
+        )
+        for column_index, player in enumerate(row_players, start=1):
+            x_value = 100.0 * column_index / (len(row_players) + 1)
+            positioned.append((player, x_value, y_value))
+
+    return positioned
+
+
+def probable_bench_from_registry(
+    team_name: str,
+    starters: list[dict],
+    registry: pd.DataFrame,
+) -> list[dict]:
+    if registry.empty:
+        return []
+
+    candidates = registry.loc[
+        registry["team"].astype(str).str.casefold()
+        == str(team_name).casefold()
+    ].copy()
+    if candidates.empty:
+        return []
+
+    starter_keys = {
+        player_name_key(player_display_name(player))
+        for player in starters
+    }
+
+    def is_starter(row: pd.Series) -> bool:
+        names = {
+            player_name_key(row.get("display_name")),
+            player_name_key(row.get("registered_name")),
+            player_name_key(row.get("web_name")),
+        }
+        names.discard("")
+        for name in names:
+            if name in starter_keys:
+                return True
+            if any(
+                name.endswith(key) or key.endswith(name)
+                for key in starter_keys
+                if len(name) >= 4 and len(key) >= 4
+            ):
+                return True
+        return False
+
+    candidates = candidates.loc[
+        ~candidates.apply(is_starter, axis=1)
+    ].copy()
+
+    for column in [
+        "eligible_2026_27",
+        "chance_of_playing_next_round",
+        "starts",
+        "minutes",
+        "total_points",
+    ]:
+        if column not in candidates.columns:
+            candidates[column] = 0
+
+    candidates["eligible_2026_27"] = (
+        candidates["eligible_2026_27"].fillna(False).astype(bool)
+    )
+    for column in [
+        "chance_of_playing_next_round",
+        "starts",
+        "minutes",
+        "total_points",
+    ]:
+        candidates[column] = pd.to_numeric(
+            candidates[column], errors="coerce"
+        ).fillna(0)
+
+    candidates = candidates.sort_values(
+        [
+            "eligible_2026_27",
+            "chance_of_playing_next_round",
+            "starts",
+            "minutes",
+            "total_points",
+        ],
+        ascending=[False, False, False, False, False],
+        kind="stable",
+    )
+
+    selected_indices: list[int] = []
+    goalkeeper_rows = candidates.loc[
+        candidates.get("position_code", pd.Series(index=candidates.index, dtype=str))
+        .astype(str)
+        .eq("G")
+    ]
+    if not goalkeeper_rows.empty:
+        selected_indices.append(int(goalkeeper_rows.index[0]))
+
+    for index in candidates.index:
+        integer_index = int(index)
+        if integer_index not in selected_indices:
+            selected_indices.append(integer_index)
+        if len(selected_indices) >= 9:
+            break
+
+    output = []
+    for _, row in candidates.loc[selected_indices].iterrows():
+        output.append(
+            {
+                "display_name": (
+                    clean_optional_text(row.get("display_name"))
+                    or clean_optional_text(row.get("registered_name"))
+                ),
+                "number": row.get("squad_number"),
+                "pos": row.get("position_code"),
+                "status": row.get("availability_status"),
+                "source": "registered player pool estimate",
+            }
+        )
+    return output
+
+
+def tactical_board_html(
+    players: list[dict],
+    formation_text: str,
+) -> str:
+    nodes = []
+    for player, x_value, y_value in tactical_positions(
+        players, formation_text
+    ):
+        full_name = player_display_name(player)
+        safe_name = html.escape(full_name)
+        short_name = full_name.split()[-1] if full_name.split() else full_name
+        number = squad_number_text(player.get("number"))
+        marker = number if number != "—" else player_position(player)
+        tooltip = html.escape(
+            f"{full_name} · {player_position(player)}"
+        )
+        nodes.append(
+            f'<div class="pitch-player" title="{tooltip}" '
+            f'style="left:{x_value:.2f}%;top:{y_value:.2f}%">'
+            f'<div class="pitch-player-marker">{html.escape(marker)}</div>'
+            f'<div class="pitch-player-name">{html.escape(short_name)}</div>'
+            "</div>"
+        )
+    return (
+        '<div class="tactical-pitch">'
+        '<div class="pitch-halfway"></div>'
+        '<div class="pitch-centre-circle"></div>'
+        '<div class="pitch-centre-dot"></div>'
+        '<div class="pitch-box top"></div>'
+        '<div class="pitch-box bottom"></div>'
+        '<div class="pitch-goal-box top"></div>'
+        '<div class="pitch-goal-box bottom"></div>'
+        + "".join(nodes)
+        + "</div>"
+    )
+
+
+def bench_html(players: list[dict], predicted: bool) -> str:
+    title = "预计替补候选" if predicted else "官方替补席"
+    if not players:
+        rows = (
+            '<div class="bench-empty">暂无替补名单。官方阵容发布后将自动更新。</div>'
+        )
+    else:
+        entries = []
+        for player in players:
+            number = squad_number_text(player.get("number"))
+            entries.append(
+                '<div class="bench-player">'
+                f'<div class="bench-number">{html.escape(number)}</div>'
+                f'<div class="bench-name" title="{html.escape(player_display_name(player))}">'
+                f'{html.escape(player_display_name(player))}</div>'
+                f'<div class="bench-pos">{html.escape(player_position(player))}</div>'
+                "</div>"
+            )
+        rows = "".join(entries)
+    return (
+        '<aside class="bench-panel">'
+        f'<div class="bench-title">{title}</div>'
+        f"{rows}</aside>"
+    )
+
+
+def render_team_lineup(
+    team_name: str,
+    confirmed: bool,
+    official_players: list[dict],
+    predicted_players: list[dict],
+    substitutes: list[dict],
+    formation,
+    predicted_formation,
+    coach,
+    changes: dict,
+    player_registry: pd.DataFrame,
+) -> None:
+    if confirmed and len(official_players) == 11:
+        players = official_players
+        formation_text = clean_optional_text(formation) or "未注明"
+        status_text = "官方首发"
+        predicted = False
+    elif predicted_players:
+        players = predicted_players
+        formation_text = (
+            clean_optional_text(predicted_formation)
+            or "预计阵型未确定"
+        )
+        status_text = "预计阵容"
+        predicted = True
+    else:
+        players = []
+        formation_text = "—"
+        status_text = "等待名单"
+        predicted = True
+
+    players = enrich_lineup_players(
+        team_name,
+        players,
+        player_registry,
+    )
+
+    if predicted:
+        bench_players = probable_bench_from_registry(
+            team_name,
+            players,
+            player_registry,
+        )
+        bench_players = enrich_lineup_players(
+            team_name,
+            bench_players,
+            player_registry,
+        )
+    else:
+        bench_players = enrich_lineup_players(
+            team_name,
+            substitutes,
+            player_registry,
+        )
+
+    # The details table represents the full matchday squad, not only the XI.
+    # During the predicted stage, bench entries remain clearly marked as
+    # candidates; after the official release they become official substitutes.
+    starter_role = "预计首发" if predicted else "官方首发"
+    bench_role = "预计替补候选" if predicted else "官方替补"
+    matchday_players = [
+        {**dict(player), "squad_role": starter_role}
+        for player in players
+    ]
+    matchday_players.extend(
+        {**dict(player), "squad_role": bench_role}
+        for player in bench_players
+    )
+
+    coach_text = clean_optional_text(coach)
+    source_text = (
+        "API-Football 官方首发"
+        if not predicted
+        else "FPL 使用数据与注册球员池推定"
+    )
+    meta_parts = [f"阵型 {formation_text}", source_text]
+    if coach_text and not predicted:
+        meta_parts.append(f"主教练 {coach_text}")
+
+    safe_team = html.escape(team_name)
+    pill_class = "predicted" if predicted else ""
+    board = (
+        '<section class="lineup-team-shell">'
+        '<div class="lineup-team-heading">'
+        f"<h3>{safe_team}</h3>"
+        f'<span class="lineup-status-pill {pill_class}">{status_text}</span>'
+        "</div>"
+        f'<div class="lineup-meta">{html.escape(" · ".join(meta_parts))}</div>'
+        '<div class="tactical-layout">'
+        + tactical_board_html(players, formation_text)
+        + bench_html(bench_players, predicted)
+        + "</div></section>"
+    )
+    st.markdown(board, unsafe_allow_html=True)
+
+    if matchday_players:
+        with st.expander(
+            "📋 查看完整比赛名单、国籍与赛季表现明细",
+            expanded=False,
+        ):
+            st.caption(
+                (
+                    "当前为预计比赛名单：替补部分是注册球员池中的高使用率候选，"
+                    "不等同于官方比赛日名单。"
+                    if predicted
+                    else "当前为官方比赛名单：包含首发与官方替补。"
+                )
+            )
+            st.dataframe(
+                lineup_table(matchday_players),
+                hide_index=True,
+                width="stretch",
+                height=min(720, 112 + 36 * len(matchday_players)),
+            )
+
+    if predicted and not player_registry.empty:
+        st.caption(
+            "预计替补仅表示当前注册球员池中的高使用率候选，"
+            "不等同于比赛日官方替补名单。"
+        )
+
+    if confirmed and changes:
+        predicted_not_starting = changes.get(
+            "predicted_not_starting",
+            [],
+        )
+        unexpected_starters = changes.get(
+            "unexpected_starters",
+            [],
+        )
+
+        if predicted_not_starting:
+            st.caption(
+                "预计首发中未进入官方首发："
+                + "、".join(predicted_not_starting)
+            )
+
+        if unexpected_starters:
+            st.caption(
+                "相对预计阵容的新首发："
+                + "、".join(unexpected_starters)
+            )
+
+
 def format_fixture_label(row: pd.Series) -> str:
     kickoff = row["kickoff_utc"]
 
@@ -1032,6 +2119,7 @@ try:
     predictions = load_predictions()
     team_assets = load_team_assets()
     stadium_assets = load_stadium_assets()
+    player_registry = load_player_registry()
 except Exception as error:
     st.error(f"页面数据读取失败：{error}")
     st.stop()
@@ -1160,8 +2248,8 @@ with st.sidebar:
     st.markdown(
         """
         <div class="warning-box">
-            当前版本尚未加入当天首发、伤病、
-            天气、裁判及新闻调整。
+            伤停、天气、裁判、新闻与阵容用于解释；
+            未经回测前不会修改冻结模型概率。
         </div>
         """,
         unsafe_allow_html=True,
@@ -1369,6 +2457,22 @@ st.html(
     """
 )
 
+brief_filename = (
+    re.sub(
+        r"[^a-z0-9]+",
+        "-",
+        f"{row['home_team']}-vs-{row['away_team']}".lower(),
+    ).strip("-")
+    + "-prematch-brief.md"
+)
+st.download_button(
+    "📥 下载本场赛前简报",
+    data=build_downloadable_match_brief(row),
+    file_name=brief_filename,
+    mime="text/markdown",
+    width="content",
+)
+
 
 context_completed = int(
     row.get(
@@ -1467,15 +2571,17 @@ else:
 
 (
     summary_tab,
+    lineup_tab,
     availability_tab,
     weather_tab,
     importance_tab,
 ) = st.tabs(
     [
-        "综合提示",
-        "伤停与球队消息",
-        "天气与场地",
-        "重要性与裁判",
+        "🧠 综合提示",
+        "🟩 战术板与首发",
+        "🩺 伤停与球队消息",
+        "🌦️ 天气与场地",
+        "🏁 重要性与裁判",
     ]
 )
 
@@ -1484,6 +2590,76 @@ with summary_tab:
     st.markdown("### 当前赛前判断")
 
     st.write(context_summary)
+
+    llm_status = clean_optional_text(
+        row.get("llm_status")
+    )
+    llm_brief = clean_optional_text(
+        row.get("llm_prematch_brief")
+    )
+    llm_points = parse_json_string_list(
+        row.get("llm_key_points_json")
+    )
+    llm_evidence_status = clean_optional_text(
+        row.get("llm_evidence_status")
+    ) or "not_checked"
+    llm_safe_to_display = str(
+        row.get("llm_safe_to_display", True)
+    ).lower() not in {"false", "0", "no"}
+
+    if (
+        llm_status in {"success", "cache_hit"}
+        and llm_brief
+        and llm_safe_to_display
+    ):
+        st.markdown("### 🤖 DeepSeek 赛前情报解读")
+        if llm_evidence_status == "checked_with_sources":
+            st.success("✅ 已通过球队归属校验，并关联公开来源。")
+        elif llm_evidence_status == "checked_structured_data_only":
+            st.info("🧾 已通过球队归属校验；本次主要依据结构化数据。")
+        else:
+            st.warning("⚠️ 这份旧摘要尚未执行新版证据校验。")
+        st.write(llm_brief)
+
+        for point in llm_points:
+            st.markdown(f"- {point}")
+
+        st.caption(
+            "AI只整理页面列出的结构化数据和公开新闻标题；"
+            "不会修改冻结模型概率。请通过来源链接核对重要事实。"
+        )
+    elif not llm_safe_to_display:
+        st.error(
+            "DeepSeek摘要检测到不属于本场双方的球员或球队，已自动隐藏。"
+            "页面继续使用确定性的结构化赛前判断，模型概率不受影响。"
+        )
+        issues = parse_json_list(row.get("llm_evidence_issues_json"))
+        if issues:
+            with st.expander("查看被拦截的实体", expanded=False):
+                for issue in issues:
+                    st.write(
+                        f"- {issue.get('entity', '未知实体')}"
+                        + (
+                            f" · 注册球队：{issue.get('registered_team')}"
+                            if issue.get("registered_team")
+                            else ""
+                        )
+                    )
+    elif llm_status == "failed_fallback":
+        st.caption(
+            "DeepSeek本次请求失败，页面已自动使用确定性摘要，"
+            "预测与其他功能不受影响。"
+        )
+    elif llm_status in {
+        "missing_api_key",
+        "disabled_by_config",
+        "missing_model",
+        "not_run",
+    }:
+        st.caption(
+            "DeepSeek情报解读尚未启用；"
+            "当前显示原有的结构化赛前信息。"
+        )
 
     adjustment_note = str(
         row.get(
@@ -1512,7 +2688,104 @@ with summary_tab:
     else:
         st.warning(
             "本场首发阵容尚未确认；"
-            "临场首发公布后需要重新更新。"
+            "临近开赛时系统将每15分钟自动检查。"
+        )
+
+
+with lineup_tab:
+    lineup_status = str(
+        row.get("lineup_status", "waiting")
+    )
+
+    lineup_checked_at = pd.to_datetime(
+        row.get("lineup_checked_at_utc"),
+        utc=True,
+        errors="coerce",
+    )
+
+    lineup_explanation = clean_optional_text(
+        row.get("lineup_explanation")
+    )
+
+    if lineups_confirmed:
+        st.success(
+            "官方首发已确认。名单仅用于解释，"
+            "不会修改页面中的冻结胜率。"
+        )
+    elif lineup_status == "partial":
+        st.warning(
+            "目前只获得部分官方名单，"
+            "页面暂时继续展示预计阵容。"
+        )
+    else:
+        st.info(
+            "官方首发尚未发布。当前预计阵容来自"
+            "FPL赛季出场与使用数据，不等同于官方名单。"
+        )
+
+    if lineup_explanation:
+        st.caption(lineup_explanation)
+
+    if pd.notna(lineup_checked_at):
+        checked_london = lineup_checked_at.tz_convert(
+            "Europe/London"
+        )
+        st.caption(
+            "最近检查："
+            + checked_london.strftime(
+                "%Y-%m-%d %H:%M 英国时间"
+            )
+            + " · 来源：API-Football"
+        )
+
+    lineup_columns = st.columns(2)
+
+    with lineup_columns[0]:
+        render_team_lineup(
+            team_name=str(row["home_team"]),
+            confirmed=lineups_confirmed,
+            official_players=parse_json_list(
+                row.get("home_starting_xi_json")
+            ),
+            predicted_players=parse_json_list(
+                row.get("home_predicted_xi_json")
+            ),
+            substitutes=parse_json_list(
+                row.get("home_substitutes_json")
+            ),
+            formation=row.get("home_formation"),
+            predicted_formation=row.get(
+                "home_usual_formation"
+            ),
+            coach=row.get("home_coach"),
+            changes=parse_json_object(
+                row.get("home_lineup_changes_json")
+            ),
+            player_registry=player_registry,
+        )
+
+    with lineup_columns[1]:
+        render_team_lineup(
+            team_name=str(row["away_team"]),
+            confirmed=lineups_confirmed,
+            official_players=parse_json_list(
+                row.get("away_starting_xi_json")
+            ),
+            predicted_players=parse_json_list(
+                row.get("away_predicted_xi_json")
+            ),
+            substitutes=parse_json_list(
+                row.get("away_substitutes_json")
+            ),
+            formation=row.get("away_formation"),
+            predicted_formation=row.get(
+                "away_usual_formation"
+            ),
+            coach=row.get("away_coach"),
+            changes=parse_json_object(
+                row.get("away_lineup_changes_json")
+            ),
+            player_registry=player_registry,
         )
 
 
@@ -1557,6 +2830,10 @@ with availability_tab:
 
         st.write(home_news)
 
+        render_news_sources(
+            row.get("home_news_items_json")
+        )
+
     with injury_columns[1]:
         st.markdown(f"### {away_team}")
 
@@ -1572,6 +2849,10 @@ with availability_tab:
             )
 
         st.write(away_news)
+
+        render_news_sources(
+            row.get("away_news_items_json")
+        )
 
     st.caption(
         "伤停影响指数不是胜率，"

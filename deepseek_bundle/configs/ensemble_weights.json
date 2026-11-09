@@ -1,0 +1,39 @@
+{
+  "created_at_utc": "2026-11-08T12:59:00.975046+00:00",
+  "model_names": [
+    "dixon_coles",
+    "xgboost",
+    "elo",
+    "poisson"
+  ],
+  "weights": {
+    "dixon_coles": 0.48054395519149373,
+    "xgboost": 0.44720370941918797,
+    "elo": 0.0,
+    "poisson": 0.0722523353893182
+  },
+  "temperature": 0.8738154087584822,
+  "fitted_on_seasons": [
+    "2016-17",
+    "2017-18",
+    "2018-19",
+    "2019-20",
+    "2020-21",
+    "2021-22",
+    "2022-23",
+    "2023-24"
+  ],
+  "final_holdout_seasons": [
+    "2024-25",
+    "2025-26"
+  ],
+  "primary_metric": "log_loss",
+  "uncalibrated_log_loss": 0.9647390403540298,
+  "calibrated_log_loss": 0.9628379260959309,
+  "component_log_losses": {
+    "dixon_coles": 0.9718387147300133,
+    "xgboost": 0.973877259475491,
+    "elo": 1.016766965227355,
+    "poisson": 0.977962679574753
+  }
+}

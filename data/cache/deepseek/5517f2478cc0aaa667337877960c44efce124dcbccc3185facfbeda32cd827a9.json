@@ -1,0 +1,84 @@
+{
+  "summary_zh": "当前挑战者ensemble未通过任何可晋升门槛：样本量仅100（要求190）、当前赛季相对log loss提升0.334%低于0.5%门槛、bootstrap 90%置信区间下界为负、时间分块胜率仅40%低于60%；虽然最终留出集稳定性、Brier与RPS未变差，但promotion_mode为manual_only且存在4项失败门槛，因此维持xgboost为冠军，不进行任何生产变更。下一轮实验应聚焦于在严格时间顺序与样本外约束下，验证集成方法能否在更大样本上稳定超越冠军，而非直接调参后宣称样本外。",
+  "diagnosis": [
+    "挑战者ensemble在current_external_validation上log loss相对提升仅0.334%，低于0.5%的最低门槛，且样本量100远低于190的最低要求，统计功效不足。",
+    "bootstrap 90%置信区间下界为-0.0182，未满足正下界要求，说明当前观测到的提升可能由噪声驱动。",
+    "时间分块胜率仅0.4（5块中胜2块），低于0.6门槛，且前两块连续落后，显示提升在时间上不稳定。",
+    "final_holdout上ensemble相对xgboost出现0.36%的log loss回归，虽在0.5%容差内，但方向与外部验证相反，存在样本依赖的不一致信号。",
+    "Brier与RPS在外部验证上未变差，说明集成在概率校准的次要指标上无明显劣势，值得在更大样本上继续观察。",
+    "current_external_validation为样本外评估，不得用于直接调参后再宣称样本外结果；任何权重或结构改动必须在开发期数据上完成并重新走时间顺序验证。",
+    "promotion_mode为manual_only且production_changes_allowed为false，本轮只能提出实验建议，不能修改模型权重、训练数据或已发布概率。"
+  ],
+  "recommended_experiments": [
+    {
+      "title": "扩大当前赛季样本至晋升门槛后再评估集成与冠军",
+      "hypothesis": "当2026-27赛季完成比赛达到190场以上时，ensemble相对xgboost的log loss提升若真实存在，应能稳定超过0.5%且bootstrap下界转正。",
+      "files": [
+        "champion_challenger_metrics（current_external_validation）",
+        "promotion_policy.minimum_current_season_matches",
+        "bootstrap_log_loss_improvement"
+      ],
+      "primary_metric": "current_external_validation上的相对log loss提升及其bootstrap 90%置信区间下界",
+      "risk": "样本积累期间联赛分布可能漂移；若提前用中间结果调参将污染样本外性质，必须冻结模型直至达到190场再一次性评估。",
+      "priority": "high"
+    },
+    {
+      "title": "在开发期数据上做时间序列交叉验证的集成权重敏感性分析",
+      "hypothesis": "ensemble在外部验证上的不稳定可能源于固定权重；在2016-17至2023-24开发期内用滚动时间验证寻找更稳健的权重，可提升时间分块一致性。",
+      "files": [
+        "production_model.development_period",
+        "champion_challenger_metrics（chronological_blocks）",
+        "promotion_policy.chronological_block_size"
+      ],
+      "primary_metric": "开发期滚动时间验证的log loss与时间分块胜率",
+      "risk": "在开发期调权重属于允许的调参范围，但必须避免触碰final_holdout与current_external_validation；否则将破坏留出集独立性。",
+      "priority": "high"
+    },
+    {
+      "title": "按时间分块诊断集成落后的具体比赛段",
+      "hypothesis": "前两个时间块（第1-40场）的落后由特定比赛类型或概率区间驱动，识别后可判断是结构性缺陷还是随机波动。",
+      "files": [
+        "champion_challenger_metrics（chronological_blocks.blocks）",
+        "current_external_validation逐场预测记录（只读分析）"
+      ],
+      "primary_metric": "各时间块内按预测概率分桶的log loss差异",
+      "risk": "仅做诊断分析，不得据此直接修改权重或已发布概率；分桶过细可能导致过拟合解读。",
+      "priority": "medium"
+    },
+    {
+      "title": "评估dixon_coles与xgboost在比分与期望进球输出上的一致性",
+      "hypothesis": "生产输出策略中比分与期望进球来自dixon_coles，若其与xgboost的胜负概率存在系统性偏差，可能影响集成作为次级参考的价值。",
+      "files": [
+        "production_output_policy",
+        "production_model.external_validation（dixon_coles指标）"
+      ],
+      "primary_metric": "dixon_coles与xgboost在外部验证上的log loss差异及比分概率校准",
+      "risk": "该实验不改变生产输出策略，仅作一致性诊断；若发现偏差，需在人工评审流程中讨论，不得自动切换模型。",
+      "priority": "medium"
+    },
+    {
+      "title": "预注册下一轮晋升评估的统计方案",
+      "hypothesis": "提前固定样本量、bootstrap种子与分块规则，可避免在看到结果后调整门槛，保证晋升判定的可复现性。",
+      "files": [
+        "promotion_policy",
+        "immutable_execution_policy"
+      ],
+      "primary_metric": "评估方案与promotion_policy各门槛的逐项对应完整性",
+      "risk": "方案预注册本身不改变模型；风险在于执行时若样本不足仍强行评估，将违反minimum_sample_size门槛。",
+      "priority": "low"
+    }
+  ],
+  "do_not_change": [
+    "不得修改production_model中的primary_outcome_model（xgboost）与fallback_model（ensemble）配置",
+    "不得修改任何模型权重或训练数据",
+    "不得修改已发布的主胜平负、期望进球、比分概率与top_scorelines输出",
+    "不得使用current_external_validation结果直接调参后再宣称样本外结果",
+    "不得绕过时间顺序验证、final_holdout、bootstrap置信区间或人工晋升流程",
+    "不得在2026-27赛季达到190场前用中间结果触发晋升评估",
+    "不得将ensemble概率从次级参考提升为主输出"
+  ],
+  "promotion_recommendation": "维持xgboost为冠军，ensemble保持SHADOW_ONLY与次级参考展示；本轮不满足任何晋升条件（4项门槛失败且promotion_mode为manual_only），建议在2026-27赛季累计至少190场后，按预注册方案重新评估，届时仍需全部门槛通过并经人工评审方可晋升。",
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T06:45:34.466614+00:00"
+}

@@ -117,6 +117,16 @@ def validate_inputs(
         "home_team",
         "away_team",
         "lineups_confirmed",
+        "lineup_status",
+        "home_predicted_xi_json",
+        "away_predicted_xi_json",
+        "home_starting_xi_json",
+        "away_starting_xi_json",
+        "home_substitutes_json",
+        "away_substitutes_json",
+        "home_lineup_changes_json",
+        "away_lineup_changes_json",
+        "lineup_explanation",
         "home_formation",
         "away_formation",
         "home_injury_impact",
@@ -393,9 +403,15 @@ def build_context_summary(
             "裁判安排尚未公布"
         )
 
-    if not bool(
-        row.get("lineup_available")
-    ):
+    if bool(row.get("lineup_available")):
+        notes.append(
+            "双方官方首发已经确认"
+        )
+    elif bool(row.get("predicted_lineup_available")):
+        notes.append(
+            "官方首发尚未确认，当前展示预计阵容"
+        )
+    else:
         notes.append(
             "首发阵容尚未确认"
         )
@@ -516,6 +532,15 @@ def main() -> None:
         )
         & has_text(
             report["away_starting_xi_json"]
+        )
+    )
+
+    report["predicted_lineup_available"] = (
+        has_text(
+            report["home_predicted_xi_json"]
+        )
+        & has_text(
+            report["away_predicted_xi_json"]
         )
     )
 
@@ -732,10 +757,24 @@ def main() -> None:
         "importance_available",
         "referee_available",
         "news_available",
+        "lineup_status",
         "lineup_available",
+        "predicted_lineup_available",
         "formation_available",
         "context_summary",
     ]
+
+    audit_columns.extend(
+        column
+        for column in [
+            "llm_status",
+            "llm_model",
+            "llm_prematch_brief",
+            "llm_used_source_urls_json",
+            "llm_checked_at_utc",
+        ]
+        if column in report.columns
+    )
 
     report[audit_columns].to_csv(
         AUDIT_FILE,

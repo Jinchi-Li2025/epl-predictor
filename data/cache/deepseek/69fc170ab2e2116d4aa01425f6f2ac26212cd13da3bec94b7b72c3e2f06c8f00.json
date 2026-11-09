@@ -1,0 +1,29 @@
+{
+  "summary_zh": "当前数据集审计显示历史不足：已结算预测历史为0，训练行数为0，快照仅3个且仅覆盖1个唯一快照日期，fixture观测30条，未达到最低8个唯一快照日期与80条fixture观测的门槛。挑战者决策为INSUFFICIENT_HISTORY，生产模型未变更，且仅允许手动晋级。因此现阶段不应评估模型效果或接入生产概率，应先按时间顺序积累赛前快照与阵容数据。",
+  "recommended_experiments": [
+    {
+      "title": "赛前快照积累与数据完整性实验",
+      "hypothesis": "在不使用开球后信息的前提下，持续按时间顺序采集赛前快照，可使唯一快照日期达到至少8个、fixture观测达到至少80条，从而满足后续评估的数据门槛。",
+      "primary_metric": "唯一快照日期数与fixture观测条数是否同时达到门槛（8与80）",
+      "leakage_guard": "仅使用开球前生成的快照；排除post_kickoff_rows；按快照时间戳做时间顺序切分，禁止使用未来快照信息。",
+      "risk": "积累周期可能较长；若快照采集频率不稳定，门槛达成时间不确定；不涉及生产模型变更。"
+    },
+    {
+      "title": "阵容训练数据集构建实验",
+      "hypothesis": "在快照结算后构建赛前阵容训练数据集，可填补当前缺失的squad training dataset，使训练行数从0增长到可用于时间顺序验证的规模。",
+      "primary_metric": "可用训练行数及按时间顺序划分后的验证集覆盖率",
+      "leakage_guard": "仅纳入开球前可得的阵容与球员信息；排除开球后行；验证集严格晚于训练集时间。",
+      "risk": "阵容信息可能缺失或不完整导致样本偏差；构建过程需人工审核，不自动晋级生产。"
+    },
+    {
+      "title": "时间顺序验证流程预演实验",
+      "hypothesis": "在数据量达到门槛后，采用严格时间顺序的验证流程可对挑战者模型进行无泄漏的离线评估，而不影响生产模型。",
+      "primary_metric": "时间顺序验证下的离线评估指标（如校准与区分度），仅作记录不作晋级依据",
+      "leakage_guard": "强制chronological_validation_required；禁止随机切分；禁止使用开球后信息；production_auto_promotion_allowed保持false。",
+      "risk": "当前样本量为0，实验需等待数据积累；离线指标可能因样本少而不稳定；仅手动晋级，不宣称因果。"
+    }
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T15:49:49.098431+00:00"
+}

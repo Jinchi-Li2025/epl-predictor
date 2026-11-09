@@ -1,0 +1,28 @@
+{
+  "home_summary_zh": "伯恩茅斯方面，结构化伤停信息显示：Juanlu Sánchez 脚踝受伤，复出时间未知；Alex Tóth 腿筋受伤，复出时间未知；Veljko Milosavljevic 大腿受伤，预计10月31日回归；Julián Araujo Zúñiga 大腿受伤，复出时间未知。公开新闻标题方面，据公开标题显示，有报道关注伯恩茅斯战胜布拉格斯巴达后球迷庆祝、英超实力榜中伯恩茅斯排名上升，以及球队在联赛中延续连胜。",
+  "away_summary_zh": "诺丁汉森林方面，结构化伤停信息显示：Nicolás Domínguez 肌肉受伤，预计12月30日回归；Nicolò Savona 膝盖受伤，复出时间未知。公开新闻标题方面，据公开标题显示，相关报道关注诺丁汉森林在英超比赛中战胜曼城，以及该结果被视为转折点；另有标题提及诺丁汉森林对埃弗顿的比赛因联赛杯赛程调整。",
+  "match_brief_zh": "本场为英超比赛，伯恩茅斯主场对阵诺丁汉森林，开球时间为2026年11月21日15:00 UTC，场地为Vitality Stadium。结构化信息显示，主队排名第7、积15分，客队排名第16、积9分；双方休息时间分别为13天和14天。天气为晴朗，降水概率21%，阵风16.2km/h。裁判信息未提供，阵容状态为provider_unavailable。",
+  "key_points": [
+    "伯恩茅斯伤停名单包括 Juanlu Sánchez、Alex Tóth、Veljko Milosavljevic 和 Julián Araujo Zúñiga，其中 Milosavljevic 预计10月31日回归。",
+    "诺丁汉森林伤停名单包括 Nicolás Domínguez 和 Nicolò Savona，Domínguez 预计12月30日回归。",
+    "结构化信息显示主队排名第7、积15分，客队排名第16、积9分。",
+    "天气为晴朗，降水概率21%，阵风16.2km/h。",
+    "阵容状态为provider_unavailable，裁判信息未提供。",
+    "据公开标题显示，相关报道关注伯恩茅斯近期连胜以及诺丁汉森林战胜曼城的结果。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMiXkFVX3lxTE0yRWNaQjhRN0szajYxMkp6Y3l3UGtWN2JQR0FydnoyT2MzTkV0RnloZjN5V2xJMjVBVl9kTGF6c1RORDZKdWMtaTRxRTUwYXhjLWlNaGd1dnViR19kSUE?oc=5",
+    "https://news.google.com/rss/articles/CBMi2wFBVV95cUxOWndSQkZoeUZFcXhscnNPY2RnSF9SS2MyUFpuVC05MUFkQ0tLYnVsNWM4VmZFOFNta09qNVpBbWl5QkFGQnVUamFaNi1taWppQUROcUJwQXE4ZFhDVWhKNUhjTzJLRFBNYnZfWUpfVnkxNUQtcDVEZmdEZVhvU1pvMHdGdXREdXkwVWZlNG1EelVaOTNOY2k2Rk82S1BBdDJERUZqeDhZMTdaeWtxY1pybTV5LU1rOEh6dG1kSmttV0RMa3N0VWVBZkUwZUhBM2hFcWJETlgwbkpqdjQ?oc=5",
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxQNnBETVFYM2x3WkZOaE8zOC1lSWprWVZOU2ZHZjd3bWh3ZUlCLVZxclcyMXhfYndwcDBmYU9HQnhFZmFwR18tV0w5b2Q4ZG1lSjB1QWE0SUt4TU42WWZDWUluVjZkMU9kd2pqaERZbWJFMWd2NjhMSjd5cThvSmJkazZVUUptQ2ZKTzhqS3JoU2Y3NXB5YTJId1cyMUE?oc=5",
+    "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNWVNHaHdGTkdFVzZVWFNobm9Ic3A1QkxvOExqWGotQmFzXzdJTnBxY18xYlo5VHNjd3gzZDNDZG1GT0tJUDZ3ZFFMVzBFdVNWNEFDNDhhVWw5RkVFU1hyLUJ0Y3NwZmEtdFhnenk5QlVhMmxiX0d2ejlfMHhtZkRDSExLdHhzd3FCcTN3YjJ0ak1yam9mdzZ3Y2lwSXFpTUxVX2d3bXRQRjU?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE12WHJqTmFVUHIxQVEweUlINUtqUVRybmoyd2hPVW96WlpIaW1vN0NBZ0dUam9pLUNGVFZqYVpwSm5ncUNLTFR4WThxYXYxeUhoMUdPTlBKYWhTOTc2MTZBdWpuV2Q3Rllt?oc=5",
+    "https://news.google.com/rss/articles/CBMiswFBVV95cUxQX3VCSFRscnQtVXZ6OFVGVVh3Tlp0NG5sbnNKdlJWRnJXRmhCdlpFb0o2UXd4TzB6ckwtMGF3d3JKTlowOEJZQWZPcFFUcTFjekdZMUF2UHdISUQyaFdhTkxZZlp6ZE1QUVRSRVpUejNSZWtzMTBPZ1VyTjNqY2tCVTVIUFFFajF0SW1NTGViNWNDaXdxUjJJZnUxVm56YW1RVmlveGo3a0ppNnJSTEltQTY3QQ?oc=5",
+    "https://news.google.com/rss/articles/CBMipwFBVV95cUxNMkhJQ20zcGlOYVM0RC1JRktVWXgyeHd5Sm5URUxueV9YTDM3V0twNHpoa3d0V21acmNVd0dHZjdPT0g5ZWMwZ1pnNTBnLXBYWnFUZjUxU2tvZ3dKZVhWUm04T2tDRHRfUnB4YTJ2WXFDaUM4Q0NkelBya2JWT3l2V2ZLVXVMcFhRcEJrNG5sTkxxR3ZCbzQwQ0FQbVEzSDlCdGFtRk1Ydw?oc=5",
+    "https://news.google.com/rss/articles/CBMiqAFBVV95cUxNeVZrV0o5dm9mZ1FyNDZYT3BSekxIVXZVaElvTEZoSlQyT2gzYzY5UFlCMFZkb05CZHZWQ0lFY2FDSUFJdWNXSkxiVWU4YzBIX2doQTd0S2o2QTVxbVZSeU9VaFpPcEtVa2ZpUEhZMDdSRnctU005TU10RmR0S0Q4TkpHV1NzdGMxcDF5VGx6QUVucG5uaWNjemZYR3FXVy1nOGctSUhHMTI?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE15ZVp4SU1BRFZ5UkkzRWE4WTN0U1VGdjh6MDhaalFkM1I5enZ0QkRzdFpNOFhIWGRLSFBFOHE1MjJNZW81aTBsR3Y5WGNFc1RyLTVTS3AwRWY0VVVQZXN1YjlDUjh0bk1i?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE0tTklNRXZiOURUcXpacWhZQnoydFg4TVpPdHpMdUllck1YVE56dWoyUEVMZU9IVWNPTklCQW93M2I1d1FNRmY3dFprN0VaSWwzRi01VVVsWHRUVGZwYjQ3UWxqWTB1bnVP?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T15:47:48.847746+00:00"
+}

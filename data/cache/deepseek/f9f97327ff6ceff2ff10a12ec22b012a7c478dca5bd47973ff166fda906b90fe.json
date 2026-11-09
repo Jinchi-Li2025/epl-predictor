@@ -1,0 +1,20 @@
+{
+  "home_summary_zh": "布伦特福德方面，结构化伤停数据显示：Igor Thiago Nascimento Rodrigues 停赛至12月5日；Fábio Freitas Gouveia Carvalho 有碰撞伤，预计11月23日回归；Rico Henry 髋部受伤，回归日期未知；Antoni Milambo 膝部受伤，回归日期未知。公开新闻标题中暂无足够信息进一步说明上述伤停细节。",
+  "away_summary_zh": "埃弗顿方面，结构化数据未标记关键伤停或停赛。据公开标题显示，有报道关注 Jack Grealish 再次未进入埃弗顿英超客场对阵纽卡斯尔联的名单；该标题未提供本场对阵布伦特福德的相关信息。",
+  "match_brief_zh": "本场为布伦特福德主场对阵埃弗顿，开球时间为2026年11月23日20:00 UTC，场地为Gtech Community Stadium。结构化信息显示主队有多名球员伤停，客队未标记关键伤停或停赛。天气为阴天、阵风21.2km/h。阵容状态为 provider_unavailable，裁判信息未提供。",
+  "key_points": [
+    "布伦特福德结构化伤停：Igor Thiago Nascimento Rodrigues 停赛至12月5日。",
+    "布伦特福德结构化伤停：Fábio Freitas Gouveia Carvalho 有碰撞伤，预计11月23日回归。",
+    "布伦特福德结构化伤停：Rico Henry 髋部受伤、Antoni Milambo 膝部受伤，回归日期均未知。",
+    "埃弗顿结构化数据未标记关键伤停或停赛。",
+    "据公开标题显示，有报道关注 Jack Grealish 再次未进入埃弗顿英超客场对阵纽卡斯尔联的名单。",
+    "阵容状态为 provider_unavailable，裁判信息未提供。",
+    "天气为阴天，阵风21.2km/h。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMivwFBVV95cUxPSjVHeGlZMHpXZE5EZEcxWHhhZXVjOXdOU0Q5eVR6X0NaVmxnaTNNUVZLMVNORHpHcEYzMU9iWnJYTFpmQ2h5ank3Mk1paFZQRU9qbl9YZXg1cUl5Tmp0MUd0OU1SMHE5cE9nSjZWS1dPV2hHQ2FycElWMXdseExWMmY5VGcxNmQtZkg5TmpUcjJpUWZkZ1hucUNrMzFUZEYyRzJZekJYSENDZlBnQ1Jia0V5TTlVbHFQSkN2NjBwRQ?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T10:20:01.376011+00:00"
+}

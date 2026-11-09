@@ -1,0 +1,23 @@
+{
+  "home_summary_zh": "主队考文垂城方面，结构化伤停信息显示：Aurèle Amenda 小腿受伤，复出时间未知；Bobby Thomas 小腿受伤，出场概率50%；Frank Onyeka 腹股沟受伤，出场概率50%；Oliver Dovin 未进入名单。公开新闻标题中暂无针对上述伤停的进一步确认信息。",
+  "away_summary_zh": "客队水晶宫方面，结构化伤停信息显示：Takehiro Tomiyasu 小腿受伤，预计11月21日回归；Jean-Philippe Mateta 停赛至12月2日；Chadi Riad Dnanou 膝伤，复出时间未知；Ismaïla Sarr 腹股沟受伤，预计11月21日回归。据公开标题显示，相关报道关注球队近期战绩及主帅 Pierre Sage 的处境，但标题未提供伤停细节。",
+  "match_brief_zh": "本场为英超比赛，考文垂城主场对阵水晶宫，开球时间为2026年11月21日15:00 UTC，场地为Coventry Building Society Arena。天气大致晴朗，降水概率27%，阵风22.0km/h。结构化信息显示主队排名第17、积9分，客队排名第20、积7分，双方保级压力均较低（0.13），休息时间分别为15天和13天。阵容状态为 provider_unavailable，裁判信息未提供。",
+  "key_points": [
+    "主队伤停：Aurèle Amenda 小腿伤、复出未知；Bobby Thomas 小腿伤、50%出场可能；Frank Onyeka 腹股沟伤、50%出场可能；Oliver Dovin 未进名单。",
+    "客队伤停：Takehiro Tomiyasu 小腿伤、预计11月21日回归；Jean-Philippe Mateta 停赛至12月2日；Chadi Riad Dnanou 膝伤、复出未知；Ismaïla Sarr 腹股沟伤、预计11月21日回归。",
+    "据公开标题显示，相关报道关注水晶宫近期战绩及主帅 Pierre Sage 的处境；标题未提供本场伤停或阵容的进一步确认细节。",
+    "公开新闻标题中暂无足够信息确认考文垂城本场伤停球员的具体恢复进展。",
+    "天气大致晴朗，降水概率27%，阵风22.0km/h；阵容状态为 provider_unavailable，裁判信息未提供。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMivwFBVV95cUxNLS1YQ3EySTB0Zmo3VTI3ZGxRLUVnajlIN0FJSmZLMzNYZWRzd2FGUXRfbUxaRTg1amE5aVFiekV4TEpyX1ZlSC1PUzFzcjVvc0JRbzhNNktmOXpOZktYRjlVdF9fMXRneEdsMzA0eEd2YjcxY19VMC1wRE9TUmlwdHVvVUlpTmVCU0JTLXBmYlk5aW9FSE5rQTcyelVwQmU1bzk4dy1pc1JzV0FPRGh6MFlSWlBQckZMQmRTdzd0VQ?oc=5",
+    "https://news.google.com/rss/articles/CBMirgFBVV95cUxQTkVxME9WZlloSk9YNVpEWkcwb2ZJZTgzaUdmdXRXWUd0MVFzU01kbDJmNndBaHJlTS1ISjIxS0NTWmFtd0RGSUJZdTJpcDlkeWFSNTNjeWJ3VU9ISmQ0bzRvQ1kzTjVqOFF6NzZyWUM3eVZHd0NFbXgzQkF1anVXVThEazlEMnZIOUI3eU5LeWFaaDV3TmtaQU1WY2NVdFJFTER4UGIwZmxaUm94MHc?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5mbVZBTlhBN0xJc1FRVkx4bWtISjRwakN2dUlFRHF6T0pIcEtzOTVQYk4wbkdES1VyVm12V3FXYk9wY0ZfckZPZzctTEtUOU5RbGg0NXNwZTlHOWJ0X0gyOHAxcERHenNS?oc=5",
+    "https://news.google.com/rss/articles/CBMi4gFBVV95cUxPczhBM2hpc3puWEx4SjN3eWJGakNLVjJDbWVmZ1VoU0JBUHk0VDJLWlF1Mjk1am1mMnBpVEJvbEphSTdjSVlaemR5RTNOU1BDeTd3QVJ0Mi1UeVFnUHRpeW5qWEJSSDF5RHVweTBWMnVFX0JmVTZ6LVlWdElreDE1YVl6TThYTEJWT0dlTDZhcHRRbG9xMlRwVDVnZ0NaVjJnWG9XUlFnVC1meGd5QU5Hdk1kV1NydzdqQklKdUtNVXUxdlNVZ1lzNDZ1V2huVm9pVXZ3SkVoZUhnVWRlT0FKU3Rn?oc=5",
+    "https://news.google.com/rss/articles/CBMiZkFVX3lxTE1zYjFDMmVlREhSREMyblR1OXhySHQ3Tzh1bnB6MVVZdmh4eDlXZXJ1eUZ6b2Y2dnVuVUd4ZmhaTllMUkc2Vi1vNFpTOE51QWhBMVpjanhFeEFtUGM0UmN2WmxWbUotUQ?oc=5",
+    "https://news.google.com/rss/articles/CBMilAFBVV95cUxOcjBEMmZuSG1UREYxZEh3RWlBM0NScFJwTmFxY0tnNnhrSDZ1Vk9TZ3lJVUUwNWF0cldqSWltNEU2dm1wUE8tUi01M1ozcGpVdmNNSlV6Z3pncU55MS1UWlVEakc2S24tQk1oVWRudTE0dm95bWNnRGZuQjNxXzBMamx1S0xNZm1yREp1d1ZPQ1hGcGtp?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T10:19:11.515177+00:00"
+}

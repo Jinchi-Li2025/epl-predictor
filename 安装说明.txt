@@ -1,0 +1,111 @@
+EPL Predictor：战术板、球员资料库与全站深色主题升级
+=======================================================
+
+v1.1修正：
+- 球衣号码只按整数显示，不再出现13.0、8.0。
+- 预计首发会从球员资料库自动回填号码。
+- 球衣号码同时使用官方注册全名、FPL简称和完整姓名进行匹配。
+- 真正尚未分配一线队号码的注册U21球员继续显示“—”。
+
+本升级包包含：
+1. app.py
+   - 预计阵容改为绿色战术板。
+   - 官方首发发布后自动切换为官方阵型、球员站位和替补席。
+   - 预计阶段从注册球员库生成替补候选，并明确标注不是官方名单。
+   - 修复导航栏、输入框、提示框、表格和图表的深色主题与文字对比度。
+
+2. pages\3_球员资料库.py
+   - 新增全联赛球员检索页面。
+   - 展示注册类别、号码、位置、可用性、首发、分钟、进球、助攻、xG、xA等字段。
+
+3. src\assets\build_player_registry.py
+   - 英超官方注册名单：确认Senior 25和注册U21资格。
+   - 英超官方球衣号码：补充号码。
+   - FPL bootstrap-static：补充位置、伤停状态和赛季表现。
+   - 每次运行保留官方页面原始快照；网络短暂失败时优先使用上次快照。
+
+4. src\features\build_squad_features.py
+   - 生成球队阵容深度和未来比赛候选特征。
+   - 默认不接入生产概率，避免未经时间序列回测的数据污染现有模型。
+
+5. src\pipeline\run_daily_update.py
+   - 每日流水线自动刷新球员资料库和候选阵容特征。
+
+6. .streamlit\config.toml
+   - 统一全站深色主题，消除黑色页面中突兀的白色图表/表格区域。
+
+
+安装（在 C:\Users\Administrator\epl-predictor 中执行）
+--------------------------------------------------------
+
+第一步：确认你已经把升级包解压到项目根目录，并允许合并/覆盖同名文件。
+
+第二步：安装页面解析依赖（如果已经安装，会显示 already satisfied）：
+
+python -m pip install beautifulsoup4
+
+第三步：语法检查：
+
+python -m py_compile app.py
+python -m py_compile src\assets\build_player_registry.py
+python -m py_compile src\features\build_squad_features.py
+python -m py_compile src\pipeline\run_daily_update.py
+python -m py_compile "pages\3_球员资料库.py"
+
+第四步：第一次生成球员资料库：
+
+python src\assets\build_player_registry.py
+
+正常结果应包含：
+- 英超注册球员资料库生成完成
+- 球员总数
+- 官方注册验证
+- FPL状态与统计匹配
+- player_registry.parquet / CSV / audit.csv 路径
+
+第五步：生成阵容候选特征：
+
+python src\features\build_squad_features.py
+
+正常结果应包含：
+- 球队阵容候选特征生成完成
+- 球队数量
+- 安全边界：这些字段尚未接入生产概率
+
+第六步：清缓存并启动：
+
+streamlit cache clear
+streamlit run app.py
+
+
+首次检查重点
+------------
+1. 进入任意比赛的“预计与官方首发”标签：
+   - 左右两队都应显示绿色球场。
+   - 首发球员应按4-4-2或官方阵型分层站位。
+   - 球场右侧应显示替补候选/官方替补和位置简标。
+
+2. 左侧导航应新增“球员资料库”：
+   - 可按球队、位置、注册类别、可用性和姓名筛选。
+   - 页面底部可查看单个球员详情。
+
+3. “模型表现”和“赛果复盘”页面：
+   - 图表、DataFrame和输入框应统一为深色主题。
+   - 如果浏览器仍保留旧颜色，按 Ctrl+F5 强制刷新。
+
+
+数据口径与安全边界
+------------------
+- 官方注册名单是球员是否进入2026/27英超注册池的主要依据。
+- FPL球员池并不自动等于官方注册名单；无法匹配的记录会标为 fpl_unverified。
+- 预计替补不是比赛日官方替补名单。
+- 官方名单发布后，现有fetch_lineups.py逻辑会让战术板自动切换到官方首发和替补。
+- 球员级字段现在只进入 candidate_requires_backtest 候选层。
+- 只有在时间顺序回测中稳定改善Log Loss和Brier Score，才应修改生产模型。
+
+
+提交Git（确认页面无误后再运行）
+--------------------------------
+
+git add app.py ".streamlit\config.toml" "pages\3_球员资料库.py" src\assets\build_player_registry.py src\features\build_squad_features.py src\pipeline\run_daily_update.py
+git commit -m "Add tactical lineups player registry and unified dark UI"

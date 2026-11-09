@@ -1,0 +1,16 @@
+EPL Predictor Player Intelligence + Model Center Patch
+Version: 2.1.0
+Date: 2026-11-09
+
+Scope:
+- Detailed lineup table with nationality, appearances(subs), goals/assists and availability
+- Cached FPL per-player history aggregation
+- Optional football-data.org profile enrichment
+- Expanded player intelligence center with on-demand DeepSeek report
+- Unified Model Center replacing separate performance/review pages
+- Champion/Challenger and DeepSeek experiment-advisor panels
+- Recoverable PowerShell installer with automatic backup
+- Windows PowerShell 5.1-compatible ASCII-only installer
+- Full matchday-squad details: starting XI plus official/projected bench
+- Chronological pre-match player and squad snapshot archive
+- Model Center readiness panel for future squad-feature Challenger tests

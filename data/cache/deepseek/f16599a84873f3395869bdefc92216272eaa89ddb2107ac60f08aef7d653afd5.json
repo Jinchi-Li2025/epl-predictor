@@ -1,0 +1,23 @@
+{
+  "home_summary_zh": "曼城方面，结构化伤停信息显示：Antoine Semenyo 膝伤，复出时间未知；Marc Guéhi 伤情未具体说明，出场概率75%；Joško Gvardiol 伤情未具体说明，出场概率75%。公开新闻标题中未见针对本场伤停的进一步确认信息。",
+  "away_summary_zh": "富勒姆方面，结构化伤停信息显示：Josh King 腹股沟伤势，出场概率75%；Tom Cairney 膝伤，预计11月21日回归。公开新闻标题中未见针对本场伤停的进一步确认信息。",
+  "match_brief_zh": "本场为曼城主场对阵富勒姆，开球时间为2026年11月21日12:30（UTC），场地为伊蒂哈德球场。天气为局部多云，降水概率25%，阵风15.8km/h。阵容状态方面，提供方数据不可用。重要性方面，主队排名第3、积21分，客队排名第15、积10分，双方均休息14天；模型综合比赛重要性为0.11。据公开标题显示，曼城近期有客场不敌诺丁汉森林的相关报道，富勒姆近期有与纽卡斯尔1-1战平的相关报道；上述标题未涉及本场具体阵容或伤停细节。",
+  "key_points": [
+    "曼城伤停：Antoine Semenyo 膝伤、复出时间未知；Marc Guéhi 与 Joško Gvardiol 伤情未具体说明，出场概率均为75%。",
+    "富勒姆伤停：Josh King 腹股沟伤势、出场概率75%；Tom Cairney 膝伤、预计11月21日回归。",
+    "阵容状态数据提供方不可用，暂无足够公开新闻信息确认本场首发安排。",
+    "天气为局部多云，降水概率25%，阵风15.8km/h。",
+    "据公开标题显示，曼城近期有客场负于诺丁汉森林的报道；富勒姆近期有与纽卡斯尔1-1战平的报道。",
+    "主队排名第3、积21分，客队排名第15、积10分，双方均休息14天；模型综合比赛重要性为0.11。"
+  ],
+  "used_source_urls": [
+    "https://news.google.com/rss/articles/CBMingFBVV95cUxONXZfSXl1WGlha2Q0d0RPdWRyVnJ3NzdlLTlnUzd1bk5mcDdXNlV1bDBCLTAyRlpCcDFPcndUbDFGX1J4Wjk4Z0RXZGlQcWs2R1k5aUdNZ2RVQ2FXRmZjM3d4eWRBTU83SVhRbWwzWE9LcVBsaTlzTlR5Wk5LSUx6aFBHbV8wSDltOFAzaXh6OUYxMnVQbmlmSHBDZkYzUQ?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE12WHJqTmFVUHIxQVEweUlINUtqUVRybmoyd2hPVW96WlpIaW1vN0NBZ0dUam9pLUNGVFZqYVpwSm5ncUNLTFR4WThxYXYxeUhoMUdPTlBKYWhTOTc2MTZBdWpuV2Q3Rllt?oc=5",
+    "https://news.google.com/rss/articles/CBMiaEFVX3lxTE5ZNTlZSFZSazJsZ2JCTXdSdzI1b3g3NjBFTmN4Y1czcGo1ck16RlE4MXRXZG5zV1pKZzdRY0M3ZHJib1BhYzljSXoyTlROVVZvLW9kdERONlV4cW80Tk10X2lFeVo2eURo?oc=5",
+    "https://news.google.com/rss/articles/CBMinAFBVV95cUxNVFoyNmZ4V0ppWmQ0RmwwckI2cVBGRVEyU3dNY2VreFU3bEcwYnM4QjZZSl9qdXZLWW0tU25La2NzVXk0QXphN0pkeDdJNGZsMkE2TDRzQmwtQi01a3Q1UExOcHdwRVZoakhydnpXZmRrM0Y2U2tyZ3RIcE5NbVY0TVYtcEFOeVowMjYxMDZ3VGwtWjVHUjNyaFdlelA?oc=5",
+    "https://news.google.com/rss/articles/CBMimAFBVV95cUxOc1JQdDFCSnpiaG1IYXBmTllZSkdHV2JETlhUWjVQcnMydGNEU2RLRVk3bzNJcU9GSUl5d1hVdUdMZ0htcW1JSzRfZTY0RlA1dVVRVnRrdkpxcm9wZWpZSFA5SDZ3VUFQYldvVDE2M2xEc2NOc3ZMcC14eElia3ZmbTVveXhHSW1Hd2FEQzlLNUZwMTB6N1ViZQ?oc=5"
+  ],
+  "_deepseek_cache_hit": false,
+  "_deepseek_model": "deepseek-flash",
+  "_deepseek_received_at_utc": "2026-11-09T15:47:10.557244+00:00"
+}

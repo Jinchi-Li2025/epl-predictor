@@ -1,0 +1,2 @@
+match_id,team,role,player_name,squad_number,position,formation,source_url,confirmed_at_utc
+EXAMPLE_MATCH_ID,Manchester City,starter,Example Player,1,G,4-3-3,https://example.com,2026-11-09T12:00:00Z

@@ -1,0 +1,103 @@
+EPL Predictor：自动预计阵容与官方首发补丁
+==========================================
+
+一、安装位置
+------------
+把压缩包解压到项目根目录：
+
+C:\Users\Administrator\epl-predictor
+
+Windows询问时选择“全部覆盖”。解压正确后，应能看到：
+
+app.py
+src\context\fetch_lineups.py
+scripts\run_lineup_update.ps1
+scripts\install_lineup_task.ps1
+
+
+二、首次检查
+------------
+在VS Code终端中确认当前路径为项目根目录，然后依次运行：
+
+python -m py_compile app.py
+python -m py_compile src\context\fetch_lineups.py
+python -m py_compile src\context\build_context_template.py
+python -m py_compile src\context\build_prematch_report.py
+python -m py_compile src\pipeline\run_daily_update.py
+
+以上命令没有输出就表示语法正确。
+
+
+三、生成当前阵容数据
+--------------------
+依次运行：
+
+python src\data\fetch_api_football.py
+python src\context\build_context_template.py
+python src\context\fetch_availability.py
+python src\context\fetch_lineups.py
+python src\context\build_prematch_report.py
+
+注意：不要在日常运行时添加 --force。
+普通模式只会在临近开赛时调用官方阵容接口，其他比赛只生成预计阵容。
+
+如果API-Football显示免费方案不能访问2026赛季，兼容版本会自动跳过
+该数据源并继续运行。此时会显示 provider_unavailable，网页仍会正常展示
+预计阵容；这不是程序错误。升级到可访问当前赛季的套餐并重新运行
+fetch_api_football.py 后，官方首发功能会自动启用。
+
+
+四、检查网页
+------------
+运行：
+
+streamlit cache clear
+streamlit run app.py
+
+打开任意比赛，在“赛前情报状态”下找到：
+
+预计与官方首发
+
+距离开赛较远时应显示“预计阵容”；官方首发发布后会自动切换为
+“官方首发”，并显示阵型、替补席和相对预计阵容的变化。
+
+
+五、安装每15分钟自动检查任务
+-----------------------------
+先停止Streamlit（终端按 Ctrl+C），然后运行：
+
+powershell -ExecutionPolicy Bypass -File .\scripts\install_lineup_task.ps1
+
+成功时会显示：
+
+计划任务已安装：EPL Predictor - Lineup Refresh
+
+计划任务每15分钟启动一次，但只有开赛前75分钟至开赛后30分钟的
+未确认比赛才会调用阵容API；官方首发确认后会停止轮询该场比赛。
+
+
+六、查看或删除计划任务
+----------------------
+查看：
+
+Get-ScheduledTask -TaskName "EPL Predictor - Lineup Refresh"
+
+删除：
+
+Unregister-ScheduledTask -TaskName "EPL Predictor - Lineup Refresh" -Confirm:$false
+
+
+七、提交Git版本
+---------------
+确认网页正常后运行：
+
+git add app.py src\context\build_context_template.py src\context\build_prematch_report.py src\context\fetch_lineups.py src\pipeline\run_daily_update.py scripts\run_lineup_update.ps1 scripts\install_lineup_task.ps1
+git commit -m "Add automatic projected and confirmed lineups"
+
+
+说明
+----
+1. 预计阵容来自FPL赛季出场和使用数据，只是透明标注的估计。
+2. 官方首发来自API-Football fixtures/lineups接口。
+3. 阵容信息只用于页面解释，不修改已经冻结的胜平负概率。
+4. 运行记录位于 logs\lineups；检查表位于 reports\lineup_context_audit.csv。

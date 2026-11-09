@@ -627,6 +627,12 @@ def main() -> int:
 
                 run_script(
                     log_file,
+                    "刷新API-Football比赛ID与赛程",
+                    "src/data/fetch_api_football.py",
+                )
+
+                run_script(
+                    log_file,
                     "生成并核对当前赛季候选文件",
                     "src/data/build_live_current_season.py",
                 )
@@ -662,6 +668,15 @@ def main() -> int:
                     ),
                 )
 
+                run_script(
+                    log_file,
+                    "生成DeepSeek模型实验建议",
+                    (
+                        "src/evaluation/"
+                        "llm_model_advisor.py"
+                    ),
+                )
+
             run_script(
                 log_file,
                 "结算已经完赛的历史预测",
@@ -672,6 +687,20 @@ def main() -> int:
             )
 
             production_steps = [
+                (
+                    "更新英超注册球员资料库",
+                    (
+                        "src/assets/"
+                        "build_player_registry.py"
+                    ),
+                ),
+                (
+                    "审计球员资料库当前归属与完整度",
+                    (
+                        "src/evaluation/"
+                        "registry_quality_audit.py"
+                    ),
+                ),
                 (
                     "生成未来比赛赛前特征",
                     (
@@ -716,7 +745,35 @@ def main() -> int:
                     ),
                 ),
                 (
-                    "生成结构化球队新闻摘要",
+                    "更新预计阵容与官方首发",
+                    (
+                        "src/context/"
+                        "fetch_lineups.py"
+                    ),
+                ),
+                (
+                    "使用football-data补充官方首发与替补",
+                    (
+                        "src/context/"
+                        "fetch_lineups_football_data.py"
+                    ),
+                ),
+                (
+                    "应用经过人工核验的官方名单覆盖",
+                    (
+                        "src/context/"
+                        "apply_lineup_overrides.py"
+                    ),
+                ),
+                (
+                    "抓取公开球队新闻标题",
+                    (
+                        "src/context/"
+                        "fetch_team_news.py"
+                    ),
+                ),
+                (
+                    "生成结构化球队新闻与DeepSeek摘要",
                     (
                         "src/context/"
                         "build_team_news_context.py"
@@ -727,6 +784,90 @@ def main() -> int:
                     (
                         "src/context/"
                         "build_prematch_report.py"
+                    ),
+                ),
+                (
+                    "校验DeepSeek摘要证据与球队归属",
+                    (
+                        "src/context/"
+                        "validate_llm_evidence.py"
+                    ),
+                ),
+                (
+                    "生成可下载赛前简报",
+                    (
+                        "src/reporting/"
+                        "build_match_briefs.py"
+                    ),
+                ),
+                (
+                    "生成阵容深度候选特征（不修改生产概率）",
+                    (
+                        "src/features/"
+                        "build_squad_features.py"
+                    ),
+                ),
+                (
+                    "归档赛前球员与阵容历史快照",
+                    (
+                        "src/evaluation/"
+                        "archive_squad_snapshot.py"
+                    ),
+                ),
+                (
+                    "构建无数据泄漏的阵容训练集",
+                    (
+                        "src/features/"
+                        "build_squad_training_dataset.py"
+                    ),
+                ),
+                (
+                    "评估阵容特征Shadow Challenger",
+                    (
+                        "src/evaluation/"
+                        "squad_feature_challenger.py"
+                    ),
+                ),
+                (
+                    "生成DeepSeek阵容特征实验建议",
+                    (
+                        "src/evaluation/"
+                        "llm_squad_advisor.py"
+                    ),
+                ),
+                (
+                    "监控生产概率漂移与校准",
+                    (
+                        "src/evaluation/"
+                        "model_monitor.py"
+                    ),
+                ),
+                (
+                    "评估概率校准Shadow Challenger",
+                    (
+                        "src/evaluation/"
+                        "calibration_challenger.py"
+                    ),
+                ),
+                (
+                    "审计预测、赛程与上下文数据契约",
+                    (
+                        "src/pipeline/"
+                        "pipeline_contract_audit.py"
+                    ),
+                ),
+                (
+                    "生成系统健康报告",
+                    (
+                        "src/pipeline/"
+                        "system_health_check.py"
+                    ),
+                ),
+                (
+                    "生成统一运维门禁结论",
+                    (
+                        "src/pipeline/"
+                        "operational_readiness.py"
                     ),
                 ),
             ]
