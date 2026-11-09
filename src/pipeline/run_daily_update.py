@@ -653,6 +653,15 @@ def main() -> int:
                     ),
                 )
 
+                run_script(
+                    log_file,
+                    "评估Champion与Shadow Challenger",
+                    (
+                        "src/evaluation/"
+                        "champion_challenger.py"
+                    ),
+                )
+
             run_script(
                 log_file,
                 "结算已经完赛的历史预测",

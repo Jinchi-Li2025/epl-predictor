@@ -399,8 +399,13 @@ def print_metric_table(metrics: pd.DataFrame) -> None:
 
     best_row = overall.iloc[0]
 
+    current_match_count = int(
+        best_row["test_matches"]
+    )
+
     print(
-        "\n当前50场中Log Loss最好的模型："
+        f"\n当前{current_match_count}场中"
+        "Log Loss最好的模型："
         f"{best_row['model']} "
         f"({best_row['log_loss']:.4f})"
     )
@@ -553,7 +558,7 @@ def main() -> None:
     print(f"指标文件：{METRICS_FILE}")
 
     print(
-        "\n注意：目前只有50场，结果会比760场"
+        f"\n注意：目前只有{test_count}场，结果会比760场"
         "最终留出测试更容易波动。"
     )
 
